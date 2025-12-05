@@ -77,7 +77,7 @@ const Features = () => {
 <div className="features-cta-section">
   <p className="cta-text">
     Ready to ship? Get instant price estimate for your delivery.
-  </p>
+  </p> 
   <button 
     className="features-cta-button"
     onClick={() => window.location.href = '/shipping'}  // ✅ ADD THIS LINE
