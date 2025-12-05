@@ -1,7 +1,11 @@
 import React from 'react';
 import '../Additional/styles/Feature.css';
+import { useNavigate } from 'react-router-dom';
 
 const Features = () => {
+
+  const navigate = useNavigate();
+
   const featuresList = [
     {
       id: 1,
@@ -80,7 +84,7 @@ const Features = () => {
   </p> 
   <button 
     className="features-cta-button"
-    onClick={() => window.location.href = '/shipping'}  // ✅ ADD THIS LINE
+    onClick={() => navigate('/shipping')}  // ✅ ADD THIS LINE
   >
     Calculate Shipping Cost
   </button>
