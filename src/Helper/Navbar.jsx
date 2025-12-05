@@ -6,14 +6,24 @@ import ChagnsLogo from '../../src/assets/chaganLogo.jpeg';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = () => {
+    handleNavClick();
     setIsMenuOpen(false);
   };
-
+  
+ const handleNavClick = () => {
+  
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });    
+  };
   return (
     <nav className="main-navbar">
       <div className="navbar-brand">

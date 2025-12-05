@@ -1,3 +1,9 @@
+html{
+  scroll-behavior: smooth;
+}
+
+
+
 /* Main Navbar Container - Unique Class */
 .main-navbar {
   display: flex;
