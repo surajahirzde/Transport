@@ -9,8 +9,8 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
     toState: data?.toState || '',
     toCity: data?.toCity || '',
     toAddress: data?.toAddress || '',
-    packageType: data?.packageType || 'general',
-    weight: data?.weight || '1',
+
+    weight: data?.weight || '1 ',
     distance: data?.distance || '',
     estimatedPrice: data?.estimatedPrice || '',
     travelTime: data?.travelTime || '',
@@ -41,7 +41,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
       toState: data?.toState || '',
       toCity: data?.toCity || '',
       toAddress: data?.toAddress || '',
-      packageType: data?.packageType || 'general',
+   
       weight: data?.weight || '1',
       distance: data?.distance || '',
       estimatedPrice: data?.estimatedPrice || '',
@@ -402,7 +402,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
     
     // Weight charge
     const weightCharge = calculateWeightCharge(weight);
-    
+    console.log(weightCharge);  
     // Handling charge
     const handlingCharge = 50;
     
@@ -463,11 +463,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
     }
   };
 
-  const handlePackageSelect = (type) => {
-    const updatedData = { ...localData, packageType: type };
-    setLocalData(updatedData);
-    if (updateData) updateData('packageType', type);
-  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -504,15 +500,8 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
     'Uttarakhand', 'West Bengal'
   ];
 
-  const packageTypes = [
-    { id: 'general', name: 'General', icon: '📦' },
-    { id: 'documents', name: 'Documents', icon: '📄' },
-    { id: 'electronics', name: 'Electronics', icon: '💻' },
-    { id: 'fragile', name: 'Fragile', icon: '🥚' },
-    { id: 'clothing', name: 'Clothing', icon: '👕' },
-    { id: 'furniture', name: 'Furniture', icon: '🪑' }
-  ];
-
+  
+console.log(localData.weight);
   return (
     <div className="location-form">
       <div className="form-header">
@@ -624,24 +613,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
           </div>
         </div>
 
-        {/* Package Type */}
-        <div className="location-section">
-          <h3 className="section-title">📦 Package Type</h3>
-          
-          <div className="package-types">
-            {packageTypes.map(pkg => (
-              <button
-                key={pkg.id}
-                type="button"
-                className={`package-btn ${localData.packageType === pkg.id ? 'selected' : ''}`}
-                onClick={() => handlePackageSelect(pkg.id)}
-              >
-                <span className="package-icon">{pkg.icon}</span>
-                <span className="package-name">{pkg.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+       
 
         {/* Weight and Distance */}
         <div className="location-section">
@@ -650,7 +622,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
           <div className="fare-calculator">
             <div className="form-row">
               <div className="form-group">
-                <label>Package Weight (kg) *</label>
+                <label>Package Weight (Approx) *</label>
                 <div className="weight-input">
                   <input
                     type="number"
@@ -685,7 +657,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
               </div>
               
               <div className="form-group">
-                <label>Distance (km) *</label>
+                <label>Distance Approx (km) *</label>
                 <div className="distance-input">
                   <input
                     type="number"
@@ -734,12 +706,12 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
             
             <div className="price-row">
               <span>Distance Fare ({localData.distance} km × ₹10):</span>
-              <span>₹{localData.distanceFare || localData.distance * 10}</span>
+              <span>₹{localData.distance * 10}</span>
             </div>
             
             <div className="price-row">
               <span>Weight Charge ({localData.weight} kg):</span>
-              <span>₹{localData.weightCharge || 0}</span>
+              <span>₹{ calculateWeightCharge(localData.weight)}</span>
             </div>
             
             <div className="price-row">
@@ -754,6 +726,9 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
             
             <div className="price-note">
               <small>📍 Distance: {localData.distance} km | ⚖️ Weight: {localData.weight} kg</small>
+            
+ 
+
             </div>
           </div>
         )}
