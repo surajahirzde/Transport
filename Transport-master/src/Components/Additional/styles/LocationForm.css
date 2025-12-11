@@ -1,0 +1,541 @@
+/* LocationForm.css - FIXED RESPONSIVE VERSION */
+
+.location-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.form-header-section {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.form-main-title {
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Form Sections */
+.form-section-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section-icon {
+  font-size: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+/* RESPONSIVE FORM GRID - FIXED NO OVERFLOW */
+.responsive-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group-responsive {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group-responsive.full-width {
+  grid-column: 1;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.4;
+}
+
+/* PACKAGE LIST FORMAT */
+.package-list-container {
+  margin-top: 8px;
+}
+
+.package-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.package-list-item {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  gap: 16px;
+}
+
+.package-list-item:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.package-list-item.selected {
+  border-color: #007bff;
+  background: #f8fbff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.package-list-icon {
+  font-size: 1.8rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.package-list-content {
+  flex: 1;
+  min-width: 0; /* Prevents overflow */
+}
+
+.package-list-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.package-list-desc {
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.package-list-radio {
+  margin-left: auto;
+}
+
+.radio-circle {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.radio-circle.checked {
+  border-color: #007bff;
+  background: #007bff;
+}
+
+.radio-dot {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* FARE CALCULATION SECTION */
+.fare-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fare-inputs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.fare-input-group {
+  width: 100%;
+}
+
+.fare-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.fare-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+}
+
+.fare-note {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.calculate-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(to right, #007bff, #0056b3);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.calculate-btn:hover {
+  background: linear-gradient(to right, #0056b3, #004494);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+}
+
+/* FARE RESULT */
+.fare-result {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.fare-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fare-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #dee2e6;
+}
+
+.fare-row:last-child {
+  border-bottom: none;
+}
+
+.fare-row span:first-child {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.fare-row span:last-child {
+  color: #333;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.fare-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid #007bff;
+}
+
+.fare-total span:first-child {
+  color: #333;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.total-amount {
+  color: #28a745;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+/* FORM ACTIONS */
+.form-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.submit-btn {
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  background: linear-gradient(to right, #28a745, #1e7e34);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: linear-gradient(to right, #1e7e34, #145523);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #6c757d;
+}
+
+.form-note {
+  margin-top: 12px;
+  color: #666;
+  font-size: 0.85rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (min-width: 640px) {
+  .location-form-container {
+    padding: 20px;
+  }
+  
+  .responsive-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-group-responsive.full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .fare-inputs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .form-main-title {
+    font-size: 2rem;
+  }
+  
+  .form-section-card {
+    padding: 24px;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .location-form-container {
+    max-width: 900px;
+  }
+}
+
+/* FIX FOR MOBILE OVERFLOW */
+@media (max-width: 639px) {
+  .location-form-container {
+    padding: 12px;
+  }
+  
+  .form-section-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .package-list-item {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .package-list-icon {
+    font-size: 1.5rem;
+    min-width: 35px;
+  }
+  
+  .package-list-name {
+    font-size: 0.95rem;
+  }
+  
+  .package-list-desc {
+    font-size: 0.8rem;
+  }
+  
+  .submit-btn {
+    padding: 14px;
+    font-size: 1rem;
+  }
+}
+/* Add these styles to your existing LocationForm.css */
+
+/* Autocomplete note */
+.autocomplete-note {
+  font-size: 12px;
+  color: #4a90e2;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Distance input wrapper */
+.distance-input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.auto-calculate-btn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.auto-calculate-btn:hover {
+  background: #357ae8;
+  transform: translateY(-2px);
+}
+
+.auto-calculate-btn:active {
+  transform: translateY(0);
+}
+
+/* Fare buttons */
+.fare-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Google Maps autocomplete dropdown styling */
+.pac-container {
+  border-radius: 8px;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: 1px solid #e0e0e0;
+  font-family: inherit;
+}
+
+.pac-item {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.pac-item:hover {
+  background-color: #f8f9fa;
+}
+
+.pac-item-selected {
+  background-color: #e8f0fe;
+}
+
+.pac-icon {
+  margin-right: 8px;
+}
+
+/* Loading state for calculate button */
+.calculate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Travel time display */
+.fare-row span:last-child {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .distance-input-wrapper {
+    flex-direction: column;
+  }
+  
+  .auto-calculate-btn {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .fare-buttons {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,392 @@
+/* LocationForm.css - Simple & Clean */
+
+.location-form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-header p {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Sections */
+.location-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Form Layout */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  background: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.form-group small {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Package Types */
+.package-types {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.package-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.package-btn:hover {
+  border-color: #007bff;
+  background: #f8f9fa;
+}
+
+.package-btn.selected {
+  border-color: #007bff;
+  background: #e7f3ff;
+  font-weight: 500;
+}
+
+.package-icon {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.package-name {
+  font-size: 0.85rem;
+}
+
+/* Fare Calculator */
+.fare-calculator {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.weight-input,
+.distance-input {
+  display: flex;
+  gap: 10px;
+}
+
+.weight-input input,
+.distance-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.info-btn {
+  padding: 10px 15px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 45px;
+}
+
+.calc-btn {
+  padding: 10px 15px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  width: 80px;
+}
+
+.calc-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.calculate-btn {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.calculate-btn:hover:not(:disabled) {
+  background: #0069d9;
+}
+
+.calculate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Weight Info Box */
+.weight-info-box {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.weight-info-box strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.weight-info-box div {
+  padding-left: 10px;
+  margin: 2px 0;
+}
+
+/* Travel Time */
+.travel-time {
+  background: #e8f4ff;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #0066cc;
+  text-align: center;
+  border: 1px solid #cce5ff;
+}
+
+/* Price Breakdown - SIMPLE */
+.price-breakdown {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 0.95rem;
+}
+
+.price-row:last-child {
+  border-bottom: none;
+}
+
+.price-row span:first-child {
+  color: #666;
+}
+
+.price-row span:last-child {
+  color: #333;
+  font-weight: 500;
+}
+
+.price-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  margin-top: 10px;
+  border-top: 2px solid #007bff;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.total-amount {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+
+.price-note {
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Submit Button */
+.form-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.submit-btn {
+  padding: 14px 40px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #218838;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .location-form {
+    padding: 15px;
+  }
+  
+  .location-section {
+    padding: 15px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .package-types {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .weight-input,
+  .distance-input {
+    flex-direction: column;
+  }
+  
+  .info-btn,
+  .calc-btn {
+    width: 100%;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .package-types {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .total-amount {
+    font-size: 1.1rem;
+  }
+}
+
+/* Simple focus states */
+input:focus, select:focus, textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Validation */
+input:invalid, select:invalid {
+  border-color: #dc3545;
+}

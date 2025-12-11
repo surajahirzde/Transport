@@ -1,0 +1,860 @@
+/* Hero Main Container */
+.hero-main-container {
+  background: linear-gradient(135deg, #0c2d57 0%, #1a5fb4 100%);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Transport Scene Animation */
+.transport-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.road-highway {
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(90deg, #333 0%, #555 30%, #555 70%, #333 100%);
+  border-top: 3px dashed #ffd700;
+  animation: roadFlow 20s linear infinite;
+}
+
+@keyframes roadFlow {
+  0% { background-position: 0 0; }
+  100% { background-position: 1200px 0; }
+}
+
+/* Moving Vehicles */
+.moving-truck, .moving-van {
+  position: absolute;
+  animation: moveRight 15s linear infinite;
+}
+
+.truck-1 {
+  bottom: 120px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.truck-2 {
+  bottom: 130px;
+  animation-delay: 8s;
+  animation-duration: 22s;
+}
+
+.van-1 {
+  bottom: 110px;
+  animation-delay: 4s;
+  animation-duration: 12s;
+}
+
+@keyframes moveRight {
+  0% { transform: translateX(-200px); }
+  100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+.truck-body {
+  display: flex;
+  background: linear-gradient(90deg, #e63946 0%, #c1121f 100%);
+  border-radius: 5px 15px 15px 5px;
+  padding: 8px 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.truck-cab {
+  background: #1d3557;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.truck-trailer {
+  display: flex;
+  align-items: center;
+}
+
+.van-body {
+  background: linear-gradient(90deg, #2a9d8f 0%, #21867a 100%);
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Warehouse Background */
+.warehouse-bg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  height: 300px;
+  background: linear-gradient(135deg, #457b9d 0%, #1d3557 100%);
+  border-radius: 20px 0 0 0;
+  z-index: 1;
+}
+
+.warehouse-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.warehouse-doors {
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 180px;
+  display: flex;
+  gap: 2px;
+}
+
+.door-left, .door-right {
+  flex: 1;
+  background: linear-gradient(90deg, #8d99ae 0%, #6c757d 100%);
+  border: 3px solid #495057;
+  border-bottom: none;
+}
+
+.forklift {
+  position: absolute;
+  bottom: 60px;
+  left: 30%;
+  animation: forkliftMove 10s ease-in-out infinite;
+}
+
+.forklift-body {
+  font-size: 32px;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+}
+
+@keyframes forkliftMove {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(100px); }
+}
+
+.pallets {
+  position: absolute;
+  bottom: 20px;
+  right: 30%;
+  display: flex;
+  gap: 8px;
+}
+
+.pallet {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #a68a64 0%, #8b5e3c 100%);
+  border: 2px solid #6f4518;
+}
+
+/* Hero Content */
+.hero-content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Company Badge */
+.company-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+}
+
+.badge-icon {
+  background: #e63946;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Heading */
+.hero-main-heading {
+  font-size: 3.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.heading-line-1,
+.heading-line-2,
+.heading-line-3 {
+  display: block;
+}
+
+.heading-line-1 {
+  color: #ffd700;
+  font-size: 2.8rem;
+}
+
+.heading-line-2 {
+  font-size: 3.5rem;
+  margin: 0.5rem 0;
+}
+
+.heading-line-3 {
+  font-size: 3rem;
+  color: #a8dadc;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #ffd700, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Description */
+.hero-description-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #f1faee;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+.hero-description-text strong {
+  color: #ffd700;
+}
+
+/* Active Service Display */
+.active-service-display {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.service-icon-large {
+  font-size: 3rem;
+  background: rgba(255, 255, 255, 0.2);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-details h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffd700;
+}
+
+.service-details p {
+  margin: 0.5rem 0 0;
+  color: #f1faee;
+  opacity: 0.9;
+}
+
+.service-indicators {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #ffd700;
+  transform: scale(1.2);
+}
+
+/* Key Features */
+.key-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  color: #ffd700;
+}
+
+/* Action Buttons */
+.hero-button-group {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.hero-primary-btn {
+  background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(230, 57, 70, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.hero-primary-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(230, 57, 70, 0.4);
+}
+
+.btn-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ffd700;
+  color: #1d3557;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.hero-secondary-btn {
+  background: transparent;
+  color: #a8dadc;
+  border: 2px solid #a8dadc;
+  padding: 1.2rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-secondary-btn:hover {
+  background: rgba(168, 218, 220, 0.1);
+  transform: translateY(-3px);
+  border-color: #ffd700;
+  color: #ffd700;
+}
+
+/* Operations Info */
+.operations-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.operations-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.operations-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+}
+
+.operations-icon {
+  background: linear-gradient(135deg, #457b9d, #1d3557);
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.operations-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #ffd700;
+}
+
+.operations-card p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  color: #f1faee;
+  opacity: 0.8;
+}
+
+/* Stats */
+.hero-stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffd700, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #f1faee;
+  opacity: 0.9;
+}
+
+/* CTA Section */
+.cta-section {
+  margin-top: 2rem;
+}
+
+.cta-phone {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.phone-number {
+  color: #ffd700;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.phone-number:hover {
+  color: #ffb347;
+  text-decoration: underline;
+}
+
+.cta-note {
+  color: #a8dadc;
+  font-size: 0.95rem;
+}
+
+/* Visual Section */
+.hero-visual-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Driver Profile Card */
+.driver-profile-card {
+  background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.driver-avatar {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid white;
+}
+
+.avatar-img {
+  font-size: 48px;
+}
+
+.driver-info h4 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #ffd700;
+}
+
+.driver-title {
+  margin: 0.3rem 0;
+  color: #f1faee;
+  opacity: 0.9;
+}
+
+.driver-stats {
+  display: flex;
+  gap: 1rem;
+  margin: 0.8rem 0;
+}
+
+.driver-stats .stat {
+  font-size: 0.9rem;
+  color: #a8dadc;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.driver-quote {
+  font-style: italic;
+  color: #f1faee;
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  border-left: 3px solid #ffd700;
+}
+
+/* Live Shipment Card */
+.live-shipment-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  color: #1d3557;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.shipment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e63946;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #ffd700;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.shipment-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.route-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.route-point .city {
+  font-weight: bold;
+  margin: 0;
+  color: #1d3557;
+}
+
+.route-point .time {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.route-line {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  height: 3px;
+  background: #457b9d;
+  z-index: 1;
+}
+
+.route-truck {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  animation: moveTruck 4s ease-in-out infinite;
+}
+
+@keyframes moveTruck {
+  0%, 100% { transform: translate(-100%, -50%); }
+  50% { transform: translate(0%, -50%); }
+}
+
+.shipment-details {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.track-shipment-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #457b9d 0%, #1d3557 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.track-shipment-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(69, 123, 157, 0.3);
+}
+
+/* Warehouse Image */
+.warehouse-image-container {
+  height: 200px;
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  color: white;
+}
+
+.image-overlay h4 {
+  margin: 0;
+  color: #ffd700;
+}
+
+.image-overlay p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .hero-content-wrapper {
+    gap: 3rem;
+  }
+  
+  .hero-main-heading {
+    font-size: 3.2rem;
+  }
+  
+  .heading-line-1 { font-size: 2.4rem; }
+  .heading-line-2 { font-size: 3rem; }
+  .heading-line-3 { font-size: 2.6rem; }
+}
+
+@media (max-width: 992px) {
+  .hero-content-wrapper {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .warehouse-bg {
+    display: none;
+  }
+  
+  .transport-scene {
+    height: 200px;
+  }
+  
+  .hero-description-text {
+    max-width: 100%;
+  }
+  
+  .key-features {
+    justify-content: center;
+  }
+  
+  .hero-button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-primary-btn, .hero-secondary-btn {
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+  }
+  
+  .operations-info {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hero-visual-section {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-main-container {
+    padding: 2rem 1rem;
+  }
+  
+  .hero-main-heading {
+    font-size: 2.5rem;
+  }
+  
+  .heading-line-1 { font-size: 2rem; }
+  .heading-line-2 { font-size: 2.3rem; }
+  .heading-line-3 { font-size: 2rem; }
+  
+  .key-features {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-stats-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .active-service-display {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .service-indicators {
+    margin: 1rem auto 0;
+  }
+  
+  .driver-profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-main-heading {
+    font-size: 2rem;
+  }
+  
+  .hero-description-text {
+    font-size: 1rem;
+  }
+  
+  .company-badge {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .cta-phone {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .phone-number {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,730 @@
+/* Tracking.css */
+.tk-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Header */
+.tk-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.tk-title {
+  font-size: 2.2rem;
+  color: #1f2937;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.tk-subtitle {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Input Section */
+.tk-input-section {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 30px;
+}
+
+.tk-input-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tk-input {
+  flex: 1;
+  padding: 16px 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.tk-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.tk-track-btn {
+  padding: 16px 35px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.tk-track-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.tk-stop-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.tk-sample-ids {
+  text-align: center;
+}
+
+.tk-sample-ids p {
+  color: #6b7280;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.tk-id-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.tk-id-tag {
+  background: #f3f4f6;
+  color: #4b5563;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.tk-id-tag:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* Dashboard */
+.tk-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* Status Card */
+.tk-status-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 16px;
+  padding: 25px;
+  color: white;
+}
+
+.tk-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tk-status-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.tk-status-text {
+  color: #fbbf24;
+  font-weight: 800;
+}
+
+.tk-live-badge {
+  background: #ef4444;
+  color: white;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  animation: tk-pulse 1.5s infinite;
+}
+
+@keyframes tk-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.tk-status-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tk-status-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tk-status-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.tk-status-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Progress Section */
+.tk-progress-section {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.tk-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tk-progress-header h4 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.3rem;
+}
+
+.tk-progress-percent {
+  background: #10b981;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.tk-progress-bar {
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tk-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  border-radius: 6px;
+  transition: width 1s ease-in-out;
+  position: relative;
+}
+
+.tk-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: tk-shimmer 2s infinite;
+}
+
+@keyframes tk-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.tk-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.tk-progress-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tk-progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tk-progress-item span:first-child {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.tk-highlight {
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Info Grid */
+.tk-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.tk-info-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.tk-info-card h4 {
+  margin: 0 0 20px 0;
+  color: #1f2937;
+  font-size: 1.2rem;
+}
+
+/* Driver Info */
+.tk-driver-details {
+  margin-bottom: 20px;
+}
+
+.tk-driver-name {
+  font-size: 1.3rem;
+  color: #1f2937;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.tk-driver-rating {
+  color: #f59e0b;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.tk-driver-exp, .tk-driver-contact {
+  color: #6b7280;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.tk-call-btn {
+  width: 100%;
+  padding: 12px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tk-call-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+/* Vehicle Info */
+.tk-vehicle-details {
+  margin-bottom: 20px;
+}
+
+.tk-vehicle-type {
+  font-size: 1.3rem;
+  color: #1f2937;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.tk-vehicle-number {
+  color: #3b82f6;
+  font-weight: 600;
+  margin-bottom: 5px;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.tk-vehicle-capacity, .tk-vehicle-status {
+  color: #6b7280;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.tk-status-moving {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.tk-speed-indicator {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tk-speed-gauge {
+  width: 120px;
+  height: 60px;
+  background: linear-gradient(90deg, #10b981, #fbbf24, #ef4444);
+  border-radius: 60px 60px 0 0;
+  position: relative;
+  margin: 0 auto 10px;
+  overflow: hidden;
+}
+
+.tk-speed-needle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  height: 50px;
+  background: #1f2937;
+  transform-origin: bottom center;
+  transition: transform 1s ease-in-out;
+}
+
+.tk-speed-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #3b82f6;
+}
+
+/* ETA Section */
+.tk-eta-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.tk-eta-card, .tk-updates-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.tk-eta-card h4, .tk-updates-card h4 {
+  margin: 0 0 20px 0;
+  color: #1f2937;
+  font-size: 1.2rem;
+}
+
+.tk-eta-time {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #059669;
+  margin-bottom: 10px;
+}
+
+.tk-eta-card p {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.tk-eta-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tk-eta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.tk-eta-item:last-child {
+  border-bottom: none;
+}
+
+.tk-eta-item span:first-child {
+  color: #6b7280;
+}
+
+.tk-eta-item span:last-child {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Updates */
+.tk-updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tk-update-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border-left: 4px solid #e5e7eb;
+}
+
+.tk-update-active {
+  border-left-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.tk-update-time {
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 70px;
+}
+
+.tk-update-text {
+  color: #1f2937;
+  flex: 1;
+}
+
+/* Map Section */
+.tk-map-section {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.tk-map-section h4 {
+  margin: 0 0 20px 0;
+  color: #1f2937;
+  font-size: 1.2rem;
+}
+
+.tk-map-container {
+  position: relative;
+  padding: 30px 0;
+}
+
+.tk-map-route {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.tk-map-start, .tk-map-end {
+  background: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tk-map-line {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tk-map-progress {
+  height: 100%;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  position: relative;
+  transition: width 1s ease-in-out;
+}
+
+.tk-map-truck {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  animation: tk-bounce 1s infinite alternate;
+}
+
+@keyframes tk-bounce {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(-70%); }
+}
+
+.tk-map-milestones {
+  position: relative;
+  height: 40px;
+  margin-top: 30px;
+}
+
+.tk-milestone {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.tk-milestone-dot {
+  width: 12px;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 50%;
+  margin: 0 auto 5px;
+}
+
+.tk-milestone-passed .tk-milestone-dot {
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.tk-milestone-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* Instructions */
+.tk-instructions {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.tk-instructions h3 {
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.tk-instructions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.tk-instruction {
+  text-align: center;
+}
+
+.tk-instruction-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 auto 15px;
+}
+
+.tk-instruction h4 {
+  color: #1f2937;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.tk-instruction p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .tk-info-grid,
+  .tk-eta-section,
+  .tk-instructions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tk-status-details,
+  .tk-progress-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-container {
+    padding: 15px;
+  }
+  
+  .tk-title {
+    font-size: 1.8rem;
+  }
+  
+  .tk-input-group {
+    flex-direction: column;
+  }
+  
+  .tk-track-btn {
+    width: 100%;
+  }
+  
+  .tk-status-details,
+  .tk-progress-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .tk-map-route {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .tk-map-line {
+    order: 2;
+    width: 100%;
+  }
+  
+  .tk-map-start, .tk-map-end {
+    order: 1;
+    text-align: center;
+  }
+  
+  .tk-map-end {
+    order: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-title {
+    font-size: 1.5rem;
+  }
+  
+  .tk-input-section {
+    padding: 20px;
+  }
+  
+  .tk-status-card,
+  .tk-progress-section,
+  .tk-info-card,
+  .tk-eta-card,
+  .tk-updates-card,
+  .tk-map-section,
+  .tk-instructions {
+    padding: 20px;
+  }
+  
+  .tk-id-tags {
+    flex-direction: column;
+    align-items: center;
+  }
+}

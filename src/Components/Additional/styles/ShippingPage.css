@@ -1,0 +1,259 @@
+/* ShippingPage.css - COMPLETE RESPONSIVE VERSION */
+.shipping-page-container {
+  padding: 16px;
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.shipping-page-container h1 {
+  text-align: center;
+  color: #1a1a1a;
+  margin-bottom: 24px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 0 16px;
+  word-wrap: break-word;
+}
+
+/* Responsive Stepper */
+.stepper-container {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 32px 0;
+  padding: 0 8px;
+  overflow: hidden;
+}
+
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.stepper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #e0e0e0;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.step {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  position: relative;
+  z-index: 2;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.step.active {
+  background: #4CAF50;
+  color: white;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px #4CAF50;
+}
+
+.step.completed {
+  background: #2196F3;
+  color: white;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px #2196F3;
+}
+
+.step-label {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: #666;
+  white-space: nowrap;
+  font-weight: 500;
+  display: none;
+}
+
+.step.active .step-label {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+/* Step Content - FIXED FOR RESPONSIVE */
+.step-content {
+  margin-top: 32px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 8px;
+}
+
+/* Step Content Container */
+.step-content-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .shipping-page-container {
+    padding: 12px;
+  }
+  
+  .shipping-page-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding: 0 8px;
+  }
+  
+  .stepper-container {
+    margin: 24px 0;
+    padding: 0 4px;
+  }
+  
+  .stepper {
+    padding: 0 8px;
+  }
+  
+  .stepper::before {
+    left: 12px;
+    right: 12px;
+  }
+  
+  .step {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 0.85rem;
+  }
+  
+  .step-content {
+    margin-top: 24px;
+    padding: 0 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shipping-page-container {
+    padding: 10px;
+  }
+  
+  .shipping-page-container h1 {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+  
+  .stepper-container {
+    margin: 20px 0;
+  }
+  
+  .stepper {
+    padding: 0 4px;
+  }
+  
+  .stepper::before {
+    left: 16px;
+    right: 16px;
+  }
+  
+  .step {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 0.8rem;
+  }
+  
+  .step.active,
+  .step.completed {
+    border-width: 2px;
+    box-shadow: 0 0 0 2px;
+  }
+  
+  .step-content {
+    margin-top: 20px;
+  }
+}
+
+/* Very Small Screens */
+@media (max-width: 360px) {
+  .shipping-page-container {
+    padding: 8px;
+  }
+  
+  .shipping-page-container h1 {
+    font-size: 1.2rem;
+    padding: 0 4px;
+  }
+  
+  .stepper {
+    padding: 0 2px;
+  }
+  
+  .stepper::before {
+    left: 20px;
+    right: 20px;
+  }
+  
+  .step {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Prevent horizontal scrolling */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure child components don't overflow */
+.step-content > * {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fix for LocationForm inside step content */
+.step-content .location-form-container,
+.step-content .datetime-container {
+  max-width: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+/* Ensure form inputs don't overflow */
+.step-content input,
+.step-content select,
+.step-content textarea {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Add some spacing for very wide screens */
+@media (min-width: 1400px) {
+  .shipping-page-container {
+    max-width: 1300px;
+  }
+}
