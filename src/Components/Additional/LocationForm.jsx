@@ -28,7 +28,7 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
   const [showWeightInfo, setShowWeightInfo] = useState(false);
 
   const GOOGLE_MAPS_CONFIG = {
-    apiKey: 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg',
+    apiKey: 'AIzaSyCyF2L-HcyPxgRqushbb5hXlLaB5Cmcyk4',
     libraries: ['places'],
   };
 
