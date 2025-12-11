@@ -772,5 +772,5 @@ const LocationForm = ({ data = {}, updateData, nextStep }) => {
     </div>
   );
 };
-
-export default LocationForm;
+  
+export default LocationForm; 
