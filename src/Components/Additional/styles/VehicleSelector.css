@@ -1,232 +1,271 @@
-/* VehicleSelector.css - PREMIUM DESIGN */
-.vs-container {
+/* VehicleSelector.css */
+
+/* ===== BASE STYLES ===== */
+.vs-main-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  padding: 16px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea1a 0%, #764ba21a 100%);
 }
 
-/* Header */
-.vs-header {
-  margin-bottom: 40px;
+/* ===== HEADER ===== */
+.vs-header-section {
+  margin-bottom: 32px;
 }
 
 .vs-step-indicator {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.vs-step-number {
-  width: 50px;
-  height: 50px;
+.vs-step-badge {
+  width: 40px;
+  height: 40px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-radius: 50%;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
   font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
-.vs-step-info {
-  flex: 1;
-}
-
-.vs-title {
-  font-size: 2.2rem;
-  color: #1f2937;
+.vs-title-main {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a202c;
   margin: 0 0 8px 0;
-  font-weight: 700;
+  line-height: 1.2;
 }
 
-.vs-subtitle {
-  color: #6b7280;
-  font-size: 1.1rem;
+.vs-subtitle-main {
+  font-size: 16px;
+  color: #718096;
   margin: 0;
+  line-height: 1.5;
 }
 
-/* Sections */
-.vs-section {
+/* ===== CONTENT WRAPPER ===== */
+.vs-content-wrapper {
   background: white;
-  border-radius: 20px;
-  padding: 32px;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 32px;
 }
 
-.vs-section-title {
+.vs-form-container {
+  padding: 32px;
+}
+
+/* ===== SECTION CARD ===== */
+.vs-section-card {
+  background: #f8fafc;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.vs-section-card:hover {
+  border-color: #cbd5e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.vs-section-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 1.5rem;
-  color: #374151;
-  margin: 0 0 12px 0;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .vs-section-icon {
-  font-size: 1.8rem;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  flex-shrink: 0;
 }
 
-.vs-section-desc {
-  color: #6b7280;
-  margin: 0 0 25px 0;
-  font-size: 1rem;
+.vs-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 4px 0;
 }
 
-/* Vehicle Grid */
+.vs-section-subtitle {
+  font-size: 14px;
+  color: #718096;
+  margin: 0;
+}
+
+/* ===== VEHICLE SELECTION GRID ===== */
 .vs-vehicle-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .vs-vehicle-card {
-  border: 2px solid #e5e7eb;
+  background: white;
+  border: 2px solid #e2e8f0;
   border-radius: 16px;
-  padding: 25px;
+  padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: white;
+  text-align: left;
   position: relative;
   overflow: hidden;
 }
 
 .vs-vehicle-card:hover {
-  transform: translateY(-5px);
-  border-color: #3b82f6;
-  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e0;
 }
 
-.vs-vehicle-card.vs-active {
-  border-color: #3b82f6;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
-  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.2);
+.vs-vehicle-card.selected {
+  border-width: 3px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-.vs-vehicle-header {
+.vs-vehicle-card-header {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 20px;
 }
 
 .vs-vehicle-icon {
-  font-size: 3rem;
-  min-width: 60px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.vs-vehicle-title {
+.vs-vehicle-name-container {
   flex: 1;
 }
 
-.vs-vehicle-title h4 {
-  font-size: 1.3rem;
-  color: #1f2937;
-  margin: 0 0 5px 0;
-  font-weight: 700;
+.vs-vehicle-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 4px;
 }
 
 .vs-vehicle-price {
-  font-size: 1.2rem;
-  color: #3b82f6;
+  font-size: 20px;
   font-weight: 700;
-  background: rgba(59, 130, 246, 0.1);
-  padding: 6px 14px;
-  border-radius: 20px;
-  display: inline-block;
 }
 
-.vs-vehicle-details {
+.vs-vehicle-specs {
+  display: grid;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
-.vs-detail-row {
+.vs-spec-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f3f4f6;
+  align-items: flex-start;
 }
 
-.vs-detail-row:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
+.vs-spec-label {
+  font-size: 13px;
+  color: #718096;
+  font-weight: 500;
 }
 
-.vs-detail-label {
-  color: #6b7280;
-  font-size: 0.95rem;
-}
-
-.vs-detail-value {
-  color: #1f2937;
-  font-weight: 600;
-  font-size: 0.95rem;
+.vs-spec-value {
+  font-size: 14px;
+  color: #2d3748;
+  font-weight: 500;
+  text-align: right;
+  max-width: 60%;
+  line-height: 1.4;
 }
 
 .vs-vehicle-features {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 12px;
 }
 
 .vs-feature-tag {
-  background: #f3f4f6;
-  color: #4b5563;
+  font-size: 12px;
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 0.85rem;
   font-weight: 500;
 }
 
-.vs-vehicle-card.vs-active .vs-feature-tag {
-  background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
-}
-
-.vs-selected-badge {
+.vs-vehicle-selected-indicator {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #10b981;
+  top: 0;
+  right: 0;
+  padding: 8px 16px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 14px;
   color: white;
-  padding: 6px 15px;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 13px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Services Grid */
+/* ===== SERVICES ===== */
+.vs-services-container {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+}
+
 .vs-services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .vs-service-card {
-  border: 2px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: white;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .vs-service-card:hover {
-  border-color: #8b5cf6;
-  transform: translateY(-3px);
+  background: #edf2f7;
+  border-color: #cbd5e0;
 }
 
-.vs-service-card.vs-service-active {
-  border-color: #8b5cf6;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02));
+.vs-service-card.selected {
+  background: #ebf8ff;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
 .vs-service-checkbox {
@@ -234,9 +273,9 @@
 }
 
 .vs-checkbox {
-  width: 24px;
-  height: 24px;
-  border: 2px solid #d1d5db;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e0;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -244,245 +283,448 @@
   transition: all 0.2s ease;
 }
 
-.vs-service-card.vs-service-active .vs-checkbox {
-  background: #8b5cf6;
-  border-color: #8b5cf6;
-  color: white;
+.vs-checkbox.checked {
+  background: #4299e1;
+  border-color: #4299e1;
 }
 
-.vs-service-info {
+.vs-service-icon {
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+.vs-service-details {
   flex: 1;
 }
 
 .vs-service-name {
-  font-size: 1.1rem;
-  color: #1f2937;
-  margin: 0 0 5px 0;
+  font-size: 15px;
   font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 4px;
 }
 
 .vs-service-desc {
-  color: #6b7280;
-  font-size: 0.9rem;
-  margin: 0;
+  font-size: 13px;
+  color: #718096;
   line-height: 1.4;
 }
 
 .vs-service-price {
-  color: #8b5cf6;
+  font-size: 16px;
   font-weight: 700;
-  font-size: 1.1rem;
-  background: rgba(139, 92, 246, 0.1);
-  padding: 6px 12px;
-  border-radius: 8px;
+  color: #48bb78;
   flex-shrink: 0;
 }
 
-/* Summary Section */
-.vs-summary {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 20px;
-  padding: 30px;
-  border: 2px solid #e2e8f0;
-  margin-bottom: 30px;
+.vs-services-summary {
+  background: #f0fff4;
+  border: 1px solid #c6f6d5;
+  border-radius: 12px;
+  padding: 16px;
 }
 
-.vs-summary-title {
-  font-size: 1.4rem;
-  color: #1f2937;
-  margin: 0 0 20px 0;
-  font-weight: 700;
-}
-
-.vs-summary-vehicle {
+.vs-summary-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background: white;
-  border-radius: 14px;
-  margin-bottom: 20px;
+  padding: 8px 0;
 }
 
-.vs-summary-icon {
-  font-size: 2.5rem;
+.vs-summary-item:first-child {
+  border-bottom: 1px solid #c6f6d5;
 }
 
-.vs-summary-details {
-  flex: 1;
-}
-
-.vs-summary-details h4 {
-  font-size: 1.3rem;
-  color: #1f2937;
-  margin: 0 0 5px 0;
-  font-weight: 700;
-}
-
-.vs-summary-details p {
-  color: #6b7280;
-  margin: 0;
-  font-size: 1rem;
+.vs-summary-count {
+  font-weight: 600;
+  color: #38a169;
 }
 
 .vs-summary-price {
-  font-size: 1.5rem;
-  color: #3b82f6;
-  font-weight: 800;
-}
-
-.vs-summary-services {
-  background: white;
-  border-radius: 14px;
-  padding: 20px;
-}
-
-.vs-summary-services h4 {
-  font-size: 1.1rem;
-  color: #374151;
-  margin: 0 0 15px 0;
-  font-weight: 600;
-}
-
-.vs-services-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.vs-service-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  background: #f8fafc;
-  border-radius: 10px;
-}
-
-.vs-service-item span:first-child {
-  color: #4b5563;
-  font-weight: 500;
-}
-
-.vs-service-item span:last-child {
-  color: #8b5cf6;
+  font-size: 18px;
   font-weight: 700;
+  color: #38a169;
 }
 
-/* Navigation */
-.vs-navigation {
+/* ===== SELECTION SUMMARY ===== */
+.vs-summary-section {
+  background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+}
+
+.vs-summary-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.vs-selected-vehicle-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f7fafc;
+}
+
+.vs-summary-vehicle-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vs-summary-vehicle-details {
+  flex: 1;
+}
+
+.vs-summary-vehicle-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.vs-summary-vehicle-specs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #718096;
+}
+
+.vs-summary-vehicle-price {
+  font-size: 22px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.vs-selected-services-list {
+  margin: 20px 0;
+}
+
+.vs-services-list-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 12px;
+}
+
+.vs-service-summary-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 2px solid #f3f4f6;
+  padding: 12px 0;
+  border-bottom: 1px solid #f7fafc;
 }
 
-.vs-prev-btn, .vs-continue-btn {
-  padding: 16px 35px;
-  border: none;
-  border-radius: 14px;
-  font-size: 1.1rem;
+.vs-service-summary-item:last-child {
+  border-bottom: none;
+}
+
+.vs-service-summary-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.vs-service-icon-small {
+  font-size: 16px;
+}
+
+.vs-service-summary-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #48bb78;
+}
+
+.vs-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.vs-total-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.vs-total-amount {
+  font-size: 28px;
+  font-weight: 700;
+  color: #4299e1;
+}
+
+/* ===== NAVIGATION ===== */
+.vs-navigation-section {
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  padding: 32px;
+}
+
+.vs-navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.vs-btn-primary,
+.vs-btn-secondary {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
+  border: none;
+  transition: all 0.3s ease;
+  min-width: 200px;
 }
 
-.vs-prev-btn {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.vs-prev-btn:hover {
-  background: #e5e7eb;
-  transform: translateX(-5px);
-}
-
-.vs-continue-btn {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+.vs-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.vs-continue-btn:hover:not(:disabled) {
-  transform: translateX(5px);
-  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
+.vs-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
 }
 
-.vs-continue-btn:disabled {
-  background: #9ca3af;
+.vs-btn-primary:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .vs-vehicle-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .vs-services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.vs-btn-secondary {
+  background: white;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
 }
 
+.vs-btn-secondary:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.vs-step-progress-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.vs-progress-container {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.vs-progress-fill {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.vs-step-labels {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.vs-step-label {
+  font-size: 13px;
+  color: #a0aec0;
+  font-weight: 500;
+  text-align: center;
+  width: 60px;
+  position: relative;
+}
+
+.vs-step-label.active {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.vs-step-label.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #667eea;
+  border-radius: 50%;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
-  .vs-container {
-    padding: 16px;
+  .vs-main-container {
+    padding: 12px;
   }
   
-  .vs-title {
-    font-size: 1.8rem;
+  .vs-form-container {
+    padding: 20px;
   }
   
-  .vs-section {
-    padding: 24px;
+  .vs-title-main {
+    font-size: 24px;
+  }
+  
+  .vs-vehicle-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
   }
   
   .vs-services-grid {
     grid-template-columns: 1fr;
   }
   
-  .vs-navigation {
-    flex-direction: column;
-  }
-  
-  .vs-prev-btn, .vs-continue-btn {
+  .vs-navigation-buttons {
+    flex-direction: column-reverse;
     width: 100%;
-    justify-content: center;
   }
   
-  .vs-prev-btn:hover {
-    transform: translateY(-3px);
+  .vs-btn-primary,
+  .vs-btn-secondary {
+    width: 100%;
+    min-width: auto;
   }
   
-  .vs-continue-btn:hover:not(:disabled) {
-    transform: translateY(-3px);
+  .vs-step-labels {
+    display: none;
+  }
+  
+  .vs-section-card {
+    padding: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .vs-step-indicator {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
+  .vs-vehicle-grid {
+    grid-template-columns: 1fr;
   }
   
-  .vs-summary-vehicle {
+  .vs-section-header {
     flex-direction: column;
     text-align: center;
-    gap: 15px;
+    gap: 12px;
   }
   
-  .vs-vehicle-header {
+  .vs-vehicle-card-header {
     flex-direction: column;
     text-align: center;
-    gap: 15px;
+    gap: 12px;
+  }
+  
+  .vs-spec-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .vs-spec-value {
+    text-align: left;
+    max-width: 100%;
+  }
+  
+  .vs-service-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .vs-summary-vehicle-summary {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .vs-summary-vehicle-specs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .vs-summary-total {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vs-section-card,
+.vs-vehicle-card,
+.vs-service-card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ===== HOVER EFFECTS ===== */
+.vs-vehicle-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--vehicle-color, transparent) 0%, 
+    transparent 100%);
+  border-radius: 16px 16px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vs-vehicle-card:hover::before {
+  opacity: 1;
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
   }
 }

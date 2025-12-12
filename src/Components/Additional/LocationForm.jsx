@@ -654,7 +654,7 @@ console.log(localData.weight);
                     <div>• Above 50 kg: ₹1000 + ₹35/kg extra</div>
                   </div>
                 )}
-              </div>
+              </div>  
               
               <div className="form-group">
                 <label>Distance Approx (km) *</label>
@@ -664,7 +664,7 @@ console.log(localData.weight);
                     name="distance"
                     value={localData.distance}
                     onChange={handleChange}
-                    placeholder="Enter distance"
+                    placeholder="Fetch Distance"
                     min="1"
                     max="5000"
                     required

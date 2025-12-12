@@ -82,9 +82,21 @@ const Navbar = () => {
             Contact
           </NavLink>
         </li> 
-        <li className="nav-item">
-          <button className="login-btn">Login / Signup</button>
-        </li>
+
+<li>
+  <NavLink 
+    to="/login" 
+    className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} 
+    onClick={closeMenu}
+  >
+    Login
+  </NavLink>
+</li>
+
+
+
+
+
       </ul>
       
       {/* Overlay for mobile menu */}

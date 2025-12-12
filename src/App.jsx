@@ -4,6 +4,9 @@ import RootLayout from './Helper/RootLayout'
 import { RouterProvider } from 'react-router-dom'
 import ErrorPage from './Helper/ErrorPage'
 import Tracking from './Components/Additional/Tracking';
+import Dashboard from './Components/Additional/Dashboard'
+import OrderCard from './Components/Additional/OrderCard'
+import TrackingPage from './Components/tracking/TrackingPage'
 
 
 const Home = React.lazy(() => import('./Components/Home'))
@@ -23,6 +26,10 @@ const routes = createBrowserRouter(createRoutesFromElements(
     <Route path="/services" element={<Services />} />
     <Route path="/login" element={<Login />} />
     <Route path="/tracking" element={<Tracking />} />
+    <Route path="/orders" element={<OrderCard/>} />
+    <Route path="/trackingpg" element={<TrackingPage/>} />
+    
+    <Route path="/dashboard" element={<Dashboard/>} />
     
     {/* ✅ Use ShippingPage as element */}
     <Route path="/shipping" element={<ShippingPage/>} />
