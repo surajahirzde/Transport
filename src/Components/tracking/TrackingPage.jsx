@@ -1,6 +1,5 @@
 import  { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { fakeExecutives, statusColors, statusIcons } from './fakeData';
 import '../tracking/styles/TrackingPage.css';
 
 const TrackingPage = () => {
