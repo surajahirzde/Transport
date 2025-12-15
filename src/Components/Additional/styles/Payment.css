@@ -1,0 +1,173 @@
+/* src/components/payment/AmountForm.css */
+.amount-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.status-container {
+  margin-bottom: 20px;
+}
+
+/* Error Message */
+.error-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.error-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.error-message .message-content h3 {
+  margin: 0 0 4px 0;
+  color: #dc2626;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.error-message .message-content p {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+/* Success Message */
+.success-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.success-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.success-message .message-content h3 {
+  margin: 0 0 4px 0;
+  color: #059669;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.success-message .message-content p {
+  margin: 0;
+  color: #047857;
+  font-size: 14px;
+}
+
+/* Loading Indicator */
+.loading-indicator,
+.redirecting-message {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-indicator .spinner,
+.redirecting-message .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-indicator p,
+.redirecting-message p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Amount Display */
+.amount-display {
+  text-align: center;
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+
+.amount-label {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.amount-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 8px;
+}
+
+.amount-note {
+  font-size: 12px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Retry Button */
+.retry-button {
+  width: 100%;
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.retry-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .amount-form-container {
+    padding: 16px;
+  }
+  
+  .amount-value {
+    font-size: 28px;
+  }
+  
+  .error-message,
+  .success-message {
+    padding: 12px;
+  }
+}

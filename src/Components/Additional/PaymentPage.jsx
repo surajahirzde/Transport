@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Additional/styles/PaymentPage.css';
+import AmountForm from './Payment'; // Import the AmountForm component
 
 const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
   // Scroll to top on component mount
@@ -11,6 +12,32 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
   const [qrCode, setQrCode] = useState(data?.qrCode || "");
   const [transactionId, setTransactionId] = useState(data?.transactionId || "");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showAmountForm, setShowAmountForm] = useState(false);
+  const [upiAmount, setUpiAmount] = useState(0);
+
+  // QR codes for UPI payments
+  const qrCodes = [
+    { 
+      id: "phonepe", 
+      name: "PhonePe", 
+      qr: "https://upload.wikimedia.org/wikipedia/commons/0/0b/PhonePe_Logo.svg"
+    },
+    { 
+      id: "googlepay", 
+      name: "Google Pay", 
+      qr: "https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Pay_Logo.svg"
+    },
+    { 
+      id: "paytm", 
+      name: "Paytm", 
+      qr: "https://upload.wikimedia.org/wikipedia/commons/4/42/Paytm_logo.png"
+    },
+    { 
+      id: "bhim", 
+      name: "BHIM UPI", 
+      qr: "https://upload.wikimedia.org/wikipedia/commons/8/80/BHIM_Logo.png"
+    }
+  ];
 
   // Payment options
   const paymentOptions = [
@@ -23,41 +50,12 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
       popular: true
     },
     { 
-      id: "card", 
-      name: "Credit/Debit Card", 
-      icon: "💳", 
-      color: "#10B981",
-      description: "Visa, MasterCard, RuPay"
-    },
-    { 
-      id: "netbanking", 
-      name: "Net Banking", 
-      icon: "🏦", 
-      color: "#F59E0B",
-      description: "All major banks"
-    },
-    { 
-      id: "wallet", 
-      name: "Wallet", 
-      icon: "💰", 
-      color: "#8B5CF6",
-      description: "Paytm, PhonePe, Google Pay"
-    },
-    { 
       id: "cod", 
       name: "Cash on Delivery", 
       icon: "💵", 
       color: "#EF4444",
       description: "Pay when package arrives"
     },
-  ];
-
-  // QR Code options for UPI
-  const qrCodes = [
-    { id: "paytm", name: "Paytm", qr: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PaytmUPI:9876543210@paytm" },
-    { id: "phonepe", name: "PhonePe", qr: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPIID:9876543210@ybl" },
-    { id: "googlepay", name: "Google Pay", qr: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPI:9876543210@okhdfcbank" },
-    { id: "bhim", name: "BHIM UPI", qr: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=UPI:9876543210@axisbank" },
   ];
 
   // Calculate all prices
@@ -97,11 +95,23 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
 
   const prices = calculatePrices();
 
+  useEffect(() => {
+    // Set UPI amount when prices are calculated
+    setUpiAmount(prices.total);
+  }, [prices.total]);
+
   const handlePaymentSelect = (methodId) => {
     setPaymentMethod(methodId);
     if (updateData) {
       updateData("paymentMethod", methodId);
       updateData("paymentName", paymentOptions.find(p => p.id === methodId)?.name);
+    }
+    
+    // Show AmountForm for UPI payments
+    if (methodId === "upi") {
+      setShowAmountForm(true);
+    } else {
+      setShowAmountForm(false);
     }
   };
 
@@ -124,8 +134,8 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
     
-    if (paymentMethod === "upi" && !qrCode) {
-      alert("Please select a UPI app for QR code payment");
+    if (paymentMethod === "upi") {
+      // For UPI, we use AmountForm which auto-submits
       return;
     }
     
@@ -155,92 +165,105 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
     }, 1500);
   };
 
+  // Handle successful UPI payment
+  const handleUpiSuccess = () => {
+    if (updateData) {
+      updateData("paymentStatus", "completed");
+      updateData("transactionId", "UPI_TXN_" + Date.now().toString().slice(-8));
+    }
+    setIsProcessing(true);
+    setTimeout(() => {
+      setIsProcessing(false);
+      nextStep();
+    }, 2000);
+  };
+
   const selectedPayment = paymentOptions.find(p => p.id === paymentMethod);
   const selectedQr = qrCodes.find(q => q.id === qrCode);
   const selectedVehicleName = data?.vehicleName || "Vehicle";
 
   return (
-    <div className="payment-page-container">
-      <div className="payment-header">
-        <div className="step-indicator">
-          <span className="step-badge">4</span>
+    <div className="payment-container-x7y">
+      <div className="payment-header-x7y">
+        <div className="step-indicator-x7y">
+          <span className="step-badge-x7y">4</span>
           <div>
-            <h1 className="payment-title">Payment Details</h1>
-            <p className="payment-subtitle">Complete payment to confirm your shipment</p>
+            <h1 className="payment-title-x7y">Payment Details</h1>
+            <p className="payment-subtitle-x7y">Complete payment to confirm your shipment</p>
           </div>
         </div>
       </div>
 
-      <div className="payment-content">
-        <form onSubmit={handlePaymentSubmit} className="payment-form">
+      <div className="payment-content-x7y">
+        <form onSubmit={handlePaymentSubmit} className="payment-form-x7y">
           
           {/* Order Summary - Top Section */}
-          <div className="payment-section summary-section">
-            <div className="section-header">
-              <div className="section-icon">💰</div>
+          <div className="payment-section-x7y summary-section-x7y">
+            <div className="section-header-x7y">
+              <div className="section-icon-x7y">💰</div>
               <div>
-                <h3 className="section-title">Order Summary</h3>
-                <p className="section-subtitle">Review your order details and amount</p>
+                <h3 className="section-title-x7y">Order Summary</h3>
+                <p className="section-subtitle-x7y">Review your order details and amount</p>
               </div>
             </div>
             
-            <div className="summary-card">
-              <div className="summary-items">
-                <div className="summary-item">
+            <div className="summary-card-x7y">
+              <div className="summary-items-x7y">
+                <div className="summary-item-x7y">
                   <span>Base Fare:</span>
                   <span>₹{prices.basePrice.toLocaleString('en-IN')}</span>
                 </div>
                 
                 {prices.fastDeliveryCharge > 0 && (
-                  <div className="summary-item">
+                  <div className="summary-item-x7y">
                     <span>Express Delivery:</span>
-                    <span className="highlight">+₹{prices.fastDeliveryCharge.toLocaleString('en-IN')}</span>
+                    <span className="highlight-x7y">+₹{prices.fastDeliveryCharge.toLocaleString('en-IN')}</span>
                   </div>
                 )}
                 
-                <div className="summary-item">
+                <div className="summary-item-x7y">
                   <span>Vehicle ({selectedVehicleName}):</span>
                   <span>+₹{prices.vehiclePrice.toLocaleString('en-IN')}</span>
                 </div>
                 
                 {prices.additionalServicesTotal > 0 && (
-                  <div className="summary-services">
-                    <div className="services-title">Additional Services:</div>
-                    {prices.helperPrice > 0 && <div className="service-item">Loading Helper: +₹{prices.helperPrice}</div>}
-                    {prices.insurancePrice > 0 && <div className="service-item">Premium Insurance: +₹{prices.insurancePrice}</div>}
-                    {prices.packagingPrice > 0 && <div className="service-item">Professional Packaging: +₹{prices.packagingPrice}</div>}
-                    {prices.fastrackPrice > 0 && <div className="service-item">Fast-Track Delivery: +₹{prices.fastrackPrice}</div>}
-                    {prices.weekendPrice > 0 && <div className="service-item">Weekend Delivery: +₹{prices.weekendPrice}</div>}
-                    {prices.nightPrice > 0 && <div className="service-item">Night Delivery: +₹{prices.nightPrice}</div>}
+                  <div className="summary-services-x7y">
+                    <div className="services-title-x7y">Additional Services:</div>
+                    {prices.helperPrice > 0 && <div className="service-item-x7y">Loading Helper: +₹{prices.helperPrice}</div>}
+                    {prices.insurancePrice > 0 && <div className="service-item-x7y">Premium Insurance: +₹{prices.insurancePrice}</div>}
+                    {prices.packagingPrice > 0 && <div className="service-item-x7y">Professional Packaging: +₹{prices.packagingPrice}</div>}
+                    {prices.fastrackPrice > 0 && <div className="service-item-x7y">Fast-Track Delivery: +₹{prices.fastrackPrice}</div>}
+                    {prices.weekendPrice > 0 && <div className="service-item-x7y">Weekend Delivery: +₹{prices.weekendPrice}</div>}
+                    {prices.nightPrice > 0 && <div className="service-item-x7y">Night Delivery: +₹{prices.nightPrice}</div>}
                   </div>
                 )}
                 
-                <div className="summary-divider"></div>
+                <div className="summary-divider-x7y"></div>
                 
-                <div className="summary-total">
+                <div className="summary-total-x7y">
                   <span>Total Amount:</span>
-                  <span className="total-amount">₹{prices.total.toLocaleString('en-IN')}</span>
+                  <span className="total-amount-x7y">₹{prices.total.toLocaleString('en-IN')}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Payment Method Selection */}
-          <div className="payment-section">
-            <div className="section-header">
-              <div className="section-icon">💳</div>
+          <div className="payment-section-x7y">
+            <div className="section-header-x7y">
+              <div className="section-icon-x7y">💳</div>
               <div>
-                <h3 className="section-title">Payment Method</h3>
-                <p className="section-subtitle">Choose how you want to pay</p>
+                <h3 className="section-title-x7y">Payment Method</h3>
+                <p className="section-subtitle-x7y">Choose how you want to pay</p>
               </div>
             </div>
             
-            <div className="payment-methods">
+            <div className="payment-methods-x7y">
               {paymentOptions.map(method => (
                 <button
                   type="button"
                   key={method.id}
-                  className={`payment-method-card ${paymentMethod === method.id ? 'selected' : ''}`}
+                  className={`payment-method-card-x7y ${paymentMethod === method.id ? 'selected' : ''}`}
                   onClick={() => handlePaymentSelect(method.id)}
                   style={{ 
                     borderColor: paymentMethod === method.id ? method.color : '#E5E7EB',
@@ -248,24 +271,24 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
                   }}
                 >
                   {method.popular && (
-                    <div className="popular-badge" style={{ backgroundColor: method.color }}>
+                    <div className="popular-badge-x7y" style={{ backgroundColor: method.color }}>
                       Most Popular
                     </div>
                   )}
                   
-                  <div className="method-icon" style={{ backgroundColor: `${method.color}20`, color: method.color }}>
+                  <div className="method-icon-x7y" style={{ backgroundColor: `${method.color}20`, color: method.color }}>
                     <span style={{ fontSize: '24px' }}>{method.icon}</span>
                   </div>
                   
-                  <div className="method-details">
-                    <div className="method-name">{method.name}</div>
-                    <div className="method-desc">{method.description}</div>
+                  <div className="method-details-x7y">
+                    <div className="method-name-x7y">{method.name}</div>
+                    <div className="method-desc-x7y">{method.description}</div>
                   </div>
                   
-                  <div className="method-radio">
-                    <div className={`radio-circle ${paymentMethod === method.id ? 'checked' : ''}`}>
+                  <div className="method-radio-x7y">
+                    <div className={`radio-circle-x7y ${paymentMethod === method.id ? 'checked' : ''}`}>
                       {paymentMethod === method.id && (
-                        <div className="radio-dot" style={{ backgroundColor: method.color }}></div>
+                        <div className="radio-dot-x7y" style={{ backgroundColor: method.color }}></div>
                       )}
                     </div>
                   </div>
@@ -274,77 +297,35 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
             </div>
           </div>
 
-          {/* UPI QR Code Section */}
-          {paymentMethod === "upi" && (
-            <div className="payment-section">
-              <div className="section-header">
-                <div className="section-icon">📱</div>
+          {/* UPI Payment Section with AmountForm */}
+          {paymentMethod === "upi" && showAmountForm && (
+            <div className="payment-section-x7y upi-amount-section">
+              <div className="section-header-x7y">
+                <div className="section-icon-x7y">📱</div>
                 <div>
-                  <h3 className="section-title">UPI Payment</h3>
-                  <p className="section-subtitle">Scan QR code with your UPI app</p>
+                  <h3 className="section-title-x7y">UPI Payment</h3>
+                  <p className="section-subtitle-x7y">Complete payment using UPI</p>
                 </div>
               </div>
               
-              <div className="upi-container">
-                <div className="qr-options">
-                  {qrCodes.map(qr => (
-                    <button
-                      type="button"
-                      key={qr.id}
-                      className={`qr-option ${qrCode === qr.id ? 'selected' : ''}`}
-                      onClick={() => handleQrSelect(qr.id)}
-                    >
-                      <div className="qr-image">
-                        <img src={qr.qr} alt={`${qr.name} QR Code`} loading="lazy" />
-                      </div>
-                      <div className="qr-name">{qr.name}</div>
-                      {qrCode === qr.id && (
-                        <div className="qr-check">
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <circle cx="8" cy="8" r="8" fill="#10B981"/>
-                            <path d="M5 8L7 10L11 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </div>
-                      )}
-                    </button>
-                  ))}
-                </div>
+              <div className="upi-amount-container">
+                {/* AmountForm Component */}
+                <AmountForm amount={upiAmount} onSuccess={handleUpiSuccess} />
                 
-                {selectedQr && (
-                  <div className="upi-instructions">
-                    <div className="instructions-card">
-                      <h4>How to Pay with {selectedQr.name}:</h4>
-                      <ol className="steps-list">
-                        <li>Open <strong>{selectedQr.name}</strong> app on your phone</li>
-                        <li>Tap on <strong>"Scan QR Code"</strong></li>
-                        <li>Point your camera at the QR code above</li>
-                        <li>Enter amount: <strong className="amount-highlight">₹{prices.total.toLocaleString('en-IN')}</strong></li>
-                        <li>Verify details and complete payment</li>
-                        <li>Save the transaction ID for reference</li>
-                      </ol>
-                      
-                      <div className="upi-note">
-                        <div className="note-icon">ℹ️</div>
-                        <div className="note-text">
-                          <strong>Note:</strong> Payment will be confirmed within 2-3 minutes. Keep this window open.
-                        </div>
-                      </div>
+                {/* Payment Status Info */}
+                <div className="payment-status-info">
+                  <div className="status-card">
+                    <div className="status-icon">💡</div>
+                    <div className="status-content">
+                      <h4>Important Notes:</h4>
+                      <ul className="status-list">
+                        <li>Payment will be processed instantly via UPI</li>
+                        <li>You will be redirected to your UPI app</li>
+                        <li>Complete the payment in your UPI app</li>
+                        <li>You'll receive confirmation on WhatsApp/Email</li>
+                        <li>Keep the transaction ID for future reference</li>
+                      </ul>
                     </div>
-                  </div>
-                )}
-                
-                <div className="transaction-input">
-                  <label className="input-label">Transaction ID (After Payment)</label>
-                  <input
-                    type="text"
-                    className="text-input"
-                    placeholder="Enter UPI transaction ID (e.g., UPIR1234567890)"
-                    value={transactionId}
-                    onChange={handleTransactionId}
-                    required
-                  />
-                  <div className="input-note">
-                    You'll find Transaction ID in your UPI app after successful payment
                   </div>
                 </div>
               </div>
@@ -353,27 +334,27 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
 
           {/* Other Payment Methods Details */}
           {paymentMethod && paymentMethod !== "cod" && paymentMethod !== "upi" && (
-            <div className="payment-section">
-              <div className="section-header">
-                <div className="section-icon">🔢</div>
+            <div className="payment-section-x7y">
+              <div className="section-header-x7y">
+                <div className="section-icon-x7y">🔢</div>
                 <div>
-                  <h3 className="section-title">Payment Details</h3>
-                  <p className="section-subtitle">Enter transaction details after payment</p>
+                  <h3 className="section-title-x7y">Payment Details</h3>
+                  <p className="section-subtitle-x7y">Enter transaction details after payment</p>
                 </div>
               </div>
               
-              <div className="transaction-container">
-                <div className="transaction-input">
-                  <label className="input-label">Transaction ID *</label>
+              <div className="transaction-container-x7y">
+                <div className="transaction-input-x7y">
+                  <label className="input-label-x7y">Transaction ID *</label>
                   <input
                     type="text"
-                    className="text-input"
+                    className="text-input-x7y"
                     placeholder={`Enter ${selectedPayment?.name} transaction ID`}
                     value={transactionId}
                     onChange={handleTransactionId}
                     required
                   />
-                  <div className="input-note">
+                  <div className="input-note-x7y">
                     You'll receive transaction ID after successful payment. Keep it for future reference.
                   </div>
                 </div>
@@ -383,23 +364,23 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
 
           {/* Cash on Delivery Section */}
           {paymentMethod === "cod" && (
-            <div className="payment-section cod-section">
-              <div className="section-header">
-                <div className="section-icon">💵</div>
+            <div className="payment-section-x7y cod-section-x7y">
+              <div className="section-header-x7y">
+                <div className="section-icon-x7y">💵</div>
                 <div>
-                  <h3 className="section-title">Cash on Delivery</h3>
-                  <p className="section-subtitle">Pay when your package arrives</p>
+                  <h3 className="section-title-x7y">Cash on Delivery</h3>
+                  <p className="section-subtitle-x7y">Pay when your package arrives</p>
                 </div>
               </div>
               
-              <div className="cod-card">
-                <div className="cod-icon">💵</div>
-                <div className="cod-content">
+              <div className="cod-card-x7y">
+                <div className="cod-icon-x7y">💵</div>
+                <div className="cod-content-x7y">
                   <h4>Cash on Delivery Selected</h4>
-                  <p className="cod-amount">
+                  <p className="cod-amount-x7y">
                     Pay <strong>₹{prices.total.toLocaleString('en-IN')}</strong> when our delivery executive arrives with your package.
                   </p>
-                  <ul className="cod-features">
+                  <ul className="cod-features-x7y">
                     <li>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <circle cx="10" cy="10" r="9" fill="#10B98120" stroke="#10B981" strokeWidth="2"/>
@@ -428,11 +409,11 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
           )}
 
           {/* Navigation */}
-          <div className="payment-navigation">
-            <div className="navigation-buttons">
+          <div className="payment-navigation-x7y">
+            <div className="navigation-buttons-x7y">
               <button 
                 type="button" 
-                className="btn-secondary"
+                className="btn-secondary-x7y"
                 onClick={prevStep}
                 disabled={isProcessing}
               >
@@ -442,45 +423,45 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
                 Back to Vehicle
               </button>
               
-              <button 
-                type="submit" 
-                className="btn-primary"
-                disabled={!paymentMethod || isProcessing || 
-                  (paymentMethod !== "cod" && !transactionId && paymentMethod !== "upi") || 
-                  (paymentMethod === "upi" && !qrCode)}
-                style={{ 
-                  backgroundColor: paymentMethod === "cod" ? "#EF4444" : 
-                                 paymentMethod === "upi" ? "#3B82F6" : "#10B981" 
-                }}
-              >
-                {isProcessing ? (
-                  <>
-                    <span className="spinner"></span>
-                    Processing...
-                  </>
-                ) : paymentMethod === "cod" ? (
-                  "Confirm COD Order"
-                ) : (
-                  "Complete Payment"
-                )}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M6 12L10 8L6 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
+              {paymentMethod !== "upi" && (
+                <button 
+                  type="submit" 
+                  className="btn-primary-x7y"
+                  disabled={!paymentMethod || isProcessing || 
+                    (paymentMethod !== "cod" && !transactionId)}
+                  style={{ 
+                    backgroundColor: paymentMethod === "cod" ? "#EF4444" : "#10B981"
+                  }}
+                >
+                  {isProcessing ? (
+                    <>
+                      <span className="spinner-x7y"></span>
+                      Processing...
+                    </>
+                  ) : paymentMethod === "cod" ? (
+                    "Confirm COD Order"
+                  ) : (
+                    "Complete Payment"
+                  )}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 12L10 8L6 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              )}
             </div>
             
-            <div className="step-progress">
-              <div className="progress-container">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: '66%' }}></div>
+            <div className="step-progress-x7y">
+              <div className="progress-container-x7y">
+                <div className="progress-bar-x7y">
+                  <div className="progress-fill-x7y" style={{ width: '66%' }}></div>
                 </div>
-                <div className="step-labels">
-                  <span className="step-label">Location</span>
-                  <span className="step-label">Date & Time</span>
-                  <span className="step-label">Vehicle</span>
-                  <span className="step-label active">Payment</span>
-                  <span className="step-label">Summary</span>
-                  <span className="step-label">Receipt</span>
+                <div className="step-labels-x7y">
+                  <span className="step-label-x7y">Location</span>
+                  <span className="step-label-x7y">Date & Time</span>
+                  <span className="step-label-x7y">Vehicle</span>
+                  <span className="step-label-x7y active">Payment</span>
+                  <span className="step-label-x7y">Summary</span>
+                  <span className="step-label-x7y">Receipt</span>
                 </div>
               </div>
             </div>

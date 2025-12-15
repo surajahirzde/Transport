@@ -101,78 +101,78 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
   const hasAdditionalServices = prices.additionalServicesTotal > 0;
 
   return (
-    <div className="summary-container">
-      <div className="summary-header">
-        <div className="step-indicator">
-          <span className="step-badge">5</span>
+    <div className="summary-container-a2b">
+      <div className="summary-header-a2b">
+        <div className="step-indicator-a2b">
+          <span className="step-badge-a2b">5</span>
           <div>
-            <h1 className="summary-title">Order Summary</h1>
-            <p className="summary-subtitle">Review all details before confirming your order</p>
+            <h1 className="summary-title-a2b">Order Summary</h1>
+            <p className="summary-subtitle-a2b">Review all details before confirming your order</p>
           </div>
         </div>
       </div>
 
-      <div className="summary-content">
+      <div className="summary-content-a2b">
         {/* Order ID Preview */}
-        <div className="order-preview">
-          <div className="preview-icon">📋</div>
-          <div className="preview-content">
-            <div className="preview-title">Ready to Confirm</div>
-            <div className="preview-text">
+        <div className="order-preview-a2b">
+          <div className="preview-icon-a2b">📋</div>
+          <div className="preview-content-a2b">
+            <div className="preview-title-a2b">Ready to Confirm</div>
+            <div className="preview-text-a2b">
               Your shipment from <strong>{data?.fromCity || 'City'}</strong> to <strong>{data?.toCity || 'City'}</strong> is ready to be scheduled.
             </div>
           </div>
         </div>
 
         {/* Shipment Details */}
-        <div className="summary-section">
-          <div className="section-header">
-            <div className="section-icon">📍</div>
+        <div className="summary-section-a2b">
+          <div className="section-header-a2b">
+            <div className="section-icon-a2b">📍</div>
             <div>
-              <h3 className="section-title">Shipment Details</h3>
-              <p className="section-subtitle">Pickup and delivery locations</p>
+              <h3 className="section-title-a2b">Shipment Details</h3>
+              <p className="section-subtitle-a2b">Pickup and delivery locations</p>
             </div>
           </div>
           
-          <div className="details-card">
-            <div className="locations-grid">
-              <div className="location-card pickup">
-                <div className="location-header">
-                  <div className="location-icon">📦</div>
+          <div className="details-card-a2b">
+            <div className="locations-grid-a2b">
+              <div className="location-card-a2b pickup-a2b">
+                <div className="location-header-a2b">
+                  <div className="location-icon-a2b">📦</div>
                   <h4>Pickup Location</h4>
                 </div>
-                <div className="location-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Address:</span>
-                    <span className="detail-value">{data?.fromAddress || "Not specified"}</span>
+                <div className="location-details-a2b">
+                  <div className="detail-item-a2b">
+                    <span className="detail-label-a2b">Address:</span>
+                    <span className="detail-value-a2b">{data?.fromAddress || "Not specified"}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">City/State:</span>
-                    <span className="detail-value">{data?.fromCity || ""}, {data?.fromState || ""}</span>
+                  <div className="detail-item-a2b">
+                    <span className="detail-label-a2b">City/State:</span>
+                    <span className="detail-value-a2b">{data?.fromCity || ""}, {data?.fromState || ""}</span>
                   </div>
                 </div>
               </div>
               
-              <div className="route-arrow">
+              <div className="route-arrow-a2b">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                   <path d="M15 10L25 20L15 30" stroke="#3B82F6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <div className="route-distance">{data?.distance || "0"} km</div>
+                <div className="route-distance-a2b">{data?.distance || "0"} km</div>
               </div>
               
-              <div className="location-card delivery">
-                <div className="location-header">
-                  <div className="location-icon">🏠</div>
+              <div className="location-card-a2b delivery-a2b">
+                <div className="location-header-a2b">
+                  <div className="location-icon-a2b">🏠</div>
                   <h4>Delivery Location</h4>
                 </div>
-                <div className="location-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Address:</span>
-                    <span className="detail-value">{data?.toAddress || "Not specified"}</span>
+                <div className="location-details-a2b">
+                  <div className="detail-item-a2b">
+                    <span className="detail-label-a2b">Address:</span>
+                    <span className="detail-value-a2b">{data?.toAddress || "Not specified"}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">City/State:</span>
-                    <span className="detail-value">{data?.toCity || ""}, {data?.toState || ""}</span>
+                  <div className="detail-item-a2b">
+                    <span className="detail-label-a2b">City/State:</span>
+                    <span className="detail-value-a2b">{data?.toCity || ""}, {data?.toState || ""}</span>
                   </div>
                 </div>
               </div>
@@ -181,62 +181,62 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
         </div>
 
         {/* Package & Schedule */}
-        <div className="summary-section">
-          <div className="section-header">
-            <div className="section-icon">📦</div>
+        <div className="summary-section-a2b">
+          <div className="section-header-a2b">
+            <div className="section-icon-a2b">📦</div>
             <div>
-              <h3 className="section-title">Package & Schedule</h3>
-              <p className="section-subtitle">Package details and delivery timeline</p>
+              <h3 className="section-title-a2b">Package & Schedule</h3>
+              <p className="section-subtitle-a2b">Package details and delivery timeline</p>
             </div>
           </div>
           
-          <div className="details-card">
-            <div className="package-grid">
-              <div className="package-item">
-                <div className="package-icon">⚖️</div>
-                <div className="package-info">
-                  <div className="package-label">Weight</div>
-                  <div className="package-value">{data?.weight || "1"} kg</div>
+          <div className="details-card-a2b">
+            <div className="package-grid-a2b">
+              <div className="package-item-a2b">
+                <div className="package-icon-a2b">⚖️</div>
+                <div className="package-info-a2b">
+                  <div className="package-label-a2b">Weight</div>
+                  <div className="package-value-a2b">{data?.weight || "1"} kg</div>
                 </div>
               </div>
               
-              <div className="package-item">
-                <div className="package-icon">📏</div>
-                <div className="package-info">
-                  <div className="package-label">Distance</div>
-                  <div className="package-value">{data?.distance || "0"} km</div>
+              <div className="package-item-a2b">
+                <div className="package-icon-a2b">📏</div>
+                <div className="package-info-a2b">
+                  <div className="package-label-a2b">Distance</div>
+                  <div className="package-value-a2b">{data?.distance || "0"} km</div>
                 </div>
               </div>
               
-              <div className="package-item">
-                <div className="package-icon">📅</div>
-                <div className="package-info">
-                  <div className="package-label">Delivery Date</div>
-                  <div className="package-value">{formatDate(data?.selectedDate)}</div>
+              <div className="package-item-a2b">
+                <div className="package-icon-a2b">📅</div>
+                <div className="package-info-a2b">
+                  <div className="package-label-a2b">Delivery Date</div>
+                  <div className="package-value-a2b">{formatDate(data?.selectedDate)}</div>
                 </div>
               </div>
               
-              <div className="package-item">
-                <div className="package-icon">⏰</div>
-                <div className="package-info">
-                  <div className="package-label">Time Slot</div>
-                  <div className="package-value">{data?.selectedTimeSlot || "Not selected"}</div>
+              <div className="package-item-a2b">
+                <div className="package-icon-a2b">⏰</div>
+                <div className="package-info-a2b">
+                  <div className="package-label-a2b">Time Slot</div>
+                  <div className="package-value-a2b">{data?.selectedTimeSlot || "Not selected"}</div>
                 </div>
               </div>
               
-              <div className="package-item">
-                <div className="package-icon">🚀</div>
-                <div className="package-info">
-                  <div className="package-label">Delivery Speed</div>
-                  <div className="package-value">{getDeliveryType()}</div>
+              <div className="package-item-a2b">
+                <div className="package-icon-a2b">🚀</div>
+                <div className="package-info-a2b">
+                  <div className="package-label-a2b">Delivery Speed</div>
+                  <div className="package-value-a2b">{getDeliveryType()}</div>
                 </div>
               </div>
               
-              <div className="package-item">
-                <div className="package-icon">🏷️</div>
-                <div className="package-info">
-                  <div className="package-label">Package Type</div>
-                  <div className="package-value">{data?.packageType?.toUpperCase() || "GENERAL"}</div>
+              <div className="package-item-a2b">
+                <div className="package-icon-a2b">🏷️</div>
+                <div className="package-info-a2b">
+                  <div className="package-label-a2b">Package Type</div>
+                  <div className="package-value-a2b">{data?.packageType?.toUpperCase() || "GENERAL"}</div>
                 </div>
               </div>
             </div>
@@ -244,88 +244,88 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
         </div>
 
         {/* Vehicle & Services */}
-        <div className="summary-section">
-          <div className="section-header">
-            <div className="section-icon">🚚</div>
+        <div className="summary-section-a2b">
+          <div className="section-header-a2b">
+            <div className="section-icon-a2b">🚚</div>
             <div>
-              <h3 className="section-title">Vehicle & Services</h3>
-              <p className="section-subtitle">Selected transportation and add-ons</p>
+              <h3 className="section-title-a2b">Vehicle & Services</h3>
+              <p className="section-subtitle-a2b">Selected transportation and add-ons</p>
             </div>
           </div>
           
-          <div className="details-card">
-            <div className="vehicle-summary">
-              <div className="vehicle-header">
-                <div className="vehicle-icon">🚛</div>
-                <div className="vehicle-info">
-                  <div className="vehicle-name">{data?.vehicleName || "Not selected"}</div>
-                  <div className="vehicle-specs">Vehicle for your shipment</div>
+          <div className="details-card-a2b">
+            <div className="vehicle-summary-a2b">
+              <div className="vehicle-header-a2b">
+                <div className="vehicle-icon-a2b">🚛</div>
+                <div className="vehicle-info-a2b">
+                  <div className="vehicle-name-a2b">{data?.vehicleName || "Not selected"}</div>
+                  <div className="vehicle-specs-a2b">Vehicle for your shipment</div>
                 </div>
-                <div className="vehicle-price">+₹{prices.vehiclePrice.toLocaleString('en-IN')}</div>
+                <div className="vehicle-price-a2b">+₹{prices.vehiclePrice.toLocaleString('en-IN')}</div>
               </div>
             </div>
             
             {hasAdditionalServices && (
-              <div className="services-summary">
-                <div className="services-title">Additional Services:</div>
-                <div className="services-list">
+              <div className="services-summary-a2b">
+                <div className="services-title-a2b">Additional Services:</div>
+                <div className="services-list-a2b">
                   {prices.helperPrice > 0 && (
-                    <div className="service-item">
-                      <div className="service-info">
-                        <div className="service-icon">👷</div>
-                        <div className="service-name">Loading Helper</div>
+                    <div className="service-item-a2b">
+                      <div className="service-info-a2b">
+                        <div className="service-icon-a2b">👷</div>
+                        <div className="service-name-a2b">Loading Helper</div>
                       </div>
-                      <div className="service-price">+₹{prices.helperPrice}</div>
+                      <div className="service-price-a2b">+₹{prices.helperPrice}</div>
                     </div>
                   )}
                   
                   {prices.insurancePrice > 0 && (
-                    <div className="service-item">
-                      <div className="service-info">
-                        <div className="service-icon">🛡️</div>
-                        <div className="service-name">Premium Insurance</div>
+                    <div className="service-item-a2b">
+                      <div className="service-info-a2b">
+                        <div className="service-icon-a2b">🛡️</div>
+                        <div className="service-name-a2b">Premium Insurance</div>
                       </div>
-                      <div className="service-price">+₹{prices.insurancePrice}</div>
+                      <div className="service-price-a2b">+₹{prices.insurancePrice}</div>
                     </div>
                   )}
                   
                   {prices.packagingPrice > 0 && (
-                    <div className="service-item">
-                      <div className="service-info">
-                        <div className="service-icon">📦</div>
-                        <div className="service-name">Professional Packaging</div>
+                    <div className="service-item-a2b">
+                      <div className="service-info-a2b">
+                        <div className="service-icon-a2b">📦</div>
+                        <div className="service-name-a2b">Professional Packaging</div>
                       </div>
-                      <div className="service-price">+₹{prices.packagingPrice}</div>
+                      <div className="service-price-a2b">+₹{prices.packagingPrice}</div>
                     </div>
                   )}
                   
                   {prices.fastrackPrice > 0 && (
-                    <div className="service-item">
-                      <div className="service-info">
-                        <div className="service-icon">⚡</div>
-                        <div className="service-name">Fast-Track Delivery</div>
+                    <div className="service-item-a2b">
+                      <div className="service-info-a2b">
+                        <div className="service-icon-a2b">⚡</div>
+                        <div className="service-name-a2b">Fast-Track Delivery</div>
                       </div>
-                      <div className="service-price">+₹{prices.fastrackPrice}</div>
+                      <div className="service-price-a2b">+₹{prices.fastrackPrice}</div>
                     </div>
                   )}
                   
                   {prices.weekendPrice > 0 && (
-                    <div className="service-item">
-                      <div className="service-info">
-                        <div className="service-icon">🗓️</div>
-                        <div className="service-name">Weekend Delivery</div>
+                    <div className="service-item-a2b">
+                      <div className="service-info-a2b">
+                        <div className="service-icon-a2b">🗓️</div>
+                        <div className="service-name-a2b">Weekend Delivery</div>
                       </div>
-                      <div className="service-price">+₹{prices.weekendPrice}</div>
+                      <div className="service-price-a2b">+₹{prices.weekendPrice}</div>
                     </div>
                   )}
                   
                   {prices.nightPrice > 0 && (
-                    <div className="service-item">
-                      <div className="service-info">
-                        <div className="service-icon">🌙</div>
-                        <div className="service-name">Night Delivery</div>
+                    <div className="service-item-a2b">
+                      <div className="service-info-a2b">
+                        <div className="service-icon-a2b">🌙</div>
+                        <div className="service-name-a2b">Night Delivery</div>
                       </div>
-                      <div className="service-price">+₹{prices.nightPrice}</div>
+                      <div className="service-price-a2b">+₹{prices.nightPrice}</div>
                     </div>
                   )}
                 </div>
@@ -335,70 +335,70 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
         </div>
 
         {/* Payment Summary */}
-        <div className="summary-section">
-          <div className="section-header">
-            <div className="section-icon">💰</div>
+        <div className="summary-section-a2b">
+          <div className="section-header-a2b">
+            <div className="section-icon-a2b">💰</div>
             <div>
-              <h3 className="section-title">Payment Summary</h3>
-              <p className="section-subtitle">Breakdown of all charges</p>
+              <h3 className="section-title-a2b">Payment Summary</h3>
+              <p className="section-subtitle-a2b">Breakdown of all charges</p>
             </div>
           </div>
           
-          <div className="details-card payment-card">
-            <div className="payment-breakdown">
-              <div className="payment-item">
+          <div className="details-card-a2b payment-card-a2b">
+            <div className="payment-breakdown-a2b">
+              <div className="payment-item-a2b">
                 <span>Base Fare:</span>
                 <span>₹{prices.basePrice.toLocaleString('en-IN')}</span>
               </div>
               
               {prices.fastDeliveryCharge > 0 && (
-                <div className="payment-item highlight">
+                <div className="payment-item-a2b highlight-a2b">
                   <span>Express Delivery Charge:</span>
                   <span>+₹{prices.fastDeliveryCharge.toLocaleString('en-IN')}</span>
                 </div>
               )}
               
-              <div className="payment-item">
+              <div className="payment-item-a2b">
                 <span>Vehicle Charges:</span>
                 <span>+₹{prices.vehiclePrice.toLocaleString('en-IN')}</span>
               </div>
               
               {hasAdditionalServices && (
-                <div className="payment-item">
+                <div className="payment-item-a2b">
                   <span>Additional Services:</span>
                   <span>+₹{prices.additionalServicesTotal.toLocaleString('en-IN')}</span>
                 </div>
               )}
               
-              <div className="payment-divider"></div>
+              <div className="payment-divider-a2b"></div>
               
-              <div className="payment-total">
+              <div className="payment-total-a2b">
                 <span>Total Amount:</span>
-                <span className="total-amount">₹{prices.total.toLocaleString('en-IN')}</span>
+                <span className="total-amount-a2b">₹{prices.total.toLocaleString('en-IN')}</span>
               </div>
               
-              <div className="payment-method">
+              <div className="payment-method-a2b">
                 <span>Payment Method:</span>
-                <span className="method-badge">{data?.paymentName || "Not selected"}</span>
+                <span className="method-badge-a2b">{data?.paymentName || "Not selected"}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Terms & Conditions */}
-        <div className="summary-section">
-          <div className="terms-card">
-            <div className="terms-header">
-              <input type="checkbox" id="termsCheckbox" className="terms-checkbox" required />
-              <label htmlFor="termsCheckbox" className="terms-label">
-                <span className="terms-icon">✅</span>
-                <span className="terms-text">
+        <div className="summary-section-a2b">
+          <div className="terms-card-a2b">
+            <div className="terms-header-a2b">
+              <input type="checkbox" id="termsCheckbox-a2b" className="terms-checkbox-a2b" required />
+              <label htmlFor="termsCheckbox-a2b" className="terms-label-a2b">
+                <span className="terms-icon-a2b">✅</span>
+                <span className="terms-text-a2b">
                   I agree to the <strong>Terms & Conditions</strong> and confirm that all information provided is accurate.
                   I understand that any incorrect information may result in additional charges or delivery delays.
                 </span>
               </label>
             </div>
-            <div className="terms-note">
+            <div className="terms-note-a2b">
               By confirming this order, you agree to our shipping policies, cancellation terms, and privacy policy.
               A cancellation fee may apply if cancelled after 1 hour of confirmation.
             </div>
@@ -406,11 +406,11 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
         </div>
 
         {/* Navigation */}
-        <div className="summary-navigation">
-          <div className="navigation-buttons">
+        <div className="summary-navigation-a2b">
+          <div className="navigation-buttons-a2b">
             <button 
               type="button" 
-              className="btn-secondary"
+              className="btn-secondary-a2b"
               onClick={prevStep}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -421,7 +421,7 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
             
             <button 
               type="button" 
-              className="btn-primary"
+              className="btn-primary-a2b"
               onClick={handleConfirmOrder}
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -432,18 +432,18 @@ const OrderSummary = ({ data = {}, updateData, nextStep, prevStep }) => {
             </button>
           </div>
           
-          <div className="step-progress">
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: '83%' }}></div>
+          <div className="step-progress-a2b">
+            <div className="progress-container-a2b">
+              <div className="progress-bar-a2b">
+                <div className="progress-fill-a2b" style={{ width: '83%' }}></div>
               </div>
-              <div className="step-labels">
-                <span className="step-label">Location</span>
-                <span className="step-label">Date & Time</span>
-                <span className="step-label">Vehicle</span>
-                <span className="step-label">Payment</span>
-                <span className="step-label active">Summary</span>
-                <span className="step-label">Receipt</span>
+              <div className="step-labels-a2b">
+                <span className="step-label-a2b">Location</span>
+                <span className="step-label-a2b">Date & Time</span>
+                <span className="step-label-a2b">Vehicle</span>
+                <span className="step-label-a2b">Payment</span>
+                <span className="step-label-a2b active">Summary</span>
+                <span className="step-label-a2b">Receipt</span>
               </div>
             </div>
           </div>

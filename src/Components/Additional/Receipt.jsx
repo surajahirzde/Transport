@@ -1,521 +1,366 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Additional/styles/Receipt.css';
+import { useNavigate } from 'react-router-dom';
 
-const Receipt = ({ data = {}, prevStep }) => {
-  // Scroll to top on component mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  const [orderDetails, setOrderDetails] = useState({});
-  const [isPrinting, setIsPrinting] = useState(false);
-  const [timer, setTimer] = useState(10);
-
-  // Calculate all prices
-  const calculatePrices = () => {
-    const basePrice = Number(data?.estimatedPrice) || 0;
-    const fastDeliveryCharge = Number(data?.fastDeliveryCharge) || 0;
-    const vehiclePrice = Number(data?.vehiclePrice) || 0;
-    
-    // All 6 additional services
-    const helperPrice = data?.helperService ? 150 : 0;
-    const insurancePrice = data?.insuranceService ? 300 : 0;
-    const packagingPrice = data?.packagingService ? 200 : 0;
-    const fastrackPrice = data?.fastrackService ? 500 : 0;
-    const weekendPrice = data?.weekendService ? 250 : 0;
-    const nightPrice = data?.nightService ? 350 : 0;
-    
-    const additionalServicesTotal = helperPrice + insurancePrice + packagingPrice + fastrackPrice + weekendPrice + nightPrice;
-    
-    const subtotal = basePrice + vehiclePrice + additionalServicesTotal;
-    const total = subtotal + fastDeliveryCharge;
-    
-    return {
-      basePrice,
-      fastDeliveryCharge,
-      vehiclePrice,
-      helperPrice,
-      insurancePrice,
-      packagingPrice,
-      fastrackPrice,
-      weekendPrice,
-      nightPrice,
-      additionalServicesTotal,
-      subtotal,
-      total
-    };
+const Receipt = ({ data = {} }) => {
+  const navigate = useNavigate();
+  const [status, setStatus] = useState('confirmed');
+  const [trackingId, setTrackingId] = useState('');
+  
+  // Generate tracking ID based on phone number
+  const generateTrackingId = () => {
+      // If no phone number, generate random 10-digit number
+      const randomNum = Math.floor(1000000000 + Math.random() * 9000000000);
+      return `#${randomNum}`;
   };
 
-  useEffect(() => {
-    const prices = calculatePrices();
-    
-    // Generate tracking ID if not exists
-    const generateTrackingId = () => {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let trackingId = 'TRK';
-      for (let i = 0; i < 9; i++) {
-        trackingId += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return trackingId;
-    };
 
-    // Generate order ID
-    const generateOrderId = () => {
-      const now = new Date();
-      const year = now.getFullYear().toString().slice(-2);
-      const month = (now.getMonth() + 1).toString().padStart(2, '0');
-      const random = Math.floor(1000 + Math.random() * 9000);
-      return `ORD${year}${month}${random}`;
-    };
 
-    // Calculate delivery date based on urgency
-    const getDeliveryDate = () => {
-      const today = new Date();
-      let deliveryDate = new Date(today);
-      
-      switch(data?.deliveryUrgency) {
-        case 'same-day':
-          deliveryDate.setDate(today.getDate());
-          break;
-        case 'express':
-          deliveryDate.setDate(today.getDate() + 2);
-          break;
-        default:
-          deliveryDate.setDate(today.getDate() + 4);
-      }
-      
-      return deliveryDate.toLocaleDateString('en-IN', { 
-        weekday: 'long', 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-      });
-    };
 
-    const trackingId = data?.trackingId || generateTrackingId();
-    const orderId = data?.orderId || generateOrderId();
-    const now = new Date();
-    
-    setOrderDetails({
-      orderId,
-      trackingId,
-      orderDate: data?.orderDate || now.toLocaleDateString('en-IN', { 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-      }),
-      orderTime: data?.orderTime || now.toLocaleTimeString('en-IN', { 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: true 
-      }),
-      totalAmount: prices.total,
-      deliveryDate: getDeliveryDate(),
-      deliveryExecutive: {
-        name: "Rajesh Kumar",
-        phone: "+91 98765 43210",
-        vehicle: data?.vehicleName || "Transport Vehicle",
-        rating: "4.8"
-      },
-      prices
-    });
 
-    // Start countdown timer
-    const countdown = setInterval(() => {
-      setTimer(prev => {
-        if (prev <= 1) {
-          clearInterval(countdown);
-          window.location.href = '/';
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 10000);
 
-    return () => clearInterval(countdown);
-  }, [data]);
-
-  const handlePrint = () => {
-    setIsPrinting(true);
-    const originalTitle = document.title;
-    document.title = `Receipt_${orderDetails.orderId}`;
-    
-    setTimeout(() => {
-      window.print();
-      setTimeout(() => {
-        document.title = originalTitle;
-        setIsPrinting(false);
-      }, 500);
-    }, 500);
-  };
-
-  const handleShare = async () => {
-    const shareData = {
-      title: 'Shipping Receipt - QuickShip Express',
-      text: `Your shipment #${orderDetails.orderId} is confirmed! Track using ID: ${orderDetails.trackingId}. Amount: ₹${orderDetails.totalAmount}`,
-      url: window.location.href,
-    };
-
+  
+  // Save order to localStorage for tracking
+  const saveOrderToStorage = () => {
     try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        // Fallback for browsers without Web Share API
-        await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
-        alert('Receipt link copied to clipboard!');
-      }
-    } catch (err) {
-      console.log('Error sharing:', err);
+      // Get existing orders
+      const existingOrders = JSON.parse(localStorage.getItem('shippingOrders') || '[]');
+    
+      // Create order object
+      const order = {
+        id: Date.now().toString(),
+        trackingId: generateTrackingId(),
+        phone: JSON.parse(localStorage.getItem('current_user'))?.phone || 'UNKNOWN',
+        fromCity: data.fromCity || '',
+        toCity: data.toCity || '',
+        fromState: data.fromState || '',
+        toState: data.toState || '',
+        fromAddress: data.fromAddress || '',
+        toAddress: data.toAddress || '',
+        weight: data.weight || '1',
+        distance: data.distance || '0',
+        travelTime: data.travelTime || '',
+        vehicleName: data.vehicleName || '',
+        vehicleType: data.vehicleType || '',
+        estimatedPrice: data.estimatedPrice || 0,
+        totalAmount: data.total || 0,
+        paymentName: data.paymentName || 'UPI',
+        selectedDate: data.selectedDate || '',
+        selectedTimeSlot: data.selectedTimeSlot || '',
+        deliveryUrgency: data.deliveryUrgency || 'standard',
+        packageType: data.packageType || 'general',
+        createdAt: new Date().toISOString(),
+        status: 'confirmed',
+        pickupDate: data.selectedDate || '',
+        pickupTime: data.selectedTimeSlot || '',
+        
+        // Additional services
+        helperService: data.helperService || false,
+        insuranceService: data.insuranceService || false,
+        packagingService: data.packagingService || false,
+        fastrackService: data.fastrackService || false,
+        weekendService: data.weekendService || false,
+        nightService: data.nightService || false
+      };
+      
+      // Add to existing orders
+      existingOrders.unshift(order);
+      
+      // Save to localStorage
+      localStorage.setItem('shippingOrders', JSON.stringify(existingOrders));
+      
+      // Also save to sessionStorage for current session
+      sessionStorage.setItem('currentOrder', JSON.stringify(order));
+      
+      // Save to receiptData for immediate access
+      localStorage.setItem('receiptData', JSON.stringify(order));
+      
+      console.log('Order saved to storage:', order);
+      
+    } catch (error) {
+      console.error('Error saving order to storage:', error);
     }
   };
 
-  const handleDownload = () => {
+  // Initialize tracking ID and save order
+  useEffect(() => {
+    // Generate tracking ID from phone number
+    const generatedId = generateTrackingId();
+    setTrackingId(generatedId);
+    
+    // Save order to localStorage
+    if (generatedId) {
+      setTimeout(() => {
+        saveOrderToStorage(data);
+      }, 100);
+    }
+  }, [data]);
+
+  // Simulate status progression
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      setStatus('scheduled');
+    }, 3000);
+    
+    const timer2 = setTimeout(() => {
+      setStatus('ontheway');
+    }, 6000);
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
+
+  const statusSteps = [
+    { 
+      id: 'confirmed', 
+      label: 'Order Confirmed', 
+      icon: '✅', 
+      description: 'Your order has been confirmed successfully',
+      time: 'Just now',
+      active: status === 'confirmed' || status === 'scheduled' || status === 'ontheway'
+    },
+    { 
+      id: 'scheduled', 
+      label: 'Pickup Scheduled', 
+      icon: '📅', 
+      description: 'Pickup scheduled with our team',
+      time: 'In progress',
+      active: status === 'scheduled' || status === 'ontheway'
+    },
+    { 
+      id: 'ontheway', 
+      label: 'On The Way', 
+      icon: '🚚', 
+      description: 'Your package is on the way to delivery',
+      time: 'Upcoming',
+      active: status === 'ontheway'
+    },
+    { 
+      id: 'delivered', 
+      label: 'Delivered', 
+      icon: '🏠', 
+      description: 'Package delivered successfully',
+      time: 'Estimated 3-5 hours',
+      active: false
+    }
+  ];
+
+  // Function to handle live tracking
+  const handleLiveTracking = () => {
+    if (trackingId) {
+      navigate(`/tracking?id=${trackingId.replace('', '')}`);
+    } else {
+      navigate('/tracking');
+    }
+  };
+
+  // Function to share order details
+  const handleShareOrder = () => {
+    const shareText = `Track my shipment: ${trackingId}\nFrom: ${data.fromCity || ''} to ${data.toCity || ''}\nAmount: ₹${data.total || 0}\n\nTrack here: ${window.location.origin}/tracking?id=${trackingId.replace('#', '')}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'My Shipment Details',
+        text: shareText,
+        url: window.location.href,
+      });
+    } else {
+      navigator.clipboard.writeText(shareText);
+      alert('Tracking details copied to clipboard!');
+    }
+  };
+
+  // Function to download receipt
+  const handleDownloadReceipt = () => {
     const receiptText = `
-QUICKSHIP EXPRESS - SHIPPING RECEIPT
-========================================
-ORDER ID: ${orderDetails.orderId}
-TRACKING ID: ${orderDetails.trackingId}
-ORDER DATE: ${orderDetails.orderDate}
-ORDER TIME: ${orderDetails.orderTime}
-----------------------------------------
-SHIPMENT DETAILS:
-From: ${data?.fromAddress || ''}
-      ${data?.fromCity || ''}, ${data?.fromState || ''}
-To:   ${data?.toAddress || ''}
-      ${data?.toCity || ''}, ${data?.toState || ''}
-----------------------------------------
-PACKAGE INFO:
-Weight: ${data?.weight || '1'} kg
-Distance: ${data?.distance || '0'} km
-Vehicle: ${data?.vehicleName || 'Not selected'}
-Delivery Type: ${data?.deliveryUrgency || 'Standard'}
-----------------------------------------
-PAYMENT SUMMARY:
-Base Fare: ₹${orderDetails.prices?.basePrice || 0}
-${orderDetails.prices?.fastDeliveryCharge > 0 ? `Express Delivery: ₹${orderDetails.prices?.fastDeliveryCharge}\n` : ''}
-Vehicle Charges: ₹${orderDetails.prices?.vehiclePrice || 0}
-${orderDetails.prices?.additionalServicesTotal > 0 ? `Additional Services: ₹${orderDetails.prices?.additionalServicesTotal}\n` : ''}
-TOTAL AMOUNT: ₹${orderDetails.totalAmount}
-Payment Method: ${data?.paymentName || 'Not specified'}
-----------------------------------------
-DELIVERY EXECUTIVE:
-Name: ${orderDetails.deliveryExecutive?.name}
-Contact: ${orderDetails.deliveryExecutive?.phone}
-Vehicle: ${orderDetails.deliveryExecutive?.vehicle}
-Expected Delivery: ${orderDetails.deliveryDate}
-----------------------------------------
-SUPPORT:
-Call: 1800-123-4567
-Email: support@quickship.com
-========================================
-Thank you for choosing QuickShip Express!
+SHIPMENT RECEIPT
+================
+Tracking ID: ${trackingId}
+Order Date: ${data.orderDate || new Date().toLocaleDateString('en-IN')}
+Order Time: ${data.orderTime || new Date().toLocaleTimeString('en-IN')}
+----------------
+FROM:
+${data.fromAddress || ''}
+${data.fromCity || ''}, ${data.fromState || ''}
+----------------
+TO:
+${data.toAddress || ''}
+${data.toCity || ''}, ${data.toState || ''}
+----------------
+PACKAGE DETAILS:
+Weight: ${data.weight || '1'} kg
+Distance: ${data.distance || '0'} km
+Vehicle: ${data.vehicleName || ''}
+Travel Time: ${data.travelTime || ''}
+----------------
+PAYMENT:
+Amount: ₹${data.total || 0}
+Method: ${data.paymentName || 'UPI'}
+----------------
+STATUS: ${status.toUpperCase()}
+================
+Thank you for choosing our service!
     `.trim();
 
     const blob = new Blob([receiptText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Receipt_${orderDetails.orderId}.txt`;
+    a.download = `Receipt_${trackingId}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
-  const handleNewShipment = () => {
-    window.location.href = '/';
-  };
-
-  if (!orderDetails.orderId) {
-    return (
-      <div className="receipt-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading receipt...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="receipt-container">
+    <div className="receipt-container-z8x">
       {/* Header */}
-      <div className="receipt-header">
-        <div className="step-indicator">
-          <span className="step-badge">6</span>
-          <div>
-            <h1 className="receipt-title">Order Confirmed</h1>
-            <p className="receipt-subtitle">Your shipment has been scheduled successfully</p>
-          </div>
+      <div className="receipt-header-z8x">
+        <div className="success-badge-z8x">
+          <span className="success-icon-z8x">🎉</span>
+          <h1 className="success-title-z8x">Order Confirmed!</h1>
+          <p className="success-subtitle-z8x">Your shipment has been scheduled successfully</p>
         </div>
       </div>
 
-      {/* Success Message */}
-      <div className="success-message">
-        <div className="success-icon">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="40" r="40" fill="#10B981"/>
-            <path d="M25 40L35 50L55 30" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
-        <h2>Payment Successful!</h2>
-        <p>Your order #{orderDetails.orderId} has been confirmed and is being processed.</p>
-      </div>
-
-      {/* Receipt Card */}
-      <div className="receipt-card">
-        {/* Company Header */}
-        <div className="company-header">
-          <div className="company-info">
-            <div className="company-logo">🚚</div>
+      {/* Tracking ID & Details */}
+      <div className="receipt-section-z8x">
+        <div className="tracking-card-z8x">
+          <div className="tracking-header-z8x">
+            <div className="tracking-icon-z8x">📦</div>
             <div>
-              <h3>QuickShip Express</h3>
-              <p>Fast & Reliable Delivery Services</p>
+              <h3>Tracking ID: <span className="tracking-id-z8x">{trackingId || '#8810300724'}</span></h3>
+              <p className="tracking-note-z8x">Use this ID to track your shipment</p>
             </div>
           </div>
-          <div className="receipt-status">
-            <span className="status-badge">CONFIRMED</span>
-            <div className="receipt-date">{orderDetails.orderDate}</div>
-          </div>
-        </div>
-
-        {/* Order Info */}
-        <div className="order-info-section">
-          <div className="info-grid">
-            <div className="info-item">
-              <span className="info-label">Order ID</span>
-              <span className="info-value highlight">{orderDetails.orderId}</span>
+          
+          <div className="order-details-grid-z8x">
+            <div className="order-detail-z8x">
+              <span className="detail-label-z8x">Order Date:</span>
+              <span className="detail-value-z8x">{data.orderDate || new Date().toLocaleDateString('en-IN')}</span>
             </div>
-            <div className="info-item">
-              <span className="info-label">Tracking ID</span>
-              <span className="info-value highlight">{orderDetails.trackingId}</span>
+            <div className="order-detail-z8x">
+              <span className="detail-label-z8x">Order Time:</span>
+              <span className="detail-value-z8x">{data.orderTime || new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</span>
             </div>
-            <div className="info-item">
-              <span className="info-label">Order Time</span>
-              <span className="info-value">{orderDetails.orderTime}</span>
+            <div className="order-detail-z8x">
+              <span className="detail-label-z8x">From:</span>
+              <span className="detail-value-z8x">{data.fromCity || 'City'}</span>
             </div>
-          </div>
-        </div>
-
-        {/* Route Info */}
-        <div className="route-section">
-          <h4 className="section-title">Shipment Route</h4>
-          <div className="route-display">
-            <div className="route-point pickup">
-              <div className="point-icon">📦</div>
-              <div className="point-details">
-                <div className="point-title">Pickup From</div>
-                <div className="point-address">{data?.fromAddress || 'Address not specified'}</div>
-                <div className="point-location">{data?.fromCity || ''}, {data?.fromState || ''}</div>
-              </div>
+            <div className="order-detail-z8x">
+              <span className="detail-label-z8x">To:</span>
+              <span className="detail-value-z8x">{data.toCity || 'City'}</span>
             </div>
-            
-            <div className="route-connection">
-              <div className="connection-line"></div>
-              <div className="distance-badge">{data?.distance || '0'} km</div>
+            <div className="order-detail-z8x">
+              <span className="detail-label-z8x">Amount Paid:</span>
+              <span className="detail-value-z8x highlight-z8x">₹{data.total?.toLocaleString('en-IN') || '0'}</span>
             </div>
-            
-            <div className="route-point delivery">
-              <div className="point-icon">🏠</div>
-              <div className="point-details">
-                <div className="point-title">Deliver To</div>
-                <div className="point-address">{data?.toAddress || 'Address not specified'}</div>
-                <div className="point-location">{data?.toCity || ''}, {data?.toState || ''}</div>
-              </div>
+            <div className="order-detail-z8x">
+              <span className="detail-label-z8x">Payment Method:</span>
+              <span className="detail-value-z8x">{data.paymentName || 'Not specified'}</span>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Package Details */}
-        <div className="details-section">
-          <h4 className="section-title">Package Details</h4>
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Weight</span>
-              <span className="detail-value">{data?.weight || '1'} kg</span>
+      {/* Delivery Status */}
+      <div className="receipt-section-z8x">
+        <h2 className="section-title-z8x">Delivery Status</h2>
+        <div className="status-timeline-z8x">
+          {statusSteps.map((step, index) => (
+            <div key={step.id} className="status-step-z8x">
+              <div className={`step-indicator-z8x ${step.active ? 'active-z8x' : ''}`}>
+                <span className="step-icon-z8x">{step.icon}</span>
+              </div>
+              <div className="step-content-z8x">
+                <div className="step-header-z8x">
+                  <h4 className={`step-title-z8x ${step.active ? 'active-z8x' : ''}`}>
+                    {step.label}
+                  </h4>
+                  <span className="step-time-z8x">{step.time}</span>
+                </div>
+                <p className="step-description-z8x">{step.description}</p>
+              </div>
+              {index < statusSteps.length - 1 && (
+                <div className={`step-connector-z8x ${step.active ? 'active-z8x' : ''}`}></div>
+              )}
             </div>
-            <div className="detail-item">
-              <span className="detail-label">Vehicle</span>
-              <span className="detail-value">{data?.vehicleName || 'Not selected'}</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Delivery Type</span>
-              <span className="detail-value">{data?.deliveryUrgency || 'Standard'}</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Package Type</span>
-              <span className="detail-value">{data?.packageType || 'General'}</span>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Delivery Executive */}
-        <div className="executive-section">
-          <h4 className="section-title">Delivery Executive</h4>
-          <div className="executive-card">
-            <div className="executive-avatar">👨‍✈️</div>
-            <div className="executive-info">
-              <div className="executive-name">{orderDetails.deliveryExecutive.name}</div>
-              <div className="executive-vehicle">{orderDetails.deliveryExecutive.vehicle}</div>
-              <div className="executive-contact">{orderDetails.deliveryExecutive.phone}</div>
-            </div>
-            <div className="executive-status">
-              <div className="status-tag">ASSIGNED</div>
-              <div className="status-note">Will contact before pickup</div>
+        {/* Show this message when status is "on the way" */}
+        {status === 'ontheway' && (
+          <div className="driver-assignment-message-z8x">
+            <div className="message-icon-z8x">⏳</div>
+            <div className="message-content-z8x">
+              <h4>Delivery Executive Assignment</h4>
+              <p>
+                Your delivery executive will be assigned within <strong>1-2 hours</strong>. 
+                Once assigned, you can view their details and contact information on the 
+                tracking page. You'll receive an SMS when the executive is on the way.
+              </p>
             </div>
           </div>
-        </div>
+        )}
+      </div>
 
-        {/* Payment Summary */}
-        <div className="payment-section">
-          <h4 className="section-title">Payment Summary</h4>
-          <div className="payment-breakdown">
-            <div className="payment-row">
-              <span>Base Fare</span>
-              <span>₹{orderDetails.prices?.basePrice.toLocaleString('en-IN')}</span>
-            </div>
-            
-            {orderDetails.prices?.fastDeliveryCharge > 0 && (
-              <div className="payment-row highlight">
-                <span>Express Delivery</span>
-                <span>+₹{orderDetails.prices?.fastDeliveryCharge.toLocaleString('en-IN')}</span>
-              </div>
-            )}
-            
-            <div className="payment-row">
-              <span>Vehicle Charges</span>
-              <span>+₹{orderDetails.prices?.vehiclePrice.toLocaleString('en-IN')}</span>
-            </div>
-            
-            {orderDetails.prices?.additionalServicesTotal > 0 && (
-              <div className="payment-row">
-                <span>Additional Services</span>
-                <span>+₹{orderDetails.prices?.additionalServicesTotal.toLocaleString('en-IN')}</span>
-              </div>
-            )}
-            
-            <div className="payment-divider"></div>
-            
-            <div className="payment-total">
-              <span>Total Amount</span>
-              <span className="total-amount">₹{orderDetails.totalAmount.toLocaleString('en-IN')}</span>
-            </div>
-            
-            <div className="payment-method">
-              <span>Payment Method</span>
-              <span className="method-badge">{data?.paymentName || 'Not specified'}</span>
-            </div>
-          </div>
+      {/* Action Buttons */}
+      <div className="receipt-section-z8x">
+        <div className="action-buttons-z8x">
+          <button 
+            className="btn-primary-z8x"
+            onClick={handleLiveTracking}
+          >
+            <span className="btn-icon-z8x">📍</span>
+            Live Tracking
+          </button>
+          
+          <button 
+            className="btn-secondary-z8x"
+            onClick={handleShareOrder}
+          >
+            <span className="btn-icon-z8x">📤</span>
+            Share Order
+          </button>
+          
+          <button 
+            className="btn-outline-z8x"
+            onClick={handleDownloadReceipt}
+          >
+            <span className="btn-icon-z8x">⬇️</span>
+            Download Receipt
+          </button>
         </div>
+      </div>
 
-        {/* Timeline */}
-        <div className="timeline-section">
-          <h4 className="section-title">Delivery Timeline</h4>
-          <div className="timeline">
-            <div className="timeline-step active">
-              <div className="step-marker"></div>
-              <div className="step-content">
-                <div className="step-title">Order Confirmed</div>
-                <div className="step-time">Today, {orderDetails.orderTime}</div>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <div className="step-marker"></div>
-              <div className="step-content">
-                <div className="step-title">Pickup Scheduled</div>
-                <div className="step-time">Tomorrow, 9 AM - 12 PM</div>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <div className="step-marker"></div>
-              <div className="step-content">
-                <div className="step-title">In Transit</div>
-                <div className="step-time">Processing shipment</div>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <div className="step-marker"></div>
-              <div className="step-content">
-                <div className="step-title">Delivery</div>
-                <div className="step-time">{orderDetails.deliveryDate}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Important Notes */}
-        <div className="notes-section">
-          <h4 className="section-title">Important Notes</h4>
-          <ul className="notes-list">
-            <li>Keep this receipt for future reference and tracking</li>
-            <li>Track your shipment using the Tracking ID provided above</li>
-            <li>Delivery executive will call 30 minutes before arrival</li>
-            <li>For queries, contact support: 1800-123-4567</li>
-            <li>Download invoice from your account within 24 hours</li>
+      {/* Important Notes */}
+      <div className="receipt-section-z8x">
+        <div className="notes-card-z8x">
+          <h3 className="notes-title-z8x">📝 Important Information</h3>
+          <ul className="notes-list-z8x">
+            <li>Keep your Tracking ID <strong>{trackingId}</strong> safe for future reference</li>
+            <li>Delivery executive details will appear on tracking page once assigned</li>
+            <li>Contact customer support for any changes or queries: 1800-123-4567</li>
+            <li>Expected delivery: {data.selectedDate || '3-5 business days'}</li>
+            <li>You'll receive real-time SMS updates on {data.fromPhone || data.toPhone || 'your registered number'}</li>
+            <li>Track your shipment at: {window.location.origin}/tracking?id={trackingId.replace('#', '')}</li>
           </ul>
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="action-buttons">
-        <button 
-          className="action-btn primary"
-          onClick={() => window.location.href = `/tracking?id=${orderDetails.trackingId}`}
-        >
-          <span className="btn-icon">📍</span>
-          Track Shipment
-        </button>
-        <button 
-          className="action-btn"
-          onClick={handlePrint}
-          disabled={isPrinting}
-        >
-          <span className="btn-icon">{isPrinting ? '⏳' : '🖨️'}</span>
-          {isPrinting ? 'Printing...' : 'Print Receipt'}
-        </button>
-        <button 
-          className="action-btn"
-          onClick={handleShare}
-        >
-          <span className="btn-icon">📤</span>
-          Share
-        </button>
-        <button 
-          className="action-btn"
-          onClick={handleDownload}
-        >
-          <span className="btn-icon">⬇️</span>
-          Download
-        </button>
-      </div>
-
-      {/* Footer */}
-      <div className="receipt-footer">
-        <div className="countdown">
-          <p>Redirecting to homepage in <span className="timer">{timer}</span> seconds...</p>
-        </div>
-        
-        <div className="footer-buttons">
-          <button 
-            className="footer-btn secondary"
-            onClick={prevStep}
-          >
-            ← Back to Summary
-          </button>
-          <button 
-            className="footer-btn primary"
-            onClick={handleNewShipment}
-          >
-            🚚 Create New Shipment
-          </button>
-        </div>
-        
-        <div className="support-info">
-          <p>
-            <strong>Need help?</strong> 
-            <span className="support-contact"> Call: 1800-123-4567 </span>
-            <span className="support-separator">|</span>
-            <span className="support-contact"> Email: support@quickship.com</span>
+      {/* Store Info */}
+      <div className="receipt-section-z8x">
+        <div className="store-info-z8x">
+          <p className="thank-you-z8x">Thank you for choosing our service! ❤️</p>
+          <p className="contact-info-z8x">
+            For support: 📞 1800-123-4567 | ✉️ support@transporter.com
           </p>
-          <p className="thank-you">Thank you for choosing QuickShip Express! ❤️</p>
+          <p className="auto-redirect-z8x">
+            You'll be redirected to tracking page in 10 seconds...
+          </p>
         </div>
       </div>
     </div>

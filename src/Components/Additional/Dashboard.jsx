@@ -1,13 +1,15 @@
 // src/Components/Additional/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
-import OrderCard from './OrderCard';
+import OrderCard from './DashboardUser';
 import { fakeOrders, fakeExecutives, getOrderProgress, statusColors, getStatusText } from '../tracking/FakeData';
 import './styles/Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   const [executives, setExecutives] = useState([]);
+  const [isAdminLogin , setIsAdminLogin] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     inTransit: 0,
@@ -15,8 +17,8 @@ const Dashboard = () => {
     pending: 0,
     revenue: 0
   });
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('all');
-
   useEffect(() => {
     // Load fake data
     setOrders(fakeOrders);
@@ -31,7 +33,14 @@ const Dashboard = () => {
     
     setStats({ total, inTransit, delivered, pending, revenue });
   }, []);
-
+  useEffect(()=>{
+  const users = JSON.parse(localStorage.getItem('current_user'));
+  const isAdmin = users && users.role === '9971230022';
+  setIsAdminLogin(isAdmin);
+  if(!isAdmin){
+    navigate('/login');
+  }
+  },[])
   const filteredOrders = orders.filter(order => {
     if (activeTab === 'all') return true;
     if (activeTab === 'active') return order.status !== 'delivered' && order.status !== 'cancelled';

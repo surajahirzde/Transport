@@ -1,5 +1,4 @@
-// src/Components/TrackingSystem/TrackingPage.jsx
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fakeExecutives, statusColors, statusIcons } from './fakeData';
 import '../tracking/styles/TrackingPage.css';
@@ -351,63 +350,63 @@ const TrackingPage = () => {
 
   if (!isTracking) {
     return (
-      <div className="tracking-container">
-        <div className="search-section">
-          <div className="search-header">
+      <div className="tracking-container-k5j">
+        <div className="search-section-k5j">
+          <div className="search-header-k5j">
             <h1>Track Your Shipment</h1>
             <p>Enter the Tracking ID from your order confirmation</p>
           </div>
           
-          <div className="search-box">
-            <div className="input-group">
-              <div className="input-icon">🔍</div>
+          <div className="search-box-k5j">
+            <div className="input-group-k5j">
+              <div className="input-icon-k5j">🔍</div>
               <input
                 type="text"
                 placeholder="Enter Tracking ID (e.g., #9876543210)"
                 value={trackingId}
                 onChange={(e) => setTrackingId(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                className="tracking-input"
+                className="tracking-input-k5j"
               />
               <button 
                 onClick={handleSearch}
-                className="search-btn"
+                className="search-btn-k5j"
               >
                 Track Shipment
               </button>
             </div>
-            <p className="input-hint">
+            <p className="input-hint-k5j">
               You received this ID in your order confirmation email and receipt
             </p>
           </div>
 
-          <div className="info-box">
+          <div className="info-box-k5j">
             <h3>📋 How Tracking Works:</h3>
-            <div className="info-steps">
-              <div className="step">
-                <div className="step-number">1</div>
-                <div className="step-content">
+            <div className="info-steps-k5j">
+              <div className="step-k5j">
+                <div className="step-number-k5j">1</div>
+                <div className="step-content-k5j">
                   <strong>Order Confirmed</strong>
                   <p>Immediately after payment</p>
                 </div>
               </div>
-              <div className="step">
-                <div className="step-number">2</div>
-                <div className="step-content">
+              <div className="step-k5j">
+                <div className="step-number-k5j">2</div>
+                <div className="step-content-k5j">
                   <strong>Pickup Scheduled</strong>
                   <p>Within 1-2 hours, executive assigned</p>
                 </div>
               </div>
-              <div className="step">
-                <div className="step-number">3</div>
-                <div className="step-content">
+              <div className="step-k5j">
+                <div className="step-number-k5j">3</div>
+                <div className="step-content-k5j">
                   <strong>In Transit</strong>
                   <p>Live location tracking starts</p>
                 </div>
               </div>
-              <div className="step">
-                <div className="step-number">4</div>
-                <div className="step-content">
+              <div className="step-k5j">
+                <div className="step-number-k5j">4</div>
+                <div className="step-content-k5j">
                   <strong>Delivered</strong>
                   <p>Package delivered to destination</p>
                 </div>
@@ -420,11 +419,11 @@ const TrackingPage = () => {
   }
 
   return (
-    <div className="tracking-container">
+    <div className="tracking-container-k5j">
       {/* Header */}
-      <div className="tracking-header">
+      <div className="tracking-header-k5j">
         <button 
-          className="back-btn"
+          className="back-btn-k5j"
           onClick={() => {
             setIsTracking(false);
             setTrackingId('');
@@ -432,9 +431,9 @@ const TrackingPage = () => {
         >
           ← Track Another
         </button>
-        <div className="header-actions">
+        <div className="header-actions-k5j">
           <button 
-            className="share-btn"
+            className="share-btn-k5j"
             onClick={handleShareTracking}
           >
             📤 Share Tracking
@@ -443,11 +442,11 @@ const TrackingPage = () => {
       </div>
 
       {/* Order Info */}
-      <div className="order-card">
-        <div className="card-header">
-          <div className="order-id-display">
+      <div className="order-card-k5j">
+        <div className="card-header-k5j">
+          <div className="order-id-display-k5j">
             <h2>{order.trackingId || `#${order.phone?.slice(-10)}`}</h2>
-            <p className="order-date">
+            <p className="order-date-k5j">
               Ordered on {new Date(order.createdAt || Date.now()).toLocaleDateString('en-IN', {
                 day: 'numeric',
                 month: 'long',
@@ -458,15 +457,15 @@ const TrackingPage = () => {
             </p>
           </div>
           <div 
-            className="status-badge"
+            className="status-badge-k5j"
             style={{ 
               backgroundColor: getStatusColor(currentStatus) + '20',
               color: getStatusColor(currentStatus),
               border: `1.5px solid ${getStatusColor(currentStatus)}`
             }}
           >
-            <span className="status-icon">{getStatusIcon(currentStatus)}</span>
-            <span className="status-text">
+            <span className="status-icon-k5j">{getStatusIcon(currentStatus)}</span>
+            <span className="status-text-k5j">
               {currentStatus === 'confirmed' && 'Order Confirmed'}
               {currentStatus === 'pickup_scheduled' && 'Pickup Scheduled'}
               {currentStatus === 'in_transit' && 'In Transit'}
@@ -476,39 +475,39 @@ const TrackingPage = () => {
         </div>
 
         {/* Route Info - REAL DATA from Shipping Flow */}
-        <div className="route-info">
-          <div className="route-point pickup">
-            <div className="point-icon">📦</div>
-            <div className="point-details">
-              <div className="point-label">Pickup From</div>
-              <div className="point-address">
+        <div className="route-info-k5j">
+          <div className="route-point-k5j pickup-k5j">
+            <div className="point-icon-k5j">📦</div>
+            <div className="point-details-k5j">
+              <div className="point-label-k5j">Pickup From</div>
+              <div className="point-address-k5j">
                 {order.fromAddress?.split(',')[0] || order.fromAddress || 'Address loading...'}
               </div>
-              <div className="point-location">
+              <div className="point-location-k5j">
                 {order.fromCity || 'City'}, {order.fromState || 'State'}
               </div>
             </div>
           </div>
           
-          <div className="route-middle">
-            <div className="distance-badge">
-              <span className="distance">{order.distance || '0'}</span>
-              <span className="unit">km</span>
+          <div className="route-middle-k5j">
+            <div className="distance-badge-k5j">
+              <span className="distance-k5j">{order.distance || '0'}</span>
+              <span className="unit-k5j">km</span>
             </div>
-            <div className="route-line"></div>
-            <div className="travel-time">
+            <div className="route-line-k5j"></div>
+            <div className="travel-time-k5j">
               ⏱️ {order.travelTime || 'Calculating route...'}
             </div>
           </div>
           
-          <div className="route-point delivery">
-            <div className="point-icon">🏠</div>
-            <div className="point-details">
-              <div className="point-label">Deliver To</div>
-              <div className="point-address">
+          <div className="route-point-k5j delivery-k5j">
+            <div className="point-icon-k5j">🏠</div>
+            <div className="point-details-k5j">
+              <div className="point-label-k5j">Deliver To</div>
+              <div className="point-address-k5j">
                 {order.toAddress?.split(',')[0] || order.toAddress || 'Address loading...'}
               </div>
-              <div className="point-location">
+              <div className="point-location-k5j">
                 {order.toCity || 'City'}, {order.toState || 'State'}
               </div>
             </div>
@@ -516,19 +515,19 @@ const TrackingPage = () => {
         </div>
 
         {/* Package Details - REAL DATA */}
-        <div className="package-details">
-          <div className="detail-item">
-            <span className="detail-label">Package Weight</span>
-            <span className="detail-value">
-              <span className="icon">⚖️</span>
+        <div className="package-details-k5j">
+          <div className="detail-item-k5j">
+            <span className="detail-label-k5j">Package Weight</span>
+            <span className="detail-value-k5j">
+              <span className="icon-k5j">⚖️</span>
               {order.weight || '1'} kg
             </span>
           </div>
           
-          <div className="detail-item">
-            <span className="detail-label">Vehicle</span>
-            <span className="detail-value">
-              <span className="icon">
+          <div className="detail-item-k5j">
+            <span className="detail-label-k5j">Vehicle</span>
+            <span className="detail-value-k5j">
+              <span className="icon-k5j">
                 {order.vehicleType === 'mini_van' && '🚐'}
                 {order.vehicleType === 'pickup_truck' && '🚚'}
                 {order.vehicleType === 'container_truck' && '🚛'}
@@ -538,10 +537,10 @@ const TrackingPage = () => {
             </span>
           </div>
           
-          <div className="detail-item">
-            <span className="detail-label">Amount</span>
-            <span className="detail-value amount">
-              <span className="icon">₹</span>
+          <div className="detail-item-k5j">
+            <span className="detail-label-k5j">Amount</span>
+            <span className="detail-value-k5j amount-k5j">
+              <span className="icon-k5j">₹</span>
               {order.estimatedPrice?.toLocaleString('en-IN') || 
                order.totalAmount?.toLocaleString('en-IN') || 
                '0'}
@@ -550,19 +549,19 @@ const TrackingPage = () => {
         </div>
 
         {/* Pickup Time */}
-        <div className="pickup-time">
-          <span className="pickup-label">📅 Pickup Scheduled:</span>
-          <span className="pickup-value">{formatPickupDisplay()}</span>
+        <div className="pickup-time-k5j">
+          <span className="pickup-label-k5j">📅 Pickup Scheduled:</span>
+          <span className="pickup-value-k5j">{formatPickupDisplay()}</span>
         </div>
       </div>
 
       {/* Progress & Timer */}
-      <div className="progress-section">
-        <div className="progress-header">
+      <div className="progress-section-k5j">
+        <div className="progress-header-k5j">
           <h3>Delivery Progress</h3>
-          <div className="timer">
-            <span className="timer-icon">⏱️</span>
-            <span className="timer-text">
+          <div className="timer-k5j">
+            <span className="timer-icon-k5j">⏱️</span>
+            <span className="timer-text-k5j">
               {timeRemaining.hours > 0 || timeRemaining.minutes > 0 
                 ? `${formatTime(timeRemaining)} remaining`
                 : 'Delivery in progress'}
@@ -570,30 +569,30 @@ const TrackingPage = () => {
           </div>
         </div>
         
-        <div className="progress-bar-container">
-          <div className="progress-bar">
+        <div className="progress-bar-container-k5j">
+          <div className="progress-bar-k5j">
             <div 
-              className="progress-fill"
+              className="progress-fill-k5j"
               style={{ 
                 width: `${progress}%`,
                 backgroundColor: getStatusColor(currentStatus)
               }}
             ></div>
           </div>
-          <div className="progress-percent">{progress}%</div>
+          <div className="progress-percent-k5j">{progress}%</div>
         </div>
         
         {/* Timeline - REAL times */}
-        <div className="progress-steps">
+        <div className="progress-steps-k5j">
           {timeline.map((step, index) => (
             <div 
               key={index}
-              className={`progress-step ${step.completed ? 'completed' : ''} ${currentStatus === step.status ? 'current' : ''}`}
+              className={`progress-step-k5j ${step.completed ? 'completed-k5j' : ''} ${currentStatus === step.status ? 'current-k5j' : ''}`}
             >
-              <div className="step-icon">{step.icon}</div>
-              <div className="step-info">
-                <div className="step-title">{step.title}</div>
-                <div className="step-time">{step.time}</div>
+              <div className="step-icon-k5j">{step.icon}</div>
+              <div className="step-info-k5j">
+                <div className="step-title-k5j">{step.title}</div>
+                <div className="step-time-k5j">{step.time}</div>
               </div>
             </div>
           ))}
@@ -602,30 +601,30 @@ const TrackingPage = () => {
 
       {/* Executive Info - Shows only after assignment */}
       {executive && currentStatus !== 'confirmed' && (
-        <div className="executive-section">
+        <div className="executive-section-k5j">
           <h3>
             {currentStatus === 'pickup_scheduled' ? 'Assigned Executive' : 'Delivery Executive'}
           </h3>
-          <div className="executive-card">
-            <div className="executive-info">
-              <img src={executive.photo} alt={executive.name} className="executive-avatar" />
-              <div className="executive-details">
+          <div className="executive-card-k5j">
+            <div className="executive-info-k5j">
+              <img src={executive.photo} alt={executive.name} className="executive-avatar-k5j" />
+              <div className="executive-details-k5j">
                 <h4>{executive.name}</h4>
-                <p className="executive-vehicle">
+                <p className="executive-vehicle-k5j">
                   {executive.vehicle} • ⭐ {executive.rating} ({executive.completedDeliveries} deliveries)
                 </p>
-                <p className="executive-phone">{executive.phone}</p>
+                <p className="executive-phone-k5j">{executive.phone}</p>
               </div>
             </div>
-            <div className="executive-actions">
+            <div className="executive-actions-k5j">
               <button 
-                className="action-btn call-btn"
+                className="action-btn-k5j call-btn-k5j"
                 onClick={handleCallExecutive}
               >
                 📞 Call Now
               </button>
               <button 
-                className="action-btn message-btn"
+                className="action-btn-k5j message-btn-k5j"
                 onClick={handleMessageExecutive}
               >
                 💬 WhatsApp
@@ -635,14 +634,14 @@ const TrackingPage = () => {
           
           {/* Live Location - Only shows during transit */}
           {currentStatus === 'in_transit' && (
-            <div className="live-location">
-              <div className="location-header">
-                <span className="live-badge">● LIVE</span>
-                <span className="location-text">Current Location</span>
+            <div className="live-location-k5j">
+              <div className="location-header-k5j">
+                <span className="live-badge-k5j">● LIVE</span>
+                <span className="location-text-k5j">Current Location</span>
               </div>
-              <div className="location-info">
+              <div className="location-info-k5j">
                 <p>Tracking vehicle movement in real-time</p>
-                <div className="coordinates">
+                <div className="coordinates-k5j">
                   <span>Lat: {liveLocation.lat.toFixed(6)}</span>
                   <span>Lng: {liveLocation.lng.toFixed(6)}</span>
                 </div>
@@ -653,11 +652,11 @@ const TrackingPage = () => {
       )}
 
       {/* Status Messages */}
-      <div className="status-messages">
+      <div className="status-messages-k5j">
         {currentStatus === 'confirmed' && (
-          <div className="message info">
-            <div className="message-icon">ℹ️</div>
-            <div className="message-content">
+          <div className="message-k5j info-k5j">
+            <div className="message-icon-k5j">ℹ️</div>
+            <div className="message-content-k5j">
               <strong>Executive Assignment In Progress</strong>
               <p>Your delivery executive will be assigned within 1-2 hours. You'll receive their contact details.</p>
             </div>
@@ -665,9 +664,9 @@ const TrackingPage = () => {
         )}
         
         {currentStatus === 'pickup_scheduled' && executive && (
-          <div className="message success">
-            <div className="message-icon">✅</div>
-            <div className="message-content">
+          <div className="message-k5j success-k5j">
+            <div className="message-icon-k5j">✅</div>
+            <div className="message-content-k5j">
               <strong>Executive Assigned Successfully</strong>
               <p>{executive.name} will arrive for pickup at the scheduled time. You can contact them if needed.</p>
             </div>
@@ -675,9 +674,9 @@ const TrackingPage = () => {
         )}
         
         {currentStatus === 'in_transit' && (
-          <div className="message warning">
-            <div className="message-icon">🚚</div>
-            <div className="message-content">
+          <div className="message-k5j warning-k5j">
+            <div className="message-icon-k5j">🚚</div>
+            <div className="message-content-k5j">
               <strong>Package In Transit</strong>
               <p>Your package is on the way. Expected delivery in {formatTime(timeRemaining)}.</p>
             </div>
@@ -686,15 +685,15 @@ const TrackingPage = () => {
       </div>
 
       {/* Action Buttons */}
-      <div className="action-section">
+      <div className="action-section-k5j">
         <button 
-          className="primary-btn"
+          className="primary-btn-k5j"
           onClick={() => navigate('/dashboard')}
         >
           🏠 View All Orders
         </button>
         <button 
-          className="secondary-btn"
+          className="secondary-btn-k5j"
           onClick={() => navigate('/shipping')}
         >
           🚚 New Shipment
@@ -702,8 +701,8 @@ const TrackingPage = () => {
       </div>
 
       {/* Support */}
-      <div className="support-section">
-        <p className="support-text">
+      <div className="support-section-k5j">
+        <p className="support-text-k5j">
           <strong>Need help?</strong> Call 1800-123-4567 (24x7) • Email support@transporter.com
         </p>
       </div>

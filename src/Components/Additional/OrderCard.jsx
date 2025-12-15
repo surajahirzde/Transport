@@ -1,41 +1,53 @@
-// src/components/dashboard/OrderCard.jsx
-import React from 'react';
-import '../Additional/styles/OrderCard.css';
 
+import { useNavigate } from 'react-router-dom';
 const OrderCard = ({ order = {} }) => {
-  // REAL DATA from Shipping flow - no hardcoded values
+  const navigate = useNavigate();
+  
+  // Extract all order data with defaults
   const {
-    // From LocationForm.jsx
+    id = '',
+    orderId = '',
+    trackingId = '',
+    phone = '',
+    
+    // Location details
     fromCity = '',
     fromState = '',
     fromAddress = '',
     toCity = '',
     toState = '',
     toAddress = '',
-    distance = '',
-    weight = '',
-    estimatedPrice = 0,
-    travelTime = '',
     
-    // From DateTimePicker.jsx
+    // Package details
+    distance = '0',
+    weight = '1',
+    packageType = 'general',
+    deliveryUrgency = 'standard',
+    
+    // Pricing
+    estimatedPrice = 0,
+    totalAmount = 0,
+    
+    // Timing
+    travelTime = '',
     pickupDate = '',
     pickupTime = '',
-    
-    // From VehicleSelector.jsx
-    vehicle = '',
-    vehicleName = '',
-    vehicleType = '',
-    
-    // From PaymentPage.jsx
-    paymentMethod = '',
-    
-    // Generated data
-    orderId = `ORD${Date.now().toString().slice(-8)}`,
-    trackingId = '',
-    status = 'ORDER_CONFIRMED',
+    selectedDate = '',
+    selectedTimeSlot = '',
     createdAt = new Date().toISOString(),
     
-    // Additional services
+    // Vehicle details
+    vehicleType = '',
+    vehicleName = '',
+    
+    // Payment
+    paymentMethod = '',
+    paymentName = '',
+    
+    // Status
+    status = 'confirmed',
+    
+    // Services
     helperService = false,
     insuranceService = false,
     packagingService = false,
@@ -44,69 +56,114 @@ const OrderCard = ({ order = {} }) => {
     nightService = false
   } = order;
 
-  // Calculate final amount with services
-  const calculateTotalAmount = () => {
-    let total = Number(estimatedPrice) || 0;
-    
-    // Vehicle price from VehicleSelector
-    const vehiclePrices = {
-      'mini_van': 600,
-      'pickup_truck': 1200,
-      'container_truck': 2500,
-      'trailer_truck': 4000,
-      'refrigerated_truck': 2000,
-      'tipper_truck': 3000
+  // Calculate display amount
+  const displayAmount = totalAmount > 0 ? totalAmount : estimatedPrice;
+
+  // Get status details
+  const getStatusInfo = () => {
+    const statusMap = {
+      'confirmed': { 
+        text: 'Order Confirmed', 
+        icon: '✅', 
+        color: '#3b82f6', 
+        bgColor: '#eff6ff',
+        nextStep: 'Scheduled for pickup'
+      },
+      'ORDER_CONFIRMED': { 
+        text: 'Order Confirmed', 
+        icon: '✅', 
+        color: '#3b82f6', 
+        bgColor: '#eff6ff',
+        nextStep: 'Scheduled for pickup'
+      },
+      'pending': { 
+        text: 'Pending', 
+        icon: '⏳', 
+        color: '#f59e0b', 
+        bgColor: '#fffbeb',
+        nextStep: 'Awaiting confirmation'
+      },
+      'scheduled': { 
+        text: 'Pickup Scheduled', 
+        icon: '📅', 
+        color: '#8b5cf6', 
+        bgColor: '#f5f3ff',
+        nextStep: 'Driver assigned soon'
+      },
+      'PICKUP_SCHEDULED': { 
+        text: 'Pickup Scheduled', 
+        icon: '📅', 
+        color: '#8b5cf6', 
+        bgColor: '#f5f3ff',
+        nextStep: 'Driver assigned soon'
+      },
+      'picked_up': { 
+        text: 'Picked Up', 
+        icon: '📦', 
+        color: '#06b6d4', 
+        bgColor: '#ecfeff',
+        nextStep: 'In transit to destination'
+      },
+      'in_transit': { 
+        text: 'In Transit', 
+        icon: '🚚', 
+        color: '#f97316', 
+        bgColor: '#fff7ed',
+        nextStep: 'Estimated delivery soon'
+      },
+      'IN_TRANSIT': { 
+        text: 'In Transit', 
+        icon: '🚚', 
+        color: '#f97316', 
+        bgColor: '#fff7ed',
+        nextStep: 'Estimated delivery soon'
+      },
+      'out_for_delivery': { 
+        text: 'Out for Delivery', 
+        icon: '🏍️', 
+        color: '#10b981', 
+        bgColor: '#ecfdf5',
+        nextStep: 'Will be delivered today'
+      },
+      'delivered': { 
+        text: 'Delivered', 
+        icon: '🏠', 
+        color: '#10b981', 
+        bgColor: '#ecfdf5',
+        nextStep: 'Successfully delivered'
+      },
+      'DELIVERED': { 
+        text: 'Delivered', 
+        icon: '🏠', 
+        color: '#10b981', 
+        bgColor: '#ecfdf5',
+        nextStep: 'Successfully delivered'
+      },
+      'cancelled': { 
+        text: 'Cancelled', 
+        icon: '❌', 
+        color: '#ef4444', 
+        bgColor: '#fef2f2',
+        nextStep: 'Order cancelled'
+      }
     };
-    
-    if (vehicle && vehiclePrices[vehicle]) {
-      total += vehiclePrices[vehicle];
-    }
-    
-    // Additional services
-    if (helperService) total += 150;
-    if (insuranceService) total += 300;
-    if (packagingService) total += 200;
-    if (fastrackService) total += 500;
-    if (weekendService) total += 250;
-    if (nightService) total += 350;
-    
-    return total;
+
+    return statusMap[status?.toLowerCase()] || { 
+      text: 'Processing', 
+      icon: '⚙️', 
+      color: '#6b7280', 
+      bgColor: '#f9fafb',
+      nextStep: 'Processing your order'
+    };
   };
 
-  const totalAmount = calculateTotalAmount();
+  const statusInfo = getStatusInfo();
 
-  // Get status color
-  const getStatusColor = (status) => {
-    switch(status) {
-      case 'ORDER_CONFIRMED':
-        return { color: '#3b82f6', text: 'Order Confirmed', icon: '✅', bgColor: '#eff6ff' };
-      case 'PICKUP_SCHEDULED':
-        return { color: '#f59e0b', text: 'Pickup Scheduled', icon: '📦', bgColor: '#fffbeb' };
-      case 'IN_TRANSIT':
-        return { color: '#8b5cf6', text: 'In Transit', icon: '🚚', bgColor: '#f5f3ff' };
-      case 'DELIVERED':
-        return { color: '#10b981', text: 'Delivered', icon: '🏠', bgColor: '#ecfdf5' };
-      default:
-        return { color: '#6b7280', text: 'Processing', icon: '⚙️', bgColor: '#f9fafb' };
-    }
-  };
-
-  // Format date nicely
+  // Format date
   const formatDate = (dateString) => {
     if (!dateString) return 'Not scheduled';
     
     try {
-      // Handle "Tomorrow" format from DateTimePicker
-      if (dateString.toLowerCase().includes('tomorrow')) {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        return tomorrow.toLocaleDateString('en-IN', {
-          weekday: 'short',
-          day: 'numeric',
-          month: 'short'
-        });
-      }
-      
       const date = new Date(dateString);
       if (isNaN(date.getTime())) return dateString;
       
@@ -120,19 +177,21 @@ const OrderCard = ({ order = {} }) => {
     }
   };
 
-  // Format time
-  const formatTime = (timeString) => {
-    if (!timeString) return '';
+  // Format time slot
+  const formatTimeSlot = (timeSlot) => {
+    const timeMap = {
+      'morning': '9 AM - 12 PM',
+      'afternoon': '12 PM - 3 PM',
+      'evening': '3 PM - 6 PM',
+      'night': '6 PM - 9 PM',
+      'custom': 'Custom Time'
+    };
     
-    // Handle time slots like "9 AM - 12 PM"
-    if (timeString.includes('-')) return timeString;
-    
-    // Handle simple time
-    return timeString;
+    return timeMap[timeSlot] || timeSlot || 'Flexible';
   };
 
   // Get vehicle icon
-  const getVehicleIcon = (vehicleType) => {
+  const getVehicleIcon = () => {
     const icons = {
       'mini_van': '🚐',
       'pickup_truck': '🚚',
@@ -144,28 +203,87 @@ const OrderCard = ({ order = {} }) => {
     return icons[vehicleType] || '🚚';
   };
 
+  // Get package icon
+  const getPackageIcon = () => {
+    const icons = {
+      'general': '📦',
+      'fragile': '⚠️',
+      'documents': '📄',
+      'electronics': '💻',
+      'furniture': '🪑',
+      'perishable': '❄️'
+    };
+    return icons[packageType] || '📦';
+  };
+
+  // Get urgency badge
+  const getUrgencyBadge = () => {
+    const badges = {
+      'standard': { text: 'Standard', color: '#6b7280', bg: '#f3f4f6' },
+      'express': { text: 'Express', color: '#dc2626', bg: '#fee2e2' },
+      'same_day': { text: 'Same Day', color: '#7c3aed', bg: '#ede9fe' },
+      'next_day': { text: 'Next Day', color: '#059669', bg: '#d1fae5' }
+    };
+    return badges[deliveryUrgency] || badges.standard;
+  };
+
   // Get payment icon
-  const getPaymentIcon = (method) => {
+  const getPaymentIcon = () => {
     const icons = {
       'upi': '📱',
       'card': '💳',
       'netbanking': '🏦',
       'wallet': '💰',
-      'cod': '💵'
+      'cod': '💵',
+      'Cash on Delivery': '💵'
     };
-    return icons[method] || '💳';
+    return icons[paymentMethod || paymentName] || '💳';
   };
 
-  const statusInfo = getStatusColor(status);
-  const vehicleIcon = getVehicleIcon(vehicleType || vehicle);
-  const paymentIcon = getPaymentIcon(paymentMethod);
-  const formattedPickupDate = formatDate(pickupDate);
-  const formattedPickupTime = formatTime(pickupTime);
+  // Get payment text
+  const getPaymentText = () => {
+    const texts = {
+      'upi': 'UPI',
+      'card': 'Card',
+      'netbanking': 'Net Banking',
+      'wallet': 'Wallet',
+      'cod': 'Cash on Delivery',
+      'Cash on Delivery': 'Cash on Delivery'
+    };
+    return texts[paymentMethod || paymentName] || paymentMethod || paymentName || 'Payment';
+  };
 
-  // Handle track
-  const handleTrack = () => {
-    if (trackingId) {
-      window.location.href = `/tracking?id=${trackingId}`;
+  // Calculate total services
+  const getTotalServices = () => {
+    let count = 0;
+    if (helperService) count++;
+    if (insuranceService) count++;
+    if (packagingService) count++;
+    if (fastrackService) count++;
+    if (weekendService) count++;
+    if (nightService) count++;
+    return count;
+  };
+
+  const vehicleIcon = getVehicleIcon();
+  const packageIcon = getPackageIcon();
+  const paymentIcon = getPaymentIcon();
+  const paymentText = getPaymentText();
+  const urgencyBadge = getUrgencyBadge();
+  const totalServices = getTotalServices();
+  
+  const displayOrderId = orderId || id?.slice(-8) || `ORD${Date.now().toString().slice(-8)}`;
+  const displayTrackingId = trackingId || `TRK${id?.slice(-8) || Date.now().toString().slice(-8)}`;
+  const formattedPickupDate = formatDate(pickupDate || selectedDate);
+  const formattedPickupTime = formatTimeSlot(pickupTime || selectedTimeSlot);
+  const displayFromCity = fromCity || 'Select city';
+  const displayToCity = toCity || 'Select city';
+  const displayVehicle = vehicleName || vehicleType || 'Select vehicle';
+
+  // Handle track order
+  const handleTrackOrder = () => {
+    if (displayTrackingId) {
+      navigate(`/tracking?id=${displayTrackingId}`);
     } else {
       alert('Tracking ID will be generated soon');
     }
@@ -173,29 +291,30 @@ const OrderCard = ({ order = {} }) => {
 
   // Handle view details
   const handleViewDetails = () => {
-    // Save order data to localStorage for receipt page
-    const orderData = {
-      fromCity,
-      toCity,
-      distance,
-      weight,
-      totalAmount,
-      vehicle: vehicleName || vehicle,
-      pickupDate: formattedPickupDate,
-      pickupTime: formattedPickupTime,
-      trackingId,
-      orderId
-    };
-    localStorage.setItem('currentOrder', JSON.stringify(orderData));
-    window.location.href = '/receipt';
+    localStorage.setItem('currentOrder', JSON.stringify(order));
+    navigate('/receipt');
+  };
+
+  // Handle copy tracking ID
+  const handleCopyTrackingId = () => {
+    navigator.clipboard.writeText(displayTrackingId)
+      .then(() => {
+        alert('Tracking ID copied to clipboard!');
+      })
+      .catch(() => {
+        alert('Failed to copy tracking ID');
+      });
   };
 
   return (
     <div className="order-card">
-      {/* Header - Order ID & Status */}
-      <div className="order-header">
+      {/* Card Header */}
+      <div className="order-card-header">
         <div className="order-id-section">
-          <h3 className="order-id">Order #{orderId}</h3>
+          <div className="order-id-container">
+            <span className="order-id-label">Order ID:</span>
+            <span className="order-id-value">#{displayOrderId}</span>
+          </div>
           <span className="order-date">
             {new Date(createdAt).toLocaleDateString('en-IN', {
               day: 'numeric',
@@ -205,11 +324,11 @@ const OrderCard = ({ order = {} }) => {
           </span>
         </div>
         <div 
-          className="order-status"
+          className="order-status-badge"
           style={{ 
             backgroundColor: statusInfo.bgColor,
             color: statusInfo.color,
-            border: `1px solid ${statusInfo.color}30`
+            borderColor: statusInfo.color
           }}
         >
           <span className="status-icon">{statusInfo.icon}</span>
@@ -218,82 +337,95 @@ const OrderCard = ({ order = {} }) => {
       </div>
 
       {/* Route Information */}
-      <div className="route-section">
-        <div className="route-from">
-          <div className="city-badge from-badge">
-            <span className="badge-icon">📦</span>
-            <div className="city-info">
-              <div className="city-name">{fromCity || 'Select city'}</div>
-              <div className="city-state">{fromState || ''}</div>
+      <div className="route-info">
+        <div className="route-locations">
+          <div className="location from-location">
+            <div className="location-icon pickup-icon">📦</div>
+            <div className="location-details">
+              <div className="city-name">{displayFromCity}</div>
+              <div className="city-state">{fromState}</div>
+              {fromAddress && (
+                <div className="address-truncated">{fromAddress.substring(0, 30)}...</div>
+              )}
             </div>
           </div>
-          
+
           <div className="route-middle">
-            <div className="distance-display">
-              <span className="distance-value">{distance || '0'}</span>
+            <div className="distance-badge">
+              <span className="distance-value">{distance}</span>
               <span className="distance-unit">km</span>
             </div>
             <div className="route-arrow">→</div>
             {travelTime && (
-              <div className="travel-time">
+              <div className="travel-time-badge">
                 <span className="time-icon">⏱️</span>
                 <span className="time-value">{travelTime}</span>
               </div>
             )}
           </div>
-          
-          <div className="route-to">
-            <div className="city-badge to-badge">
-              <span className="badge-icon">🏠</span>
-              <div className="city-info">
-                <div className="city-name">{toCity || 'Select city'}</div>
-                <div className="city-state">{toState || ''}</div>
-              </div>
+
+          <div className="location to-location">
+            <div className="location-icon delivery-icon">🏠</div>
+            <div className="location-details">
+              <div className="city-name">{displayToCity}</div>
+              <div className="city-state">{toState}</div>
+              {toAddress && (
+                <div className="address-truncated">{toAddress.substring(0, 30)}...</div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Order Details */}
-      <div className="order-details-grid">
-        <div className="detail-item">
-          <span className="detail-label">Package:</span>
-          <span className="detail-value">
-            <span className="weight-icon">⚖️</span>
-            {weight || '1'} kg
-          </span>
+      {/* Package Details */}
+      <div className="package-details">
+        <div className="detail-row">
+          <div className="detail-item">
+            <span className="detail-label">Package:</span>
+            <span className="detail-value">
+              <span className="detail-icon">{packageIcon}</span>
+              {weight} kg • {packageType}
+            </span>
+          </div>
+          <div className="detail-item">
+            <span className="detail-label">Urgency:</span>
+            <span 
+              className="urgency-badge"
+              style={{
+                backgroundColor: urgencyBadge.bg,
+                color: urgencyBadge.color
+              }}
+            >
+              {urgencyBadge.text}
+            </span>
+          </div>
         </div>
-        
-        <div className="detail-item">
-          <span className="detail-label">Vehicle:</span>
-          <span className="detail-value">
-            <span className="vehicle-icon">{vehicleIcon}</span>
-            {vehicleName || vehicle || 'Select vehicle'}
-          </span>
-        </div>
-        
-        <div className="detail-item">
-          <span className="detail-label">Pickup:</span>
-          <span className="detail-value">
-            <span className="date-icon">📅</span>
-            {formattedPickupDate} {formattedPickupTime && `• ${formattedPickupTime}`}
-          </span>
-        </div>
-        
-        <div className="detail-item">
-          <span className="detail-label">Amount:</span>
-          <span className="detail-value amount-value">
-            <span className="amount-icon">₹</span>
-            {totalAmount.toLocaleString('en-IN')}
-          </span>
+
+        <div className="detail-row">
+          <div className="detail-item">
+            <span className="detail-label">Vehicle:</span>
+            <span className="detail-value">
+              <span className="detail-icon">{vehicleIcon}</span>
+              {displayVehicle}
+            </span>
+          </div>
+          <div className="detail-item">
+            <span className="detail-label">Pickup:</span>
+            <span className="detail-value">
+              <span className="detail-icon">📅</span>
+              {formattedPickupDate} • {formattedPickupTime}
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Additional Services (if any) */}
-      {(helperService || insuranceService || packagingService || fastrackService || weekendService || nightService) && (
+      {/* Additional Services */}
+      {totalServices > 0 && (
         <div className="services-section">
-          <div className="services-label">Additional Services:</div>
-          <div className="services-list">
+          <div className="services-header">
+            <span className="services-label">Additional Services ({totalServices}):</span>
+          </div>
+          <div className="services-tags">
             {helperService && <span className="service-tag">👷 Helper</span>}
             {insuranceService && <span className="service-tag">🛡️ Insurance</span>}
             {packagingService && <span className="service-tag">📦 Packaging</span>}
@@ -304,27 +436,49 @@ const OrderCard = ({ order = {} }) => {
         </div>
       )}
 
-      {/* Payment Info */}
-      {paymentMethod && (
-        <div className="payment-section">
+      {/* Payment and Amount */}
+      <div className="payment-amount-section">
+        <div className="payment-info">
           <span className="payment-label">Payment:</span>
           <span className="payment-method">
             <span className="payment-icon">{paymentIcon}</span>
-            {paymentMethod === 'upi' && 'UPI'}
-            {paymentMethod === 'card' && 'Card'}
-            {paymentMethod === 'netbanking' && 'Net Banking'}
-            {paymentMethod === 'wallet' && 'Wallet'}
-            {paymentMethod === 'cod' && 'Cash on Delivery'}
+            {paymentText}
           </span>
         </div>
-      )}
+        <div className="amount-info">
+          <span className="amount-label">Total Amount:</span>
+          <span className="amount-value">
+            <span className="currency">₹</span>
+            {displayAmount.toLocaleString('en-IN')}
+          </span>
+        </div>
+      </div>
+
+      {/* Tracking Info */}
+      <div className="tracking-section">
+        <div className="tracking-info">
+          <span className="tracking-label">Tracking ID:</span>
+          <span 
+            className="tracking-id"
+            onClick={handleCopyTrackingId}
+            title="Click to copy"
+          >
+            {displayTrackingId}
+            <span className="copy-icon">📋</span>
+          </span>
+        </div>
+        <div className="next-step">
+          <span className="next-step-label">Next:</span>
+          <span className="next-step-text">{statusInfo.nextStep}</span>
+        </div>
+      </div>
 
       {/* Action Buttons */}
-      <div className="order-actions">
+      <div className="action-buttons">
         <button 
           className="action-btn track-btn"
-          onClick={handleTrack}
-          disabled={status === 'ORDER_CONFIRMED'}
+          onClick={handleTrackOrder}
+          disabled={!displayTrackingId}
         >
           <span className="btn-icon">📍</span>
           Track Order
@@ -337,18 +491,15 @@ const OrderCard = ({ order = {} }) => {
           <span className="btn-icon">📋</span>
           View Details
         </button>
+        
+        <button 
+          className="action-btn support-btn"
+          onClick={() => navigate('/support')}
+        >
+          <span className="btn-icon">💬</span>
+          Support
+        </button>
       </div>
-
-      {/* Tracking ID */}
-      {trackingId && (
-        <div className="tracking-section">
-          <span className="tracking-label">Tracking ID:</span>
-          <span className="tracking-id-value" onClick={() => navigator.clipboard.writeText(trackingId)}>
-            {trackingId}
-            <span className="copy-hint">(Click to copy)</span>
-          </span>
-        </div>
-      )}
     </div>
   );
 };

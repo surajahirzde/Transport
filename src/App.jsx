@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import ErrorPage from './Helper/ErrorPage'
 import Tracking from './Components/Additional/Tracking';
 import Dashboard from './Components/Additional/Dashboard'
-import OrderCard from './Components/Additional/OrderCard'
+import OrderCard from './Components/Additional/DashboardUser'
 import TrackingPage from './Components/tracking/TrackingPage'
 
 
@@ -25,9 +25,9 @@ const routes = createBrowserRouter(createRoutesFromElements(
     <Route path="contact" element={<Contact />} />
     <Route path="/services" element={<Services />} />
     <Route path="/login" element={<Login />} />
-    <Route path="/tracking" element={<Tracking />} />
+    {/* <Route path="/tracking" element={<Tracking />} /> */}
     <Route path="/orders" element={<OrderCard/>} />
-    <Route path="/trackingpg" element={<TrackingPage/>} />
+    <Route path="/tracking" element={<TrackingPage/>} />
     
     <Route path="/dashboard" element={<Dashboard/>} />
     

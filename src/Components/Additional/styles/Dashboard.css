@@ -943,3 +943,569 @@ body {
     box-shadow: none;
   }
 }
+/* src/components/dashboard/styles/OrderCard.css */
+.order-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.order-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  border-color: #d1d5db;
+}
+
+.order-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  border-radius: 6px 0 0 6px;
+}
+
+/* Header */
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.order-id-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-id-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-id-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.order-id-value {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  background: #f3f4f6;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+.order-date {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.order-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.status-icon {
+  font-size: 16px;
+}
+
+/* Route Information */
+.route-info {
+  margin-bottom: 24px;
+}
+
+.route-locations {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.location {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  min-height: 80px;
+}
+
+.from-location {
+  border-left: 4px solid #3b82f6;
+}
+
+.to-location {
+  border-left: 4px solid #10b981;
+}
+
+.location-icon {
+  font-size: 24px;
+  margin-top: 4px;
+}
+
+.pickup-icon {
+  color: #3b82f6;
+}
+
+.delivery-icon {
+  color: #10b981;
+}
+
+.location-details {
+  flex: 1;
+}
+
+.city-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.city-state {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.address-truncated {
+  font-size: 12px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.route-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.distance-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.distance-value {
+  font-size: 16px;
+}
+
+.distance-unit {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.route-arrow {
+  font-size: 28px;
+  color: #9ca3af;
+  font-weight: 300;
+}
+
+.travel-time-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef3c7;
+  color: #92400e;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.time-icon {
+  font-size: 14px;
+}
+
+/* Package Details */
+.package-details {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.detail-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.detail-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.detail-icon {
+  font-size: 16px;
+}
+
+.urgency-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Services Section */
+.services-section {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid #7dd3fc;
+}
+
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.services-label {
+  font-size: 14px;
+  color: #0369a1;
+  font-weight: 600;
+}
+
+.services-count {
+  font-size: 12px;
+  color: #0c4a6e;
+  background: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.services-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+/* Payment and Amount */
+.payment-amount-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border-radius: 12px;
+  border: 1px solid #ddd6fe;
+}
+
+.payment-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.payment-icon {
+  font-size: 18px;
+}
+
+.amount-info {
+  text-align: right;
+}
+
+.amount-label {
+  display: block;
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.amount-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.currency {
+  font-size: 18px;
+}
+
+/* Tracking Section */
+.tracking-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #fefce8;
+  border-radius: 12px;
+  border: 1px solid #fef08a;
+}
+
+.tracking-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tracking-label {
+  font-size: 14px;
+  color: #854d0e;
+  font-weight: 500;
+}
+
+.tracking-id {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: #b45309;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.tracking-id:hover {
+  background: rgba(245, 158, 11, 0.2);
+  transform: translateY(-1px);
+}
+
+.copy-icon {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.next-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border-radius: 8px;
+  border: 1px dashed #fbbf24;
+}
+
+.next-step-label {
+  font-size: 13px;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.next-step-text {
+  font-size: 14px;
+  color: #92400e;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+.track-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.track-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.track-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.details-btn {
+  background: white;
+  color: #374151;
+  border: 2px solid #d1d5db;
+}
+
+.details-btn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  transform: translateY(-2px);
+}
+
+.support-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+}
+
+.support-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+}
+
+.btn-icon {
+  font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-card {
+    padding: 16px;
+  }
+
+  .route-locations {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .route-middle {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    order: 2;
+  }
+
+  .location {
+    order: 1;
+  }
+
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .payment-amount-section {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .order-status-badge {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-card::before {
+    width: 4px;
+  }
+
+  .city-name {
+    font-size: 16px;
+  }
+
+  .amount-value {
+    font-size: 20px;
+  }
+
+  .distance-badge {
+    min-width: 60px;
+    padding: 6px 12px;
+  }
+}

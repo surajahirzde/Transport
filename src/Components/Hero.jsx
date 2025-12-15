@@ -6,7 +6,7 @@ import { Truck,Globe, MapPin, Clock, Shield, Package, Users, Building, CheckCirc
 
 const Hero = () => {
   const [activeService, setActiveService] = useState(0);
-  
+  const navigate = useNavigate();
   const services = [
     { id: 1, name: 'Road Transport', icon: '🚛', vehicles: '500+ Trucks' },
     { id: 2, name: 'Express Delivery', icon: '⚡', vehicles: '150+ Vans' },
@@ -19,7 +19,7 @@ const Hero = () => {
   };
 
   const handleTrackShipment = () => {
-    navigate('/track'); 
+    navigate('/tracking'); 
   };
 
   // Auto rotate services
@@ -275,7 +275,7 @@ const Hero = () => {
             
             <button className="track-shipment-btn" onClick={handleTrackShipment}>
               <MapPin size={16} />
-              Track This Shipment
+              Track Your Shipment
             </button>
           </div>
           

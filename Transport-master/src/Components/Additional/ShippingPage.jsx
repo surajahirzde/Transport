@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LocationForm from './LocationForm';
 import DateTimePicker from './DateTimePicker';
 import VehicleSelector from './VehicleSelector';
@@ -6,6 +6,7 @@ import PaymentPage from './PaymentPage';
 import OrderSummary from './OrderSummary';
 import Receipt from './Receipt';
 import '../Additional/styles/ShippingPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const ShippingPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -27,6 +28,7 @@ const ShippingPage = () => {
     distance: "",
   });
 
+ 
   const updateFormData = (key, value) => {
     setFormData(prev => ({
       ...prev,
@@ -41,7 +43,6 @@ const ShippingPage = () => {
   const prevStep = () => {
     setCurrentStep(prev => Math.max(1, prev - 1));
   };
-
   return (
     <div className="shipping-page-container">
       <h1>🚚 Ship Your Package</h1>

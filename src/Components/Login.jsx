@@ -3,22 +3,14 @@ import '../Components/styles/Login.css';
 
 const LoginPage = () => {
   // State variables
-  const [step, setStep] = useState(1); // 1: Phone, 2: OTP
+  const [step, setStep] = useState(1); // 1: Phone, 2: PIN
   const [phone, setPhone] = useState('');
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [otpSent, setOtpSent] = useState(false);
-  const [timer, setTimer] = useState(30);
+  const [pin, setPin] = useState('');
+  const [timer, setTimer] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  
-  // Refs for OTP input boxes
-  const otpRefs = useRef([]);
-  
-  // Generate fake OTP (always 123456 for demo)
-  const generateFakeOTP = () => {
-    return '123456';
-  };
+  const [generatedPin, setGeneratedPin] = useState('');
   
   // Handle phone number change
   const handlePhoneChange = (e) => {
@@ -26,6 +18,87 @@ const LoginPage = () => {
     if (value.length <= 10) {
       setPhone(value);
       setError('');
+    }
+  };
+  
+  // Handle PIN change
+  const handlePinChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Only numbers
+    if (value.length <= 4) {
+      setPin(value);
+      setError('');
+      
+      // Auto-submit when 4 digits entered
+      if (value.length === 4) {
+        handlePinSubmit(value);
+      }
+    }
+  };
+  
+  // Generate random 4-digit PIN
+  const generateRandomPin = () => {
+    return Math.floor(1000 + Math.random() * 9000).toString();
+  };
+  
+  // Save user data to localStorage
+  const saveUserToStorage = (phoneNumber, userPin) => {
+    try {
+      // Get existing users
+      const existingUsers = JSON.parse(localStorage.getItem('quickship_users') || '[]');
+      
+      // Check if user already exists
+      const userIndex = existingUsers.findIndex(user => user.phone === phoneNumber);
+      
+      if (userIndex !== -1) {
+        // Update existing user
+        existingUsers[userIndex] = {
+          ...existingUsers[userIndex],
+          phone: phoneNumber,
+          pin: userPin,
+          lastLogin: new Date().toISOString(),
+          loginCount: (existingUsers[userIndex].loginCount || 0) + 1,
+          rememberMe: rememberMe
+        };
+      } else {
+        // Add new user
+        const newUser = {
+          id: Date.now().toString(),
+          phone: phoneNumber,
+          pin: userPin,
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
+          loginCount: 1,
+          rememberMe: rememberMe,
+          profile: {
+            name: '',
+            email: '',
+            address: ''
+          },
+          orders: [],
+          shipments: []
+        };
+        
+        existingUsers.push(newUser);
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('quickship_users', JSON.stringify(existingUsers));
+      
+      // Also save current session
+      const sessionUser = {
+        phone: phoneNumber,
+        loggedInAt: new Date().toISOString(),
+        token: `qs-token-${Date.now()}`,
+        rememberMe: rememberMe
+      };
+      
+      localStorage.setItem('current_user', JSON.stringify(sessionUser));
+      sessionStorage.setItem('user_session', JSON.stringify(sessionUser));
+      
+      console.log('User saved to storage:', phoneNumber);
+      
+    } catch (error) {
+      console.error('Error saving user to storage:', error);
     }
   };
   
@@ -47,145 +120,69 @@ const LoginPage = () => {
     
     setLoading(true);
     
-    // Simulate API call to send OTP
+    // Simulate API call
     setTimeout(() => {
-      setOtpSent(true);
+      // Generate new PIN for each login
+      const newPin = generateRandomPin();
+      setGeneratedPin(newPin);
+      
+      // Save to storage immediately
+      saveUserToStorage(phone, newPin);
+      
       setStep(2);
       setLoading(false);
       
-      // Pre-fill OTP with 123456 for demo
-      const fakeOtp = generateFakeOTP();
-      const otpArray = fakeOtp.split('');
-      setOtp(otpArray);
+      // Start timer for PIN expiration (5 minutes)
+      setTimer(300); // 5 minutes in seconds
       
-      // Auto-focus first OTP box
-      if (otpRefs.current[0]) {
-        otpRefs.current[0].focus();
-      }
+      // Auto-focus PIN input
+      setTimeout(() => {
+        const pinInput = document.getElementById('pinInput');
+        if (pinInput) {
+          pinInput.focus();
+        }
+      }, 100);
       
-      // Start resend timer
-      setTimer(30);
     }, 1500);
   };
   
-  // Handle OTP input change
-  const handleOtpChange = (index, value) => {
-    // Only allow numbers
-    const numValue = value.replace(/\D/g, '');
-    
-    if (numValue === '' || (numValue.length === 1 && !isNaN(numValue))) {
-      const newOtp = [...otp];
-      newOtp[index] = numValue;
-      setOtp(newOtp);
-      setError('');
-      
-      // Auto-focus next input
-      if (numValue !== '' && index < 5 && otpRefs.current[index + 1]) {
-        otpRefs.current[index + 1].focus();
-      }
-    }
-  };
-  
-  // Handle OTP key events
-  const handleOtpKeyDown = (index, e) => {
-    // Backspace handling
-    if (e.key === 'Backspace') {
-      if (otp[index] === '' && index > 0) {
-        // Move to previous input
-        otpRefs.current[index - 1].focus();
-        const newOtp = [...otp];
-        newOtp[index - 1] = '';
-        setOtp(newOtp);
-      } else if (otp[index] !== '') {
-        // Clear current input
-        const newOtp = [...otp];
-        newOtp[index] = '';
-        setOtp(newOtp);
-      }
-    }
-    
-    // Arrow keys navigation
-    if (e.key === 'ArrowLeft' && index > 0) {
-      otpRefs.current[index - 1].focus();
-    }
-    if (e.key === 'ArrowRight' && index < 5) {
-      otpRefs.current[index + 1].focus();
-    }
-    
-    // Paste handling
-    if (e.key === 'v' && (e.ctrlKey || e.metaKey)) {
-      setTimeout(() => {
-        const pastedData = e.target.value;
-        if (pastedData.length === 6 && !isNaN(pastedData)) {
-          const otpArray = pastedData.split('');
-          setOtp(otpArray);
-          
-          // Focus last box
-          if (otpRefs.current[5]) {
-            otpRefs.current[5].focus();
-          }
-        }
-      }, 10);
-    }
-  };
-  
-  // Handle OTP submission
-  const handleOtpSubmit = (e) => {
-    e.preventDefault();
+  // Handle PIN submission
+  const handlePinSubmit = (submittedPin = null) => {
     setError('');
     
-    const enteredOtp = otp.join('');
+    const pinToVerify = submittedPin || pin;
     
     // Validation
-    if (enteredOtp.length !== 6) {
-      setError('Please enter the complete 6-digit OTP');
+    if (!pinToVerify || pinToVerify.length !== 4) {
+      setError('Please enter the complete 4-digit PIN');
       return;
     }
     
     setLoading(true);
     
-    // Simulate OTP verification
+    // Get users from localStorage
+    const users = JSON.parse(localStorage.getItem('quickship_users') || '[]');
+    const user = users.find(u => u.phone === phone);
+    
     setTimeout(() => {
-      // For demo, any 6-digit OTP is accepted
-      // But we'll show success message for 123456
-      if (enteredOtp === '123456') {
-        // Save user to localStorage
-        const userData = {
+      if (user && user.pin === pinToVerify) {
+        // Login successful
+        const sessionUser = {
           phone: phone,
-          token: `fake-jwt-${Date.now()}`,
           loggedInAt: new Date().toISOString(),
+          token: `qs-token-${Date.now()}`,
           rememberMe: rememberMe
         };
         
-        localStorage.setItem('quickship_user', JSON.stringify(userData));
+        localStorage.setItem('current_user', JSON.stringify(sessionUser));
+        sessionStorage.setItem('user_session', JSON.stringify(sessionUser));
         
-        // Redirect to dashboard or homepage
-        window.location.href = '/dashboard';
+        // Redirect to dashboard
+        window.location.href = user.phone === "9971230022" ? '/dashboard' : '/';
+        
       } else {
-        setError('Invalid OTP. Please try again.');
+        setError('Invalid PIN. Please try again.');
         setLoading(false);
-      }
-    }, 1500);
-  };
-  
-  // Handle OTP resend
-  const handleResendOTP = () => {
-    if (timer > 0) return;
-    
-    setLoading(true);
-    setError('');
-    
-    // Simulate resend OTP
-    setTimeout(() => {
-      const fakeOtp = generateFakeOTP();
-      const otpArray = fakeOtp.split('');
-      setOtp(otpArray);
-      setLoading(false);
-      setTimer(30);
-      
-      // Focus first OTP box
-      if (otpRefs.current[0]) {
-        otpRefs.current[0].focus();
       }
     }, 1000);
   };
@@ -194,23 +191,68 @@ const LoginPage = () => {
   const handleBackToPhone = () => {
     setStep(1);
     setError('');
-    setOtp(['', '', '', '', '', '']);
+    setPin('');
+    setTimer(0);
   };
   
-  // Timer effect for OTP resend
+  // Handle PIN resend
+  const handleResendPin = () => {
+    if (timer > 0) return;
+    
+    setLoading(true);
+    setError('');
+    
+    // Generate new PIN
+    const newPin = generateRandomPin();
+    setGeneratedPin(newPin);
+    
+    // Update in storage
+    const users = JSON.parse(localStorage.getItem('quickship_users') || '[]');
+    const userIndex = users.findIndex(u => u.phone === phone);
+    
+    if (userIndex !== -1) {
+      users[userIndex].pin = newPin;
+      users[userIndex].lastPinUpdate = new Date().toISOString();
+      localStorage.setItem('quickship_users', JSON.stringify(users));
+    }
+    
+    setTimeout(() => {
+      setLoading(false);
+      setTimer(300); // Reset to 5 minutes
+      setPin('');
+      
+      // Auto-focus PIN input
+      const pinInput = document.getElementById('pinInput');
+      if (pinInput) {
+        pinInput.focus();
+      }
+    }, 1000);
+  };
+  
+  // Format timer display
+  const formatTimer = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+  
+  // Timer effect for PIN expiration
   useEffect(() => {
     let interval;
     if (step === 2 && timer > 0) {
       interval = setInterval(() => {
         setTimer((prev) => prev - 1);
       }, 1000);
+    } else if (step === 2 && timer === 0) {
+      // PIN expired
+      setError('PIN has expired. Please generate a new one.');
     }
     return () => clearInterval(interval);
   }, [step, timer]);
   
   // Check if user is already logged in
   useEffect(() => {
-    const savedUser = localStorage.getItem('quickship_user');
+    const savedUser = localStorage.getItem('current_user');
     if (savedUser) {
       const userData = JSON.parse(savedUser);
       if (userData.rememberMe) {
@@ -219,10 +261,15 @@ const LoginPage = () => {
     }
   }, []);
   
-  // Auto-focus first OTP box when step changes
+  // Auto-focus PIN input when step changes
   useEffect(() => {
-    if (step === 2 && otpRefs.current[0]) {
-      otpRefs.current[0].focus();
+    if (step === 2) {
+      setTimeout(() => {
+        const pinInput = document.getElementById('pinInput');
+        if (pinInput) {
+          pinInput.focus();
+        }
+      }, 100);
     }
   }, [step]);
 
@@ -302,7 +349,7 @@ const LoginPage = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="input-hint">We'll send an OTP to this number</div>
+                  <div className="input-hint">We'll generate a 4-digit PIN for you</div>
                 </div>
                 
                 <div className="form-options">
@@ -327,10 +374,10 @@ const LoginPage = () => {
                   {loading ? (
                     <>
                       <span className="spinner"></span>
-                      Sending OTP...
+                      Generating PIN...
                     </>
                   ) : (
-                    'Send OTP'
+                    'Generate PIN'
                   )}
                 </button>
                 
@@ -347,7 +394,7 @@ const LoginPage = () => {
             </div>
           )}
 
-          {/* Step 2: OTP Verification */}
+          {/* Step 2: PIN Verification */}
           {step === 2 && (
             <div className="login-step">
               <div className="step-header">
@@ -360,56 +407,58 @@ const LoginPage = () => {
                   ←
                 </button>
                 <div>
-                  <h2>Verify OTP</h2>
-                  <p>Enter the 6-digit code sent to +91 {phone}</p>
+                  <h2>Enter PIN</h2>
+                  <p>Enter the 4-digit PIN for +91 {phone}</p>
                 </div>
               </div>
               
-              <form onSubmit={handleOtpSubmit} className="otp-form">
+              <form className="pin-form">
                 <div className="form-group">
-                  <label>Enter OTP</label>
-                  <div className="otp-input-group">
-                    {[0, 1, 2, 3, 4, 5].map((index) => (
-                      <input
-                        key={index}
-                        ref={(el) => (otpRefs.current[index] = el)}
-                        type="tel"
-                        maxLength="1"
-                        value={otp[index]}
-                        onChange={(e) => handleOtpChange(index, e.target.value)}
-                        onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                        disabled={loading}
-                        className="otp-input"
-                      />
-                    ))}
-                  </div>
-                  <div className="otp-hint">
-                    <span>Demo OTP: </span>
-                    <span className="demo-otp">123456</span>
+                  <label htmlFor="pinInput">4-Digit PIN</label>
+                  <input
+                    type="password"
+                    id="pinInput"
+                    value={pin}
+                    onChange={handlePinChange}
+                    placeholder="Enter 4-digit PIN"
+                    maxLength="4"
+                    disabled={loading}
+                    className="pin-input"
+                  />
+                  <div className="pin-hint">
+                    <span>Generated PIN: </span>
+                    <span className="generated-pin">{generatedPin || '----'}</span>
+                    <span className="pin-note"> (Valid for 5 minutes)</span>
                   </div>
                 </div>
                 
-                <div className="otp-timer">
+                <div className="pin-timer">
                   {timer > 0 ? (
-                    <p>Resend OTP in <span className="timer-count">{timer}s</span></p>
+                    <p>
+                      PIN expires in: 
+                      <span className="timer-count"> {formatTimer(timer)}</span>
+                    </p>
                   ) : (
-                    <button 
-                      type="button" 
-                      className="resend-btn"
-                      onClick={handleResendOTP}
-                      disabled={loading}
-                    >
-                      {loading ? 'Sending...' : 'Resend OTP'}
-                    </button>
+                    <p className="timer-expired">PIN has expired</p>
                   )}
+                  
+                  <button 
+                    type="button" 
+                    className="resend-btn"
+                    onClick={handleResendPin}
+                    disabled={loading || timer > 0}
+                  >
+                    {loading ? 'Generating...' : 'Generate New PIN'}
+                  </button>
                 </div>
                 
                 {error && <div className="error-message">{error}</div>}
                 
                 <button 
-                  type="submit" 
+                  type="button" 
                   className="submit-btn"
-                  disabled={loading || otp.join('').length !== 6}
+                  onClick={() => handlePinSubmit()}
+                  disabled={loading || pin.length !== 4 || timer === 0}
                 >
                   {loading ? (
                     <>
@@ -417,18 +466,20 @@ const LoginPage = () => {
                       Verifying...
                     </>
                   ) : (
-                    'Verify & Continue'
+                    'Verify & Login'
                   )}
                 </button>
                 
-                <div className="otp-help">
-                  <p>Didn't receive OTP? Check your SMS or 
+                <div className="pin-help">
+                  <p>
+                    Forgot PIN? 
                     <button 
                       type="button" 
                       className="text-btn"
-                      onClick={handleBackToPhone}
+                      onClick={handleResendPin}
+                      disabled={timer > 0}
                     >
-                      change phone number
+                      Generate new PIN
                     </button>
                   </p>
                 </div>
@@ -437,22 +488,45 @@ const LoginPage = () => {
               <div className="security-note">
                 <div className="security-icon">🔒</div>
                 <div className="security-text">
-                  <strong>Your security is important to us</strong>
-                  <p>We never share your phone number with third parties</p>
+                  <strong>PIN Security</strong>
+                  <p>Each PIN is unique and valid for 5 minutes only</p>
+                  <p>Never share your PIN with anyone</p>
+                </div>
+              </div>
+              
+              {/* Demo PIN Display */}
+              <div className="demo-pin-box">
+                <div className="demo-header">
+                  <span className="demo-icon">🔑</span>
+                  <span>Your Current PIN</span>
+                </div>
+                <div className="demo-content">
+                  <div className="pin-display">{generatedPin || '----'}</div>
+                  <p className="pin-instruction">Enter this 4-digit PIN above</p>
                 </div>
               </div>
             </div>
           )}
           
-          {/* Demo Credentials */}
-          <div className="demo-credentials">
-            <div className="demo-header">
-              <span className="demo-icon">ℹ️</span>
-              <span>Demo Information</span>
+          {/* User Statistics */}
+          <div className="user-stats">
+            <div className="stats-header">
+              <span className="stats-icon">📊</span>
+              <span>QuickShip Users</span>
             </div>
-            <div className="demo-content">
-              <p>Use any 10-digit phone number</p>
-              <p>OTP for demo: <strong>123456</strong></p>
+            <div className="stats-content">
+              <p>Total Registered Users: 
+                <strong> {JSON.parse(localStorage.getItem('quickship_users') || '[]').length}</strong>
+              </p>
+              <p>Your Login Count: 
+                <strong> {
+                  (() => {
+                    const users = JSON.parse(localStorage.getItem('quickship_users') || '[]');
+                    const user = users.find(u => u.phone === phone);
+                    return user ? user.loginCount : '0';
+                  })()
+                }</strong>
+              </p>
             </div>
           </div>
         </div>
