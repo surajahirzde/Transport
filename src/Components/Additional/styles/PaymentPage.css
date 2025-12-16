@@ -798,3 +798,157 @@ input:focus-visible {
   outline: 2px solid #667eea;
   outline-offset: 2px;
 }
+
+/* 
+/////////////gst css */
+
+/* Add these styles to PaymentPage.css */
+
+/* Subtotal Styling */
+.subtotal-item-x7y {
+  padding-top: 12px;
+  border-top: 2px dashed #e5e7eb;
+  margin-top: 8px;
+}
+
+.subtotal-amount-x7y {
+  font-weight: 700;
+  color: #475569;
+  font-size: 16px;
+}
+
+/* GST Styling */
+.gst-item-x7y {
+  color: #059669;
+  font-weight: 500;
+}
+
+.gst-amount-x7y {
+  color: #059669;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Final Total Styling */
+.summary-total-x7y {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #1e40af10 0%, #3b82f610 100%);
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 2px solid #3b82f6;
+}
+
+.total-left-x7y {
+  display: flex;
+  flex-direction: column;
+}
+
+.total-label-x7y {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 4px;
+}
+
+.gst-note-x7y {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.final-total-amount-x7y {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e40af;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  border: 2px solid #dbeafe;
+}
+
+/* GST Info in COD */
+.gst-info-cod {
+  display: block;
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 8px;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border: 1px dashed #93c5fd;
+}
+
+/* Responsive GST Styling */
+@media (max-width: 768px) {
+  .final-total-amount-x7y {
+    font-size: 24px;
+    padding: 8px 16px;
+  }
+  
+  .total-label-x7y {
+    font-size: 16px;
+  }
+  
+  .summary-total-x7y {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .total-right-x7y {
+    width: 100%;
+  }
+  
+  .final-total-amount-x7y {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .final-total-amount-x7y {
+    font-size: 22px;
+    padding: 8px 12px;
+  }
+  
+  .gst-note-x7y {
+    font-size: 12px;
+  }
+  
+  .summary-total-x7y {
+    padding: 12px;
+  }
+}
+
+/* Highlight GST */
+.gst-item-x7y {
+  background: #f0f9ff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border: 1px solid #e0f2fe;
+}
+
+/* Button with GST amount */
+.btn-primary-x7y {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary-x7y::after {
+  content: '(Incl. GST)';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #f59e0b;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../Additional/styles/PaymentPage.css';
-import AmountForm from './Payment'; // Import the AmountForm component
+import AmountForm from './Payment';
 
 const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
-  // Scroll to top on component mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -58,7 +57,7 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
     },
   ];
 
-  // Calculate all prices
+  // Calculate all prices with GST
   const calculatePrices = () => {
     const basePrice = Number(data?.estimatedPrice) || 0;
     const fastDeliveryCharge = Number(data?.fastDeliveryCharge) || 0;
@@ -75,7 +74,12 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
     const additionalServicesTotal = helperPrice + insurancePrice + packagingPrice + fastrackPrice + weekendPrice + nightPrice;
     
     const subtotal = basePrice + vehiclePrice + additionalServicesTotal;
-    const total = subtotal + fastDeliveryCharge;
+    
+    // Calculate GST (18% on subtotal)
+    const gstAmount = subtotal * 0.18;
+    
+    // Final total including GST and fast delivery charge
+    const finalTotal = subtotal + gstAmount + fastDeliveryCharge;
     
     return {
       basePrice,
@@ -89,7 +93,8 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
       nightPrice,
       additionalServicesTotal,
       subtotal,
-      total
+      gstAmount,
+      finalTotal
     };
   };
 
@@ -97,8 +102,8 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
 
   useEffect(() => {
     // Set UPI amount when prices are calculated
-    setUpiAmount(prices.total);
-  }, [prices.total]);
+    setUpiAmount(prices.finalTotal);
+  }, [prices.finalTotal]);
 
   const handlePaymentSelect = (methodId) => {
     setPaymentMethod(methodId);
@@ -179,7 +184,6 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
   };
 
   const selectedPayment = paymentOptions.find(p => p.id === paymentMethod);
-  const selectedQr = qrCodes.find(q => q.id === qrCode);
   const selectedVehicleName = data?.vehicleName || "Vehicle";
 
   return (
@@ -240,9 +244,27 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
                 
                 <div className="summary-divider-x7y"></div>
                 
+                {/* Subtotal Row */}
+                <div className="summary-item-x7y subtotal-item-x7y">
+                  <span>Subtotal:</span>
+                  <span className="subtotal-amount-x7y">₹{prices.subtotal.toLocaleString('en-IN')}</span>
+                </div>
+                
+                {/* GST Row */}
+                <div className="summary-item-x7y gst-item-x7y">
+                  <span>GST (18%):</span>
+                  <span className="gst-amount-x7y">+₹{prices.gstAmount.toFixed(0).toLocaleString('en-IN')}</span>
+                </div>
+                
+                {/* Total Amount Row */}
                 <div className="summary-total-x7y">
-                  <span>Total Amount:</span>
-                  <span className="total-amount-x7y">₹{prices.total.toLocaleString('en-IN')}</span>
+                  <div className="total-left-x7y">
+                    <span className="total-label-x7y">Final Total Amount:</span>
+                    <span className="gst-note-x7y">(Including 18% GST)</span>
+                  </div>
+                  <div className="total-right-x7y">
+                    <span className="final-total-amount-x7y">₹{prices.finalTotal.toFixed(0).toLocaleString('en-IN')}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -309,10 +331,8 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
               </div>
               
               <div className="upi-amount-container">
-                {/* AmountForm Component */}
                 <AmountForm amount={upiAmount} onSuccess={handleUpiSuccess} />
                 
-                {/* Payment Status Info */}
                 <div className="payment-status-info">
                   <div className="status-card">
                     <div className="status-icon">💡</div>
@@ -326,36 +346,6 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
                         <li>Keep the transaction ID for future reference</li>
                       </ul>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Other Payment Methods Details */}
-          {paymentMethod && paymentMethod !== "cod" && paymentMethod !== "upi" && (
-            <div className="payment-section-x7y">
-              <div className="section-header-x7y">
-                <div className="section-icon-x7y">🔢</div>
-                <div>
-                  <h3 className="section-title-x7y">Payment Details</h3>
-                  <p className="section-subtitle-x7y">Enter transaction details after payment</p>
-                </div>
-              </div>
-              
-              <div className="transaction-container-x7y">
-                <div className="transaction-input-x7y">
-                  <label className="input-label-x7y">Transaction ID *</label>
-                  <input
-                    type="text"
-                    className="text-input-x7y"
-                    placeholder={`Enter ${selectedPayment?.name} transaction ID`}
-                    value={transactionId}
-                    onChange={handleTransactionId}
-                    required
-                  />
-                  <div className="input-note-x7y">
-                    You'll receive transaction ID after successful payment. Keep it for future reference.
                   </div>
                 </div>
               </div>
@@ -378,7 +368,8 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
                 <div className="cod-content-x7y">
                   <h4>Cash on Delivery Selected</h4>
                   <p className="cod-amount-x7y">
-                    Pay <strong>₹{prices.total.toLocaleString('en-IN')}</strong> when our delivery executive arrives with your package.
+                    Pay <strong>₹{prices.finalTotal.toFixed(0).toLocaleString('en-IN')}</strong> when our delivery executive arrives with your package.
+                    <span className="gst-info-cod"> (Includes 18% GST)</span>
                   </p>
                   <ul className="cod-features-x7y">
                     <li>
@@ -439,9 +430,9 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
                       Processing...
                     </>
                   ) : paymentMethod === "cod" ? (
-                    "Confirm COD Order"
+                    `Confirm COD (₹${prices.finalTotal.toFixed(0).toLocaleString('en-IN')})`
                   ) : (
-                    "Complete Payment"
+                    `Pay ₹${prices.finalTotal.toFixed(0).toLocaleString('en-IN')}`
                   )}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M6 12L10 8L6 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
