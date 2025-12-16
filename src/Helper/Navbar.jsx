@@ -1,127 +1,137 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import '../Helper/styles/Navbar.css';
-import ChagnsLogo from '../../src/assets/chaganLogo.jpeg';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import './styles/Navbar.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user'));
+    if (currentUser) {
+      setIsUserLogin(currentUser);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = () => {
-    handleNavClick();
     setIsMenuOpen(false);
   };
-  useEffect(() => {
-    const isCurrentUser = JSON.parse(localStorage.getItem('current_user'));
-    if (isCurrentUser) {
-      setIsUserLogin(isCurrentUser);
-    }
-  }, [])
-  const handleNavClick = () => {
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  const handleLogout = () => {
+    localStorage.removeItem('current_user');
+    setIsUserLogin(false);
+    closeMenu();
+    navigate('/');
   };
+
   return (
-    <nav className="main-navbar">
-      <div className="navbar-brand">
-        <h1 className="navbar-logo">
-          <img src={ChagnsLogo} alt="chagans" />
-        </h1>
-        <p className="navbar-tagline">Anything, Anywhere, Anytime</p>
-      </div>
+    <nav className="navbar">
+      <div className="navbar-container">
+        {/* Logo */}
+        <div className="navbar-logo" onClick={() => navigate('/')}>
+          <div className="logo-icon">🚚</div>
+          <div className="logo-text">
+            <span className="logo-name">TransportOnWeb</span>
+            <span className="logo-tag">Fast & Reliable</span>
+          </div>
+        </div>
 
-      {/* Hamburger Menu Button */}
-      <button
-        className={`hamburger-menu ${isMenuOpen ? 'active' : ''}`}
-        onClick={toggleMenu}
-        aria-label="Toggle navigation menu"
-      >
-        <span className="hamburger-line"></span>
-        <span className="hamburger-line"></span>
-        <span className="hamburger-line"></span>
-      </button>
-
-      {/* Navigation Menu */}
-      <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-        <li className="nav-item">
-          <NavLink
-            to="/"
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-            onClick={closeMenu}
-          >
+        {/* Desktop Menu */}
+        <div className="navbar-menu">
+          <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
             Home
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/services"
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-            onClick={closeMenu}
-          >
+          <NavLink to="/services" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
             Services
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/about"
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-            onClick={closeMenu}
-          >
+          <NavLink to="/track" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            Track Shipment
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
             About
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/contact"
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-            onClick={closeMenu}
-          >
+          <NavLink to="/contact" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
             Contact
           </NavLink>
-        </li>
+        </div>
 
-        {
-          isUserLogin === false ?   <li>
-          <NavLink
-            to="/login"
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-            onClick={closeMenu}
-          >
-            Login
-          </NavLink>
-        </li> :  <li>
-          <NavLink
-            to={
-              isUserLogin.phone === "9971230022" ? "/dashboard" : "/orders" 
-            }
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-            onClick={closeMenu}
-          >
-            {
-              isUserLogin.phone === "9971230022" ? "Dashboard" : "Orders"
-            }
-          </NavLink>
-        </li>
+        {/* User Section */}
+        <div className="user-section">
+          {isUserLogin ? (
+            <div className="user-profile">
+              <div className="user-info">
+                <span className="user-phone">📱 {isUserLogin.phone}</span>
+              </div>
+              <NavLink 
+                to={isUserLogin.phone === "9971230022" ? "/dashboard" : "/orders"} 
+                className="dashboard-btn"
+              >
+                {isUserLogin.phone === "9971230022" ? "Dashboard" : "My Orders"}
+              </NavLink>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <NavLink to="/login" className="login-btn">
+              Login
+            </NavLink>
+          )}
+        </div>
 
-        }
+        {/* Mobile Menu Button */}
+        <button className="mobile-toggle" onClick={toggleMenu}>
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
+      </div>
 
-
-
-
-      </ul>
-
-      {/* Overlay for mobile menu */}
-      {isMenuOpen && (
-        <div className="menu-overlay" onClick={closeMenu}></div>
-      )}
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isMenuOpen ? 'show' : ''}`}>
+        <NavLink to="/" className="mobile-link" onClick={closeMenu}>
+          Home
+        </NavLink>
+        <NavLink to="/services" className="mobile-link" onClick={closeMenu}>
+          Services
+        </NavLink>
+        <NavLink to="/track" className="mobile-link" onClick={closeMenu}>
+          Track Shipment
+        </NavLink>
+        <NavLink to="/about" className="mobile-link" onClick={closeMenu}>
+          About
+        </NavLink>
+        <NavLink to="/contact" className="mobile-link" onClick={closeMenu}>
+          Contact
+        </NavLink>
+        
+        <div className="mobile-user">
+          {isUserLogin ? (
+            <>
+              <div className="mobile-user-info">
+                <span>Logged in as: {isUserLogin.phone}</span>
+              </div>
+              <NavLink 
+                to={isUserLogin.phone === "9971230022" ? "/dashboard" : "/orders"} 
+                className="mobile-dashboard-btn"
+                onClick={closeMenu}
+              >
+                {isUserLogin.phone === "9971230022" ? "Dashboard" : "My Orders"}
+              </NavLink>
+              <button className="mobile-logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <NavLink to="/login" className="mobile-login-btn" onClick={closeMenu}>
+              Login / Register
+            </NavLink>
+          )}
+        </div>
+      </div>
     </nav>
   );
 };

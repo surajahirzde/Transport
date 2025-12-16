@@ -1,294 +1,313 @@
-import React from 'react';
-import '../Components/styles/Hero.css';  
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Truck,Globe, MapPin, Clock, Shield, Package, Users, Building, CheckCircle } from 'lucide-react';
+import './styles/Hero.css';
+import { Truck, MapPin, Shield, CheckCircle, Package, Users, Clock, Star, Award, Lock, Phone, HelpCircle, FileText } from 'lucide-react';
 
 const Hero = () => {
-  const [activeService, setActiveService] = useState(0);
   const navigate = useNavigate();
-  const services = [
-    { id: 1, name: 'Road Transport', icon: '🚛', vehicles: '500+ Trucks' },
-    { id: 2, name: 'Express Delivery', icon: '⚡', vehicles: '150+ Vans' },
-    { id: 3, name: 'Warehouse Storage', icon: '🏭', vehicles: '15+ Facilities' },
-    { id: 4, name: 'Cold Chain', icon: '❄️', vehicles: 'Specialized Fleet' },
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Updated slides with WORKING Unsplash URLs
+ // Best transport/porter specific images for slider
+// Perfect Transport / Porter Slider Images
+const slides = [
+  {
+    id: 1,
+    image: "https://images.pexels.com/photos/4246120/pexels-photo-4246120.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Truck Loading",
+    desc: "Goods being loaded into a truck"
+  },
+  {
+    id: 2,
+    image: "https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Truck on Highway",
+    desc: "Transport truck running on highway"
+  },
+  {
+    id: 3,
+    image: "https://images.pexels.com/photos/5025667/pexels-photo-5025667.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Goods Packages",
+    desc: "Packed goods ready for delivery"
+  },
+  {
+    id: 4,
+    image: "https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Warehouse Storage",
+    desc: "Warehouse with stacked inventory"
+  },
+  {
+    id: 5,
+    image: "https://images.pexels.com/photos/6169056/pexels-photo-6169056.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Porters at Work",
+    desc: "Two workers lifting goods together"
+  },
+  {
+    id: 6,
+    image: "https://images.pexels.com/photos/7706455/pexels-photo-7706455.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Fast Delivery Service",
+    desc: "Courier & porter fast delivery concept"
+  }
+];
+
+
+
+  const policyCards = [
+    { 
+      id: 1, 
+      icon: <Shield size={24} />, 
+      title: 'Safe & Secure', 
+      desc: '100% insured shipments with GPS tracking' 
+    },
+    { 
+      id: 2, 
+      icon: <FileText size={24} />, 
+      title: 'Refund Policy', 
+      desc: '100% refund for damaged goods' 
+    },
+    { 
+      id: 3, 
+      icon: <Lock size={24} />, 
+      title: 'Privacy Policy', 
+      desc: 'Your data is secure with us' 
+    },
+    { 
+      id: 4, 
+      icon: <HelpCircle size={24} />, 
+      title: 'Help & Support', 
+      desc: '24/7 customer support available' 
+    },
   ];
 
-  const handleStartShipping = () => {
-    navigate('/shipping'); 
-  };
 
-  const handleTrackShipment = () => {
-    navigate('/tracking'); 
-  };
 
-  // Auto rotate services
+ 
+
+  const stats = [
+    { number: '10K+', label: 'Shipments Delivered' },
+    { number: '500+', label: 'Happy Customers' },
+    { number: '28', label: 'Cities Covered' },
+    { number: '99%', label: 'On-time Rate' },
+  ];
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveService((prev) => (prev + 1) % services.length);
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
 
+  const handleBookNow = () => {
+    navigate('/shipping');
+  };
+
+  const handleTrack = () => {
+    navigate('/tracking');
+  };
+
+  const handleContact = () => {
+    navigate('/contact');
+  };
+
+  const handleHelp = () => {
+    navigate('/help');
+  };
+
   return (
-    <div className="hero-main-container">
-      {/* Hero Background with Transport Scene */}
-      <div className="transport-scene">
-        <div className="road-highway"></div>
-        
-        {/* Moving Vehicles */}
-        <div className="moving-truck truck-1">
-          <div className="truck-body">
-            <div className="truck-cab">DT</div>
-            <div className="truck-trailer">TRANSPORT</div>
+    <section className="hero-section">
+      <div className="hero-container">
+        <div className="hero-content">
+          <div className="hero-badge">
+            <Award size={16} />
+            <span>Trusted Porter Service Since 2010</span>
           </div>
-        </div>
-        
-        <div className="moving-van van-1">
-          <div className="van-body">EXPRESS</div>
-        </div>
-        
-        <div className="moving-truck truck-2">
-          <div className="truck-body">
-            <div className="truck-cab">LOGISTICS</div>
-            <div className="truck-trailer">COLD CHAIN</div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Warehouse Background */}
-      <div className="warehouse-bg">
-        <div className="warehouse-container">
-          <div className="warehouse-doors">
-            <div className="door-left"></div>
-            <div className="door-right"></div>
-          </div>
-          <div className="forklift">
-            <div className="forklift-body">⚙️</div>
-          </div>
-          <div className="pallets">
-            <div className="pallet"></div>
-            <div className="pallet"></div>
-            <div className="pallet"></div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Hero Content */}
-      <div className="hero-content-wrapper">
-        <div className="hero-text-section">
-          
-          {/* Company Badge */}
-          <div className="company-badge">
-            <div className="badge-icon">
-              <Shield size={20} />
-            </div>
-            <span>Trusted Logistics Partner Since 2005</span>
-          </div>
-          
-          {/* Main Heading */}
-          <h1 className="hero-main-heading">
-            <span className="heading-line-1">Move Your Goods</span>
-            <span className="heading-line-2">With India's <span className="highlight">Most Trusted</span></span>
-            <span className="heading-line-3">Transport & Logistics Company</span>
+
+          <h1 className="hero-title">
+            Professional Goods Transport
+            <span className="highlight"> Services</span>
           </h1>
-          
-          {/* Description */}
-          <p className="hero-description-text">
-            From local deliveries to nationwide logistics, our fleet of <strong>650+ vehicles</strong>, 
-            experienced <strong>250+ drivers</strong>, and <strong>15+ warehouses</strong> ensure your 
-            goods reach safely and on time. We handle everything from parcels to full truckloads.
+
+          <p className="hero-description">
+            We provide reliable and safe transport solutions for all your goods. 
+            From small parcels to large consignments, our experienced team ensures 
+            timely and secure delivery across India.
           </p>
-          
-          {/* Active Service Display */}
-          <div className="active-service-display">
-            <div className="service-icon-large">
-              {services[activeService].icon}
-            </div>
-            <div className="service-details">
-              <h3>{services[activeService].name}</h3>
-              <p>{services[activeService].vehicles} • 24/7 Service</p>
-            </div>
-            <div className="service-indicators">
-              {services.map((_, index) => (
-                <div 
-                  key={index}
-                  className={`indicator ${index === activeService ? 'active' : ''}`}
-                  onClick={() => setActiveService(index)}
-                ></div>
+
+       
+
+      
+          <div className="policy-section">
+            <h3>Safe & Transparent Services</h3>
+            <div className="policy-cards">
+              {policyCards.map((policy) => (
+                <div key={policy.id} className="policy-card">
+                  <div className="policy-icon">{policy.icon}</div>
+                  <h4>{policy.title}</h4>
+                  <p>{policy.desc}</p>
+                </div>
               ))}
             </div>
           </div>
-          
-          {/* Key Features */}
-          <div className="key-features">
-            <div className="feature">
-              <CheckCircle size={20} className="feature-icon" />
-              <span>Real-Time GPS Tracking</span>
+
+          <div className="gst-section">
+            <div className="gst-badge">
+              <Shield size={16} />
+              <div>
+                <strong>GSTIN:</strong>
+                <span>06AAGCC6826R2Z0</span>
+              </div>
             </div>
-            <div className="feature">
-              <CheckCircle size={20} className="feature-icon" />
-              <span>Door-to-Door Delivery</span>
-            </div>
-            <div className="feature">
-              <CheckCircle size={20} className="feature-icon" />
-              <span>Fully Insured Shipments</span>
-            </div>
-            <div className="feature">
-              <CheckCircle size={20} className="feature-icon" />
-              <span>Temperature Controlled</span>
-            </div>
+            <p className="gst-text">Fully GST Compliant Services</p>
           </div>
-          
-          {/* Action Buttons */}
-          <div className="hero-button-group">
-            <button className="hero-primary-btn" onClick={handleStartShipping}>
+
+          <div className="hero-buttons">
+            <button className="btn-primary" onClick={handleBookNow}>
               <Truck size={20} />
-              <span>Book Your Shipment Now</span>
-              <span className="btn-badge">Get Instant Quote</span>
+              <span>Book Transport Now</span>
             </button>
-            
-            <button className="hero-secondary-btn" onClick={handleTrackShipment}>
+            <button className="btn-secondary" onClick={handleTrack}>
               <MapPin size={20} />
-              <span>Track Your Consignment</span>
+              <span>Track Shipment</span>
             </button>
           </div>
-          
-          {/* Driver & Warehouse Info */}
-          <div className="operations-info">
-            <div className="operations-card">
-              <div className="operations-icon">
-                <Users size={24} />
+
+       
+
+          <div className="hero-stats">
+            {stats.map((stat, index) => (
+              <div key={index} className="stat-item">
+                <div className="stat-number">{stat.number}</div>
+                <div className="stat-label">{stat.label}</div>
               </div>
-              <div>
-                <h4>250+ Professional Drivers</h4>
-                <p>Experienced & Verified</p>
-              </div>
-            </div>
-            
-            <div className="operations-card">
-              <div className="operations-icon">
-                <Building size={24} />
-              </div>
-              <div>
-                <h4>15+ Warehouses Nationwide</h4>
-                <p>Secure Storage Facilities</p>
-              </div>
-            </div>
+            ))}
           </div>
-          
-          {/* Stats */}
-          <div className="hero-stats-container">
-            <div className="stat-item">
-              <div className="stat-number">50K+</div>
-              <div className="stat-label">Monthly Shipments</div>
+
+          <div className="support-info">
+            <div className="support-item">
+              <Clock size={18} />
+              <div>
+                <p>24/7 Customer Support</p>
+                <a href="tel:+911800123456" className="support-number">
+                  📞 1800-123-456
+                </a>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">99.2%</div>
-              <div className="stat-label">On-Time Delivery</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">650+</div>
-              <div className="stat-label">Vehicle Fleet</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">28</div>
-              <div className="stat-label">States Covered</div>
-            </div>
-          </div>
-          
-          {/* Call to Action */}
-          <div className="cta-section">
-            <div className="cta-phone">
-              <Clock size={16} />
-              <span>24/7 Customer Support:</span>
-              <a href="tel:18001234567" className="phone-number">📞 1800-123-4567</a>
-            </div>
-            <p className="cta-note">Get a free quote in 2 minutes</p>
           </div>
         </div>
-        
-        {/* Right Side - Visual Section */}
-        <div className="hero-visual-section">
-          {/* Driver Card */}
-          <div className="driver-profile-card">
-            <div className="driver-avatar">
-              <div className="avatar-img">👨‍✈️</div>
-            </div>
-            <div className="driver-info">
-              <h4>Ravi Kumar</h4>
-              <p className="driver-title">Senior Transport Driver</p>
-              <div className="driver-stats">
-                <span className="stat">⭐ 4.9/5 Rating</span>
-                <span className="stat">📦 5000+ Deliveries</span>
+
+        <div className="hero-visual">
+          {/* Fixed Image Slider */}
+          <div className="image-slider">
+            {slides.map((slide, index) => (
+              <div 
+                key={slide.id} 
+                className={`slide ${index === currentSlide ? 'active' : ''}`}
+                style={{ 
+                  backgroundImage: `url(${slide.image})`
+                }}
+              >
+                <div className="slide-overlay">
+                  <h3>{slide.title}</h3>
+                  <p>{slide.desc}</p>
+                </div>
               </div>
-              <p className="driver-quote">"Your goods are safe with us!"</p>
+            ))}
+            
+            <div className="slider-dots">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  className={`dot ${index === currentSlide ? 'active' : ''}`}
+                  onClick={() => setCurrentSlide(index)}
+                />
+              ))}
             </div>
           </div>
-          
-          {/* Live Shipment Card */}
-          <div className="live-shipment-card">
-            <div className="shipment-header">
+
+          <div className="tracking-card">
+            <div className="card-header">
               <div className="live-badge">
-                <div className="pulse-dot"></div>
+                <span className="pulse-dot"></span>
                 LIVE TRACKING
               </div>
-              <Clock size={16} />
             </div>
             
-            <div className="shipment-route">
-              <div className="route-point start">
+            <div className="route-info">
+              <div className="route-start">
                 <MapPin size={16} />
                 <div>
                   <p className="city">Delhi</p>
-                  <p className="time">Pickup: 10:00 AM</p>
+                  <p className="time">Pickup: 10 AM</p>
                 </div>
               </div>
               
               <div className="route-line">
-                <div className="route-truck">🚚</div>
+                <div className="moving-truck">🚚</div>
               </div>
               
-              <div className="route-point end">
+              <div className="route-end">
                 <MapPin size={16} />
                 <div>
                   <p className="city">Mumbai</p>
-                  <p className="time">ETA: 6:00 PM</p>
+                  <p className="time">ETA: 6 PM</p>
                 </div>
               </div>
             </div>
             
             <div className="shipment-details">
-              <div className="detail-item">
+              <div className="detail">
                 <span>Consignment:</span>
-                <strong>DT2024001234</strong>
+                <strong>TRX2024001234</strong>
               </div>
-              <div className="detail-item">
-                <span>Vehicle:</span>
-                <strong>Container Truck • MH-01-AB-1234</strong>
-              </div>
-              <div className="detail-item">
+              <div className="detail">
                 <span>Driver:</span>
-                <strong>Vikram Singh</strong>
+                <strong>Rajesh Kumar</strong>
               </div>
             </div>
             
-            <button className="track-shipment-btn" onClick={handleTrackShipment}>
+            <button className="track-btn" onClick={handleTrack}>
               <MapPin size={16} />
               Track Your Shipment
             </button>
           </div>
-          
-          {/* Warehouse Image */}
-          <div className="warehouse-image-container">
-            <div className="image-overlay">
-              <h4>Our Mumbai Warehouse</h4>
-              <p>50,000 sq.ft • 24/7 Security</p>
+
+          <div className="terms-card">
+            <div className="card-header">
+              <FileText size={20} />
+              <h4>Terms & Conditions</h4>
+            </div>
+            <ul className="terms-list">
+              <li>• Free insurance up to ₹50,000</li>
+              <li>• 24/7 customer support</li>
+              <li>• GPS tracking on all shipments</li>
+              <li>• Transparent pricing</li>
+            </ul>
+            <button onClick={() => navigate('/terms')} className="read-more">
+              Read Full T&C →
+            </button>
+          </div>
+
+          <div className="driver-card">
+            <div className="driver-avatar">
+              <div className="avatar-icon">👨‍✈️</div>
+              <div className="verified-badge">✓</div>
+            </div>
+            <div className="driver-info">
+              <h4>Vikram Singh</h4>
+              <p>Senior Transport Driver</p>
+              <div className="driver-rating">
+                <Star size={14} />
+                <Star size={14} />
+                <Star size={14} />
+                <Star size={14} />
+                <Star size={14} />
+                <span>4.8/5</span>
+              </div>
+              <p className="driver-quote">"Your goods are safe with us!"</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

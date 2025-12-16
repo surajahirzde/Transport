@@ -16,8 +16,8 @@ const Footer = () => {
             <div className="company-logo">
               <span className="logo-icon">🚀</span>
               <div className="logo-text">
-                <h2 className="company-name">Chagans Technologies Limited</h2>
-                <p className="company-tagline">Fintech solutions for the digital age</p>
+                <h2 className="company-name">TransportOnWeb</h2>
+                <p className="company-tagline">Fast and Reliable Delivery</p>
               </div>
             </div>
             <div className="social-links">
