@@ -210,7 +210,7 @@ const LoginPage = () => {
       const apiResponse = await sendOtpToEmail(email, newOtp);
       
       // Check API response (adjust based on your API's response structure)
-      if (apiResponse.success || apiResponse.status === 'success') {
+      if (apiResponse.success || apiResponse.status === 'success') { 
         setStep(3); // Move to OTP verification step
         setEmailSent(true);
         setLoading(false);
