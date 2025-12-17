@@ -65,7 +65,7 @@ const Footer = () => {
                 </span>
                 <div className="contact-text">
                   <a href="tel:01294020010" className="contact-link">
-                    0129-4020010
+                   9211336188
                   </a>
                 </div>
               </div>
@@ -76,7 +76,7 @@ const Footer = () => {
                 </span>
                 <div className="contact-text">
                   <a href="mailto:info@chagans.com" className="contact-link">
-                    info@chagans.com
+                    tansportonweb.com
                   </a>
                 </div>
               </div>

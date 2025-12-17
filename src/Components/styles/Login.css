@@ -1,4 +1,4 @@
-/* Login.css - Professional Design */
+/* Login.css - Professional Design with Email & OTP */
 
 /* Main Container */
 .login-container {
@@ -177,7 +177,8 @@
 
 /* Forms */
 .phone-form,
-.pin-form {
+.email-form,
+.otp-form {
   margin-bottom: 2rem;
 }
 
@@ -236,8 +237,25 @@
   margin-top: 0.5rem;
 }
 
-/* PIN Input */
-.pin-input {
+/* Email Input */
+.email-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition: border-color 0.2s;
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* OTP Input */
+.otp-input {
   width: 100%;
   padding: 0.875rem 1rem;
   border: 2px solid #e5e7eb;
@@ -246,17 +264,17 @@
   font-weight: 600;
   color: #1a1a1a;
   text-align: center;
-  letter-spacing: 0.5rem;
+  letter-spacing: 0.25rem;
   transition: border-color 0.2s;
 }
 
-.pin-input:focus {
+.otp-input:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.pin-hint {
+.otp-hint {
   font-size: 0.9rem;
   color: #4b5563;
   margin-top: 0.5rem;
@@ -266,18 +284,13 @@
   flex-wrap: wrap;
 }
 
-.generated-pin {
-  font-weight: 700;
-  color: #10b981;
-  background: #f0fdf4;
+.sent-email {
+  font-weight: 600;
+  color: #3b82f6;
+  background: #eff6ff;
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
-  border: 1px solid #d1fae5;
-}
-
-.pin-note {
-  color: #f59e0b;
-  font-weight: 500;
+  border: 1px solid #dbeafe;
 }
 
 /* Form Options */
@@ -301,7 +314,8 @@
 }
 
 /* Timer */
-.pin-timer {
+.pin-timer,
+.otp-timer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -312,7 +326,8 @@
   border: 1px solid #e5e7eb;
 }
 
-.pin-timer p {
+.pin-timer p,
+.otp-timer p {
   margin: 0;
   font-size: 0.9rem;
   color: #4b5563;
@@ -448,6 +463,50 @@
   text-decoration: underline;
 }
 
+/* Phone Note */
+.phone-note {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.phone-note p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.phone-note strong {
+  color: #1a1a1a;
+}
+
+/* OTP Help Section */
+.otp-help {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.otp-help p {
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: 0.25rem;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
 /* Security Note */
 .security-note {
   background: #f0fdf4;
@@ -482,38 +541,12 @@
   line-height: 1.4;
 }
 
-/* PIN Help */
-.pin-help {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.pin-help p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #6b7280;
-}
-
-.text-btn {
-  background: none;
-  border: none;
-  color: #667eea;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0.25rem;
-  margin-left: 0.25rem;
-}
-
-.text-btn:hover {
-  text-decoration: underline;
-}
-
-/* Demo PIN Box */
-.demo-pin-box {
-  background: linear-gradient(135deg, #f59e0b10 0%, #d9770610 100%);
+/* Demo OTP Box */
+.demo-otp-box {
+  background: linear-gradient(135deg, #3b82f610 0%, #1d4ed810 100%);
   border-radius: 10px;
   padding: 1.25rem;
-  border: 1px solid #fde68a;
+  border: 1px solid #bfdbfe;
   margin-top: 1.5rem;
 }
 
@@ -530,24 +563,31 @@
 
 .demo-header span {
   font-weight: 600;
-  color: #92400e;
+  color: #1e40af;
 }
 
-.pin-display {
+.otp-display {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #d97706;
+  color: #1d4ed8;
   text-align: center;
   letter-spacing: 0.5rem;
   margin: 0.5rem 0;
-  text-shadow: 0 2px 4px rgba(217, 119, 6, 0.2);
+  text-shadow: 0 2px 4px rgba(29, 78, 216, 0.2);
 }
 
-.pin-instruction {
+.otp-instruction {
   text-align: center;
-  font-size: 0.9rem;
-  color: #92400e;
+  font-size: 0.85rem;
+  color: #374151;
   margin: 0.5rem 0 0 0;
+  line-height: 1.4;
+}
+
+.otp-instruction:first-of-type {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #d1d5db;
 }
 
 /* User Stats */
@@ -610,11 +650,35 @@
   .brand-tagline h2 {
     font-size: 1.75rem;
   }
-}
-
-@media (max-width: 640px) {
+  
   .login-form-container {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-left,
+  .login-right {
+    padding: 1rem;
+  }
+  
+  .login-form-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .brand-logo {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-text h1 {
+    font-size: 2rem;
+  }
+  
+  .brand-tagline h2 {
+    font-size: 1.5rem;
   }
   
   .step-header h2 {
@@ -628,11 +692,77 @@
   .feature-icon {
     width: 40px;
     height: 40px;
+    font-size: 1.25rem;
   }
   
-  .pin-display {
+  .otp-display {
     font-size: 2rem;
     letter-spacing: 0.25rem;
+  }
+  
+  .phone-input-group {
+    flex-direction: column;
+    border: none;
+  }
+  
+  .country-code {
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+  
+  .phone-input-group input {
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form-container {
+    padding: 1.25rem;
+  }
+  
+  .step-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .step-header h2 {
+    font-size: 1.35rem;
+  }
+  
+  .step-header p {
+    font-size: 0.9rem;
+  }
+  
+  .otp-input {
+    font-size: 1.25rem;
+    padding: 0.75rem;
+  }
+  
+  .otp-display {
+    font-size: 1.75rem;
+    letter-spacing: 0.15rem;
+  }
+  
+  .pin-timer,
+  .otp-timer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .submit-btn {
+    padding: 0.75rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -657,4 +787,248 @@ input:focus-visible {
     box-shadow: none;
     padding: 0;
   }
+  
+  .submit-btn,
+  .resend-btn,
+  .text-btn,
+  .back-btn {
+    display: none;
+  }
+}
+
+/* Loading State Enhancements */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+/* API Status Indicator */
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.api-status.connected {
+  background: #f0fdf4;
+  color: #047857;
+  border: 1px solid #d1fae5;
+}
+
+.api-status.disconnected {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.connected {
+  background: #10b981;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.disconnected {
+  background: #ef4444;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Form Animation */
+.login-step {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Success Message */
+.success-message {
+  background: #f0fdf4;
+  color: #047857;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #d1fae5;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.success-message::before {
+  content: "✓";
+  font-weight: bold;
+}
+
+/* Warning Message */
+.warning-message {
+  background: #fffbeb;
+  color: #92400e;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #fde68a;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.warning-message::before {
+  content: "⚠";
+  font-weight: bold;
+}
+
+/* Email Sent Confirmation */
+.email-sent-confirmation {
+  background: #eff6ff;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #dbeafe;
+  text-align: center;
+}
+
+.email-sent-confirmation .checkmark {
+  color: #3b82f6;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.email-sent-confirmation p {
+  margin: 0;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+/* Email Resend Counter */
+.resend-counter {
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.resend-counter span {
+  font-weight: 600;
+  color: #ef4444;
+}
+
+/* Email Validation Status */
+.email-validation {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.email-validation.valid {
+  color: #10b981;
+}
+
+.email-validation.invalid {
+  color: #ef4444;
+}
+
+/* Step Indicator */
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: #e5e7eb;
+  z-index: 1;
+}
+
+.step-indicator-step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  position: relative;
+  z-index: 2;
+}
+
+.step-indicator-step.active {
+  border-color: #667eea;
+  color: #667eea;
+  background: white;
+}
+
+.step-indicator-step.completed {
+  border-color: #10b981;
+  background: #10b981;
+  color: white;
+}
+
+.step-label {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.step-indicator-step.completed .step-label {
+  color: #10b981;
+}
+
+.step-indicator-step.active .step-label {
+  color: #667eea;
+  font-weight: 600;
 }
