@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Components/styles/Login.css';
 
 const LoginPage = () => {
@@ -390,43 +390,43 @@ const LoginPage = () => {
   }, [step]);
 
   return (
-    <div className="login-container">
+    <div className="qs-login-container">
       {/* Left Section - Branding */}
-      <div className="login-left">
-        <div className="brand-section">
-          <div className="brand-logo">
-            <span className="logo-icon">🚚</span>
-            <div className="logo-text">
+      <div className="qs-login-left">
+        <div className="qs-brand-section">
+          <div className="qs-brand-logo">
+            <span className="qs-logo-icon">🚚</span>
+            <div className="qs-logo-text">
               <h1>QuickShip</h1>
               <p>Express Delivery</p>
             </div>
           </div>
           
-          <div className="brand-tagline">
+          <div className="qs-brand-tagline">
             <h2>Fast & Reliable Shipping Solutions</h2>
             <p>Book shipments in minutes, track in real-time</p>
           </div>
           
-          <div className="features-list">
-            <div className="feature-item">
-              <span className="feature-icon">📦</span>
-              <div className="feature-text">
+          <div className="qs-features-list">
+            <div className="qs-feature-item">
+              <span className="qs-feature-icon">📦</span>
+              <div className="qs-feature-text">
                 <h4>Instant Booking</h4>
                 <p>Book your shipment in just a few clicks</p>
               </div>
             </div>
             
-            <div className="feature-item">
-              <span className="feature-icon">📍</span>
-              <div className="feature-text">
+            <div className="qs-feature-item">
+              <span className="qs-feature-icon">📍</span>
+              <div className="qs-feature-text">
                 <h4>Real-time Tracking</h4>
                 <p>Track your shipment live on map</p>
               </div>
             </div>
             
-            <div className="feature-item">
-              <span className="feature-icon">📧</span>
-              <div className="feature-text">
+            <div className="qs-feature-item">
+              <span className="qs-feature-icon">📧</span>
+              <div className="qs-feature-text">
                 <h4>Email Verification</h4>
                 <p>Secure login with email OTP verification</p>
               </div>
@@ -436,24 +436,24 @@ const LoginPage = () => {
       </div>
 
       {/* Right Section - Login Form */}
-      <div className="login-right">
-        <div className="login-form-container">
+      <div className="qs-login-right">
+        <div className="qs-login-form-container">
           {/* Step 1: Phone Number */}
           {step === 1 && (
-            <div className="login-step">
-              <div className="step-header">
-                <div className="step-number">1</div>
+            <div className="qs-login-step">
+              <div className="qs-step-header">
+                <div className="qs-step-number">1</div>
                 <div>
                   <h2>Welcome Back</h2>
                   <p>Enter your phone number to continue</p>
                 </div>
               </div>
               
-              <form onSubmit={handlePhoneSubmit} className="phone-form">
-                <div className="form-group">
+              <form onSubmit={handlePhoneSubmit} className="qs-phone-form">
+                <div className="qs-form-group">
                   <label htmlFor="phone">Phone Number</label>
-                  <div className="phone-input-group">
-                    <div className="country-code">+91</div>
+                  <div className="qs-phone-input-group">
+                    <div className="qs-country-code">+91</div>
                     <input
                       type="tel"
                       id="phone"
@@ -465,11 +465,11 @@ const LoginPage = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="input-hint">We'll ask for your email in the next step</div>
+                  <div className="qs-input-hint">We'll ask for your email in the next step</div>
                 </div>
                 
-                <div className="form-options">
-                  <label className="checkbox-label">
+                <div className="qs-form-options">
+                  <label className="qs-checkbox-label">
                     <input
                       type="checkbox"
                       checked={rememberMe}
@@ -480,16 +480,16 @@ const LoginPage = () => {
                   </label>
                 </div>
                 
-                {error && <div className="error-message">{error}</div>}
+                {error && <div className="qs-error-message">{error}</div>}
                 
                 <button 
                   type="submit" 
-                  className="submit-btn"
+                  className="qs-submit-btn"
                   disabled={loading || phone.length !== 10}
                 >
                   {loading ? (
                     <>
-                      <span className="spinner"></span>
+                      <span className="qs-spinner"></span>
                       Processing...
                     </>
                   ) : (
@@ -497,14 +497,14 @@ const LoginPage = () => {
                   )}
                 </button>
                 
-                <div className="terms-note">
+                <div className="qs-terms-note">
                   By continuing, you agree to our 
                   <a href="/terms"> Terms & Conditions</a> and 
                   <a href="/privacy"> Privacy Policy</a>
                 </div>
               </form>
               
-              <div className="support-info">
+              <div className="qs-support-info">
                 <p>Need help? <a href="tel:18001234567">Call 1800-123-4567</a></p>
               </div>
             </div>
@@ -512,11 +512,11 @@ const LoginPage = () => {
 
           {/* Step 2: Email Address */}
           {step === 2 && (
-            <div className="login-step">
-              <div className="step-header">
+            <div className="qs-login-step">
+              <div className="qs-step-header">
                 <button 
                   type="button" 
-                  className="back-btn"
+                  className="qs-back-btn"
                   onClick={handleBack}
                   disabled={loading}
                 >
@@ -528,8 +528,8 @@ const LoginPage = () => {
                 </div>
               </div>
               
-              <form onSubmit={handleEmailSubmit} className="email-form">
-                <div className="form-group">
+              <form onSubmit={handleEmailSubmit} className="qs-email-form">
+                <div className="qs-form-group">
                   <label htmlFor="emailInput">Email Address</label>
                   <input
                     type="email"
@@ -538,21 +538,21 @@ const LoginPage = () => {
                     onChange={handleEmailChange}
                     placeholder="Enter your email address"
                     disabled={loading}
-                    className="email-input"
+                    className="qs-email-input"
                   />
-                  <div className="input-hint">We'll send a 6-digit OTP to this email</div>
+                  <div className="qs-input-hint">We'll send a 6-digit OTP to this email</div>
                 </div>
                 
-                {error && <div className="error-message">{error}</div>}
+                {error && <div className="qs-error-message">{error}</div>}
                 
                 <button 
                   type="submit" 
-                  className="submit-btn"
+                  className="qs-submit-btn"
                   disabled={loading || !email.includes('@')}
                 >
                   {loading ? (
                     <>
-                      <span className="spinner"></span>
+                      <span className="qs-spinner"></span>
                       Sending OTP...
                     </>
                   ) : (
@@ -560,11 +560,11 @@ const LoginPage = () => {
                   )}
                 </button>
                 
-                <div className="phone-note">
+                <div className="qs-phone-note">
                   <p>Phone number: <strong>+91 {phone}</strong></p>
                   <button 
                     type="button" 
-                    className="text-btn"
+                    className="qs-text-btn"
                     onClick={handleBack}
                   >
                     Change phone number
@@ -576,11 +576,11 @@ const LoginPage = () => {
 
           {/* Step 3: OTP Verification */}
           {step === 3 && (
-            <div className="login-step">
-              <div className="step-header">
+            <div className="qs-login-step">
+              <div className="qs-step-header">
                 <button 
                   type="button" 
-                  className="back-btn"
+                  className="qs-back-btn"
                   onClick={handleBack}
                   disabled={loading}
                 >
@@ -592,8 +592,8 @@ const LoginPage = () => {
                 </div>
               </div>
               
-              <form className="otp-form">
-                <div className="form-group">
+              <form className="qs-otp-form">
+                <div className="qs-form-group">
                   <label htmlFor="otpInput">6-Digit OTP</label>
                   <input
                     type="password"
@@ -603,27 +603,27 @@ const LoginPage = () => {
                     placeholder="Enter 6-digit OTP"
                     maxLength="6"
                     disabled={loading}
-                    className="otp-input"
+                    className="qs-otp-input"
                   />
-                  <div className="otp-hint">
+                  <div className="qs-otp-hint">
                     <span>OTP sent to: </span>
-                    <span className="sent-email">{email}</span>
+                    <span className="qs-sent-email">{email}</span>
                   </div>
                 </div>
                 
-                <div className="otp-timer">
+                <div className="qs-otp-timer">
                   {timer > 0 ? (
                     <p>
                       OTP expires in: 
-                      <span className="timer-count"> {formatTimer(timer)}</span>
+                      <span className="qs-timer-count"> {formatTimer(timer)}</span>
                     </p>
                   ) : (
-                    <p className="timer-expired">OTP has expired</p>
+                    <p className="qs-timer-expired">OTP has expired</p>
                   )}
                   
                   <button 
                     type="button" 
-                    className="resend-btn"
+                    className="qs-resend-btn"
                     onClick={handleResendOtp}
                     disabled={loading || timer > 0}
                   >
@@ -631,17 +631,17 @@ const LoginPage = () => {
                   </button>
                 </div>
                 
-                {error && <div className="error-message">{error}</div>}
+                {error && <div className="qs-error-message">{error}</div>}
                 
                 <button 
                   type="button" 
-                  className="submit-btn"
+                  className="qs-submit-btn"
                   onClick={() => handleOtpSubmit()}
                   disabled={loading || otp.length !== 6 || timer === 0}
                 >
                   {loading ? (
                     <>
-                      <span className="spinner"></span>
+                      <span className="qs-spinner"></span>
                       Verifying...
                     </>
                   ) : (
@@ -649,12 +649,12 @@ const LoginPage = () => {
                   )}
                 </button>
                 
-                <div className="otp-help">
+                <div className="qs-otp-help">
                   <p>
                     Didn't receive OTP? 
                     <button 
                       type="button" 
-                      className="text-btn"
+                      className="qs-text-btn"
                       onClick={handleResendOtp}
                       disabled={timer > 0}
                     >
@@ -665,7 +665,7 @@ const LoginPage = () => {
                     Wrong email? 
                     <button 
                       type="button" 
-                      className="text-btn"
+                      className="qs-text-btn"
                       onClick={handleBack}
                     >
                       Change email
@@ -673,13 +673,8 @@ const LoginPage = () => {
                   </p>
                 </div>
               </form>
-              
-            
-              
-            
             </div>
           )}
-          
         </div>
       </div>
     </div>
