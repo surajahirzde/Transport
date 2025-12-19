@@ -19,6 +19,14 @@ const TrackingPage = () => {
   const [liveLocation, setLiveLocation] = useState({ lat: 0, lng: 0 });
   const [timeline, setTimeline] = useState([]);
 
+
+    useEffect(()=>{
+      const currentUSer = JSON.parse(localStorage.getItem('current_user'));
+      if(!currentUSer){
+        navigate('/login');
+      }
+    },[])
+
   // Get REAL order data from localStorage/database
   const getRealOrderData = (id) => {
     if (!id) return null;
@@ -282,12 +290,12 @@ const TrackingPage = () => {
 
   // Get status color
   const getStatusColor = (status) => {
-    return statusColors[status] || '#6b7280';
+    return  '#6b7280';
   };
 
   // Get status icon
   const getStatusIcon = (status) => {
-    return statusIcons[status] || '⚙️';
+    return '⚙️';
   };
 
   // Format time
@@ -540,9 +548,14 @@ const TrackingPage = () => {
             <span className="detail-label-k5j">Amount</span>
             <span className="detail-value-k5j amount-k5j">
               <span className="icon-k5j">₹</span>
-              {order.estimatedPrice?.toLocaleString('en-IN') || 
-               order.totalAmount?.toLocaleString('en-IN') || 
-               '0'}
+           {
+  (order?.estimatedPrice || 0) +
+  (order?.fastDeliveryCharge || 0) +
+  (order?.vehiclePrice || 0) +
+  (order?.helperPrice || 0) +
+  (order?.insurancePrice || 0) +
+  (order?.packagingPrice || 0)
+}
             </span>
           </div>
         </div>

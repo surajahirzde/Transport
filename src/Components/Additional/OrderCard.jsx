@@ -2,7 +2,6 @@
 import { useNavigate } from 'react-router-dom';
 const OrderCard = ({ order = {} }) => {
   const navigate = useNavigate();
-  
   // Extract all order data with defaults
   const {
     id = '',
@@ -57,7 +56,13 @@ const OrderCard = ({ order = {} }) => {
   } = order;
 
   // Calculate display amount
-  const displayAmount = totalAmount > 0 ? totalAmount : estimatedPrice;
+  const displayAmount =  (order?.estimatedPrice || 0) +
+  (order?.fastDeliveryCharge || 0) +
+  (order?.vehiclePrice || 0) +
+  (order?.helperPrice || 0) +
+  (order?.insurancePrice || 0) +
+  (order?.packagingPrice || 0)
+
 
   // Get status details
   const getStatusInfo = () => {
@@ -273,7 +278,7 @@ const OrderCard = ({ order = {} }) => {
   const totalServices = getTotalServices();
   
   const displayOrderId = orderId || id?.slice(-8) || `ORD${Date.now().toString().slice(-8)}`;
-  const displayTrackingId = trackingId || `TRK${id?.slice(-8) || Date.now().toString().slice(-8)}`;
+  const displayTrackingId = trackingId;
   const formattedPickupDate = formatDate(pickupDate || selectedDate);
   const formattedPickupTime = formatTimeSlot(pickupTime || selectedTimeSlot);
   const displayFromCity = fromCity || 'Select city';
@@ -289,11 +294,6 @@ const OrderCard = ({ order = {} }) => {
     }
   };
 
-  // Handle view details
-  const handleViewDetails = () => {
-    localStorage.setItem('currentOrder', JSON.stringify(order));
-    navigate('/receipt');
-  };
 
   // Handle copy tracking ID
   const handleCopyTrackingId = () => {
@@ -482,22 +482,6 @@ const OrderCard = ({ order = {} }) => {
         >
           <span className="btn-icon">📍</span>
           Track Order
-        </button>
-        
-        <button 
-          className="action-btn details-btn"
-          onClick={handleViewDetails}
-        >
-          <span className="btn-icon">📋</span>
-          View Details
-        </button>
-        
-        <button 
-          className="action-btn support-btn"
-          onClick={() => navigate('/support')}
-        >
-          <span className="btn-icon">💬</span>
-          Support
         </button>
       </div>
     </div>

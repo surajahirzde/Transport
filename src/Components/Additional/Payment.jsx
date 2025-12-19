@@ -31,13 +31,13 @@ export const useDeviceLocation = () => {
 
 
 
-const AmountForm = ({ amount = 0 }) => {
+const AmountForm = ({ amount = 0 , transportData}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isFrame, setIsFrame] = useState(false);
-  const [keyGroup, setKeyGroup] = useState(null);
-
+  const [keyGroup, setKeyGroup] = useState(null)
+  console.log(transportData)
   // Auto-submit when amount is provided
   useEffect(() => {
     if (amount && amount >= 10 && amount <= 50000) {
@@ -72,8 +72,12 @@ const AmountForm = ({ amount = 0 }) => {
             authorization: `Bearer ${token}`        
           },
           body: JSON.stringify({
-            amount: submitAmount,
-            mobile: "7983920962", // You might want to get this from user context
+            amount: submitAmount, 
+            transportData:{
+              ...transportData,
+              trackingId: `TRK${Math.floor(100000 + Math.random() * 900000)}`,
+            },
+            mobile: "7983920962",  // You might want to get this from user context
             apiType: "API",
           }),
         }

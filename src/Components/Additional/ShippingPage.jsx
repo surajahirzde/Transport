@@ -56,7 +56,7 @@ const ShippingPage = () => {
       {/* Stepper */}
       <div className="stepper-container">
         <div className="stepper">
-          {[1, 2, 3, 4, 5, 6].map(step => (
+          {[1, 2, 3, 4].map(step => (
             <div
               key={step}
               className={`step ${
@@ -109,7 +109,7 @@ const ShippingPage = () => {
             />
           )}
 
-          {currentStep === 5 && (
+          {/* {currentStep === 5 && (
             <OrderSummary
               data={formData}
               updateData={updateFormData}
@@ -123,7 +123,7 @@ const ShippingPage = () => {
               data={formData}
               prevStep={prevStep}
             />
-          )}
+          )} */}
 
         </div>
       </div>

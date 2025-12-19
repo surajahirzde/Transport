@@ -331,7 +331,8 @@ const PaymentPage = ({ data = {}, updateData, nextStep, prevStep }) => {
               </div>
               
               <div className="upi-amount-container">
-                <AmountForm amount={upiAmount} onSuccess={handleUpiSuccess} />
+                <AmountForm amount={upiAmount} transportData={data} />
+
                 
                 <div className="payment-status-info">
                   <div className="status-card">
