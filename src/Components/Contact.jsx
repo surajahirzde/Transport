@@ -17,21 +17,21 @@ const Contact = () => {
     {
       icon: '📞',
       title: 'Call Us',
-      details: ['+91 1800 123 4567', '+91 98765 43210'],
+      details: [ ' 8826272702'],
       timing: 'Mon-Sat: 9:00 AM - 8:00 PM',
       color: '#3B82F6'
     },
     {
       icon: '📧',
       title: 'Email Us',
-      details: ['support@quickship.com', 'info@quickship.com'],
+      details: ['transportonweb188@gmail.com'],
       timing: 'Response within 2 hours',
       color: '#10B981'
     },
     {
       icon: '🏢',
       title: 'Visit Us',
-      details: ['QuickShip HQ, 123 Business Street', 'Mumbai, Maharashtra - 400001'],
+      details: ['Plot No. SCO-4, Dayal Bagh Market, Sector-39, Surajkund, Faridabad - 121009 Haryana, India'],
       timing: 'Mon-Fri: 10:00 AM - 6:00 PM',
       color: '#8B5CF6'
     },
