@@ -31,7 +31,7 @@ const Contact = () => {
     {
       icon: '🏢',
       title: 'Visit Us',
-      details: ['Plot No. SCO-4, Dayal Bagh Market, Sector-39, Surajkund, Faridabad - 121009 Haryana, India'],
+      details: ['Plot No. SCO-4, First floor ,Dayal Bagh Market, Sector-39, Surajkund, Faridabad - 121009 Haryana, India'],
       timing: 'Mon-Fri: 10:00 AM - 6:00 PM',
       color: '#8B5CF6'
     },
