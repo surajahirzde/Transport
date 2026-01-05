@@ -17,7 +17,7 @@ const Contact = () => {
     {
       icon: '📞',
       title: 'Call Us',
-      details: [ ' 8826272702'],
+      details: [ ' 9211336188'],
       timing: 'Mon-Sat: 9:00 AM - 8:00 PM',
       color: '#3B82F6'
     },
