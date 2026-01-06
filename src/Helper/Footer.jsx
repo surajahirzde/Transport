@@ -84,7 +84,7 @@ const Footer = () => {
               <div className="contact-details">
                 <div className="contact-line">
                   <FaMapMarkerAlt className="contact-icon" />
-                  <span>Sector 63, Noida, Uttar Pradesh</span>
+                  <span> SCO-4, First floor ,Dayal Bagh Market, Sector-39, Surajkund, Faridabad - 121009 Haryana, India</span>
                 </div>
                 <div className="contact-line">
                   <FaPhone className="contact-icon" />
@@ -95,7 +95,7 @@ const Footer = () => {
                 <div className="contact-line">
                   <FaEnvelope className="contact-icon" />
                   <a href="mailto:support@transportonweb.com" className="contact-link">
-                    support@transportonweb.com
+                    transportonweb188@gmail.com
                   </a>
                 </div>
               </div>
@@ -149,8 +149,8 @@ const Footer = () => {
             <div className="footer-info-box">
               <h4 className="footer-section-title">Business Info</h4>
               <div className="business-info">
-                <p>GSTIN: 09AAGCC6826R1Z1</p>
-                <p>CIN: U60210DL2023PTC432156</p>
+                <p>GSTIN: 06AAMCT5751C1ZB</p>
+                <p>CIN:  U77305HR2025PTC139312</p>
                 
               </div>
             </div>
