@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './styles/Footer.css';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFileContract, FaShieldAlt, FaMoneyCheckAlt, FaTimes } from 'react-icons/fa';
 
@@ -105,10 +106,10 @@ const Footer = () => {
             <div className="footer-links-box">
               <h4 className="footer-section-title">Quick Links</h4>
               <ul className="footer-links-list">
-                <li><a href="/services">Our Services</a></li>
-                <li><a href="/track">Track Shipment</a></li>
-                <li><a href="/book">Book Now</a></li>
-                <li><a href="/quote">Get Quote</a></li>
+                <li><Link to="/services">Our Services</Link></li>
+                <li><Link to="/track">Track Shipment</Link></li>
+                <li><Link to="/book">Book Now</Link></li>
+                <li><Link to="/quote">Get Quote</Link></li>
               </ul>
             </div>
 
@@ -140,8 +141,8 @@ const Footer = () => {
                     <FaMoneyCheckAlt className="policy-icon" /> Refund Policy
                   </button>
                 </li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/contact">Contact Us</a></li>
+                <li><Link to="/about">About Us</Link></li>
+                <li><Link to="/contact">Contact Us</Link></li>
               </ul>
             </div>
 
@@ -476,8 +477,8 @@ const Footer = () => {
             <h4>6. Contact for Refunds</h4>
             <div className="contact-refund">
               <p><strong>Refund Department:</strong></p>
-              <p>Email: refunds@transportonweb.com</p>
-              <p>Phone: +91 92113 36188 (Ext. 2)</p>
+              <p>Email: rtransportonweb188.com</p>
+              <p>Phone:  92113 36188 (Ext. 2)</p>
               <p>Hours: Mon-Fri, 10 AM - 6 PM IST</p>
             </div>
           </section>
