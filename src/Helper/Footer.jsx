@@ -107,9 +107,9 @@ const Footer = () => {
               <h4 className="footer-section-title">Quick Links</h4>
               <ul className="footer-links-list">
                 <li><Link to="/services">Our Services</Link></li>
-                <li><Link to="/track">Track Shipment</Link></li>
-                <li><Link to="/book">Book Now</Link></li>
-                <li><Link to="/quote">Get Quote</Link></li>
+                <li><Link to="/tracking">Track Shipment</Link></li>
+                <li><Link to="/shipping">Book Now</Link></li>
+         
               </ul>
             </div>
 
@@ -190,12 +190,65 @@ const Footer = () => {
           </div>
 
           <section className="policy-section">
-            <h4>1. Service Agreement</h4>
+            <h4>1. Website Terms of Use</h4>
+            <p>By accessing and using the TransportOnWeb website, you agree to comply with and be bound by the following terms of use:</p>
+            <ul>
+              <li>The content of this website is for general information and use only</li>
+              <li>Website content is subject to change without notice</li>
+              <li>Neither we nor any third parties provide any warranty as to the accuracy of information</li>
+              <li>Your use of any information on this website is entirely at your own risk</li>
+              <li>Unauthorized use of this website may give rise to a claim for damages</li>
+              <li>This website contains material which is owned by or licensed to us</li>
+              <li>Reproduction of website content is prohibited other than in accordance with copyright notice</li>
+              <li>All trademarks reproduced on this website are acknowledged</li>
+            </ul>
+          </section>
+
+          <section className="policy-section">
+            <h4>2. Website Access and Usage</h4>
+            <p>Users of the TransportOnWeb website must adhere to the following guidelines:</p>
+            <ul>
+              <li>You must be at least 18 years old to use our services</li>
+              <li>You must provide accurate and complete registration information</li>
+              <li>You are responsible for maintaining the confidentiality of your account</li>
+              <li>You must not use the website for any illegal or unauthorized purpose</li>
+              <li>You must not transmit any worms, viruses, or any code of a destructive nature</li>
+              <li>You must not interfere with or disrupt the website or servers</li>
+              <li>You must not attempt to gain unauthorized access to any part of the website</li>
+            </ul>
+          </section>
+
+          <section className="policy-section">
+            <h4>3. Intellectual Property Rights</h4>
+            <p>The TransportOnWeb website and its content are protected by intellectual property rights:</p>
+            <ul>
+              <li>All content, logos, trademarks, and service marks are property of TransportOnWeb</li>
+              <li>You may view, download, and print pages for your personal use only</li>
+              <li>Commercial use of website content requires prior written permission</li>
+              <li>You must not reproduce, duplicate, copy, sell, or exploit any portion of the website</li>
+              <li>Any unauthorized use may result in legal action</li>
+            </ul>
+          </section>
+
+          <section className="policy-section">
+            <h4>4. Website Content and Information</h4>
+            <p>The information provided on our website is for general guidance only:</p>
+            <ul>
+              <li>We strive to ensure information is accurate but make no guarantees</li>
+              <li>Service descriptions, pricing, and availability may change without notice</li>
+              <li>We are not liable for any inaccuracies or omissions in website content</li>
+              <li>External links are provided for convenience; we do not endorse external sites</li>
+              <li>We reserve the right to modify website content at any time</li>
+            </ul>
+          </section>
+
+          <section className="policy-section">
+            <h4>5. Service Agreement</h4>
             <p>By using TransportOnWeb services, you agree to these terms and conditions. Our platform provides logistics and transportation services across India.</p>
           </section>
 
           <section className="policy-section">
-            <h4>2. Service Scope</h4>
+            <h4>6. Service Scope</h4>
             <p>We provide transportation services including but not limited to:</p>
             <ul>
               <li>Door-to-door delivery services</li>
@@ -207,7 +260,7 @@ const Footer = () => {
           </section>
 
           <section className="policy-section">
-            <h4>3. User Responsibilities</h4>
+            <h4>7. User Responsibilities</h4>
             <p>Users must:</p>
             <ul>
               <li>Provide accurate shipment details</li>
@@ -219,7 +272,7 @@ const Footer = () => {
           </section>
 
           <section className="policy-section">
-            <h4>4. Prohibited Items</h4>
+            <h4>8. Prohibited Items</h4>
             <p>The following items are strictly prohibited:</p>
             <ul>
               <li>Illegal substances or contraband</li>
@@ -231,7 +284,7 @@ const Footer = () => {
           </section>
 
           <section className="policy-section">
-            <h4>5. Liability Limitations</h4>
+            <h4>9. Liability Limitations</h4>
             <p>TransportOnWeb's liability is limited to:</p>
             <ul>
               <li>Maximum liability equal to the shipping charges paid</li>
@@ -242,13 +295,13 @@ const Footer = () => {
           </section>
 
           <section className="policy-section">
-            <h4>6. Payment Terms</h4>
+            <h4>10. Payment Terms</h4>
             <p>All payments must be made in advance or as per agreed credit terms. Late payments may attract interest charges.</p>
           </section>
 
           <section className="policy-section">
-            <h4>7. Dispute Resolution</h4>
-            <p>Any disputes shall be resolved through arbitration in Noida, Uttar Pradesh jurisdiction.</p>
+            <h4>11. Dispute Resolution</h4>
+            <p>Any disputes shall be resolved through arbitration in Faridabad, Haryana jurisdiction.</p>
           </section>
         </div>
       </PolicyModal>

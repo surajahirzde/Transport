@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import '../Components/styles/Services.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Services = () => {
   const [activeService, setActiveService] = useState(0);
   const [activeCategory, setActiveCategory] = useState('all');
+  const navigate = useNavigate();
 
   // Service Categories
   const categories = [
@@ -235,7 +238,7 @@ const Services = () => {
                     </div>
                   </div>
 
-                  <button className="service-book-btn">
+                  <button className="service-book-btn" onClick={()=>navigate('/shipping')}>
                     Book Now
                     <span className="btn-arrow">→</span>
                   </button>
